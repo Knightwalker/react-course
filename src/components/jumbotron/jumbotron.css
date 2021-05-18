@@ -1,0 +1,48 @@
+.Jumbotron_wrapper {
+  padding: 70px 45px;
+  border-bottom: 8px solid #222;
+}
+
+.Jumbotron {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1100px;
+  margin: auto;
+  width: 100%;
+  color: white;
+}
+
+.Jumbotron__row {
+  flex-direction: row;
+}
+.Jumbotron__row-reverse {
+  flex-direction: row-reverse;
+}
+
+.Jumbotron__pane {
+  width: 50%;
+}
+
+.Jumbotron__title {
+  font-size: 50px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.Jumbotron__subtitle {
+  font-size: 26px;
+  font-weight: normal;
+  line-height: normal;
+}
+
+.Jumbotron__image {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1000px) {
+  .Jumbotron {
+    flex-direction: column;
+  }
+}

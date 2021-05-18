@@ -1,11 +1,12 @@
 import React from 'react';
-import './App.css';
+import LandingPage from "./pages/LandingPage/LandingPage";
 import HomeScreen from "./pages/HomeScreen/HomeScreen";
 
 function App() {
   return (
     <div className="App">
-      <HomeScreen />
+      <LandingPage />
+      {/* <HomeScreen /> */}
     </div>
   );
 }
