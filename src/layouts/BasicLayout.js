@@ -5,7 +5,7 @@ function BasicLayout(props) {
   const { children } = props;
   
   return (
-    <div class="BasicLayout">
+    <div className="BasicLayout">
       {children}
     </div>
   );
