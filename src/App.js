@@ -3,6 +3,7 @@ import LandingPage from "./pages/LandingPage/LandingPage";
 import HomeScreen from "./pages/HomeScreen/HomeScreen";
 
 function App() {
+  debugger;
   return (
     <div className="App">
       <LandingPage />

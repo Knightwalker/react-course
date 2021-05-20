@@ -23,8 +23,14 @@
 .LongCard__text-container {
   width: 52%;
   height: 100%;
-  padding-left: 50px;
 }
+.LongCard__text-container.pl-5 {
+  padding-left: 48px;
+}
+.LongCard__text-container.pr-5 {
+  padding-right: 48px;
+}
+
 .LongCard__img-container {
   position: relative;
   width: 48%;
@@ -55,7 +61,7 @@
   margin-top: -30px;
 }
 
-.LongCard__animation-container {
+.LongCard__animation-container.watchOnTv {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -63,6 +69,21 @@
   max-height: 55%;
   top: 48%;
   left: 49.6%;
+  -webkit-transform: translate(-50%,-50%);
+  -moz-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  -o-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.LongCard__animation-container.watchOnDevice {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  max-width: 63%;
+  max-height: 47%;
+  top: 34%;
+  left: 50%;
   -webkit-transform: translate(-50%,-50%);
   -moz-transform: translate(-50%,-50%);
   -ms-transform: translate(-50%,-50%);
@@ -78,6 +99,17 @@
 @media (max-width: 992px) {
   .LongCard {
     flex-direction: column;
+  }
+
+  .LongCard__text-container {
+    width: 100%;
+    text-align: center;
+  }
+  .LongCard__text-container.pl-5 {
+    padding-left: 0px;
+  }
+  .LongCard__text-container.pr-5 {
+    padding-right: 0px;
   }
 
   .LongCard__img-container {
