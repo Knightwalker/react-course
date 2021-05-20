@@ -1,14 +1,17 @@
 import React from "react";
 
-import BasicLayout from "../../layouts/BasicLayout";
+import LandingPageLayout from "../../layouts/LandingPageLayout";
 import LongCard from "../../components/LongCard/LongCard";
-import LongCardsData from "../../pages/LandingPage/LongCardsData.json";
+import Accordion from "../../components/Accordion/Accordion";
+
+import LongCardsData from "./LongCardsData.json";
+import FaqsData from "./FaqsData.json";
 
 import "./LandingPage.css";
 
 function LandingPage() {
   return (
-    <BasicLayout>
+    <LandingPageLayout>
       <div className="LandingPage">
         <div className="LongCard__container">
           {LongCardsData.map((item, idx) => (
@@ -24,8 +27,11 @@ function LandingPage() {
             />
           ))}
         </div>
+
+        <Accordion data={FaqsData} />
+
       </div>
-    </BasicLayout>
+    </LandingPageLayout>
   );
 }
 
