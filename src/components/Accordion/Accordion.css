@@ -4,6 +4,11 @@
   border-bottom: 8px solid #222;
 }
 
+.Accordion h1 {
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
 .Accordion__container {
   width: 75%;
   margin: 32px auto;
@@ -31,27 +36,46 @@
   border: 0;
   font-size: 26px;
   text-align: left;
+  cursor: pointer;
 }
 
 .Accordion__panel {
   background-color: #303030;
-  padding: 1.2em;
   font-size: 26px;
   white-space: pre-wrap; /* this replaces \n\n with a line-break */
+}
+.Accordion__panel p {
+  padding: 1.2em;
+}
+
+.Accordion__panel.closed {
+  max-height: 0;
+  overflow: hidden;
+  -webkit-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  -o-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  -moz-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  transition: max-height .25s cubic-bezier(.5,0,.1,1);
+}
+.Accordion__panel.open {
+  max-height: 1200px;
+  -webkit-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  -o-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  -moz-transition: max-height .25s cubic-bezier(.5,0,.1,1);
+  transition: max-height .25s cubic-bezier(.5,0,.1,1);
 }
 
 .Accordion__svg-x {
   position: absolute;
-  right: 16px;
+  right: 26px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   transform: translateY(-50%);
-  height: 16px;
-  width: 16px;
-  fill: #fff;
+  height: 26px;
+  width: 26px;
+  fill: #fafafa;
 }
 
 .Accordion__svg-x.closed {
