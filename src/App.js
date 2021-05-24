@@ -1,6 +1,5 @@
 import React from 'react';
-import LandingPage from "./pages/LandingPage/LandingPage";
-import HomeScreen from "./pages/HomeScreen/HomeScreen";
+import { LandingPage, HomeScreen } from "./pages";
 
 function App() {
   return (
