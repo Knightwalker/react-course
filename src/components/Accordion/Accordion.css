@@ -5,14 +5,13 @@
 }
 
 .Accordion h1 {
-  font-size: 3rem;
-  line-height: 3rem;
+  font-size: 50px;
+  line-height: 50px;
 }
 
 .Accordion__container {
-  width: 75%;
-  margin: 32px auto;
   max-width: 815px;
+  margin: auto;
   list-style-type: none;
   margin-block-start: 0px;
   margin-block-end: 0px;
@@ -28,7 +27,7 @@
   position: relative;
   background-color: #303030;
   color: #fafafa;
-  padding: 0.8em 2.2em 0.8em 1.2em;
+  padding: 20px 50px 20px 30px;
   margin-bottom: 1px;
   font-weight: 400;
   position: relative;
@@ -43,45 +42,37 @@
   background-color: #303030;
   font-size: 26px;
   white-space: pre-wrap; /* this replaces \n\n with a line-break */
-}
-.Accordion__panel p {
-  padding: 1.2em;
-}
-
-.Accordion__panel.closed {
-  max-height: 0;
   overflow: hidden;
   -webkit-transition: max-height .25s cubic-bezier(.5,0,.1,1);
   -o-transition: max-height .25s cubic-bezier(.5,0,.1,1);
   -moz-transition: max-height .25s cubic-bezier(.5,0,.1,1);
   transition: max-height .25s cubic-bezier(.5,0,.1,1);
 }
+.Accordion__panel.closed {
+  max-height: 0;
+}
 .Accordion__panel.open {
   max-height: 1200px;
-  -webkit-transition: max-height .25s cubic-bezier(.5,0,.1,1);
-  -o-transition: max-height .25s cubic-bezier(.5,0,.1,1);
-  -moz-transition: max-height .25s cubic-bezier(.5,0,.1,1);
-  transition: max-height .25s cubic-bezier(.5,0,.1,1);
+}
+.Accordion__panel p {
+  padding: 20px 30px 20px 30px;
+  text-align: justify;
 }
 
-.Accordion__svg-x {
+.Accordion__close-icon {
   position: absolute;
   right: 26px;
-  top: 50%;
-  -webkit-transform: translateY(-50%);
-  -moz-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  -o-transform: translateY(-50%);
-  transform: translateY(-50%);
+  top: 20px;
   height: 26px;
   width: 26px;
   fill: #fafafa;
+  transition: transform .25s cubic-bezier(.5,0,.1,1);
 }
 
-.Accordion__svg-x.closed {
-  -webkit-transform: translateY(-50%) rotate(-45deg);
-  -moz-transform: translateY(-50%) rotate(-45deg);
-  -ms-transform: translateY(-50%) rotate(-45deg);
-  -o-transform: translateY(-50%) rotate(-45deg);
-  transform: translateY(-50%) rotate(-45deg);
+.Accordion__close-icon.closed {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
 }
