@@ -1,0 +1,71 @@
+.cta h3 {
+  text-align: center;
+}
+
+.cta {
+  max-width: 950px;
+  margin: auto;
+}
+
+.cta__form {
+  display: flex;
+}
+
+.cta__input-container {
+  flex-grow: 1;
+  display: flex;
+  background-color: #fafafa;
+  position: relative;
+}
+
+.cta__input {
+  position: relative;
+  width: 100%;
+  background-color: #fff0;
+  border: 0px;
+  font-size: 16px;
+  padding-left: 10px;
+  z-index: 2;
+  border: solid 1px #8c8c8c;
+}
+
+.cta__label {
+  position: absolute;
+  width: 100%;
+  color: #8c8c8c;
+  z-index: 1;
+  transition: all .1s ease;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+}
+
+.cta__input:focus {
+  outline: none;
+  border: 1px solid #0071eb;
+}
+
+.cta__input:focus ~ label, .cta__input:valid ~ label {
+  top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  transform: translateY(0);
+}
+
+.cta__btn {
+  display: flex;
+  border-left: 1px solid #333;
+  padding: 0 30px;
+  border-radius: 0px 2px 2px 0px;
+  min-height: 70px;
+
+  user-select: none;
+  text-align: center;
+  color: #fafafa;
+  font-size: 30px;
+  line-height: 30px;
+  background-color: #e50914;
+  background-image: linear-gradient(to bottom,#e50914,#db0510);
+  box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
+  border: 0px;
+}

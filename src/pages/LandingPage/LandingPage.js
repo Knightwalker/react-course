@@ -3,6 +3,7 @@ import React from "react";
 import LandingPageLayout from "../../layouts/LandingPageLayout";
 import LongCard from "../../components/LongCard/LongCard";
 import Accordion from "../../components/Accordion/Accordion";
+import CallToActionForm from "../../components/CallToActionForm/CallToActionForm";
 
 import LongCardsData from "./LongCardsData.json";
 import FaqsData from "./FaqsData.json";
@@ -29,6 +30,7 @@ function LandingPage() {
         </div>
 
         <Accordion data={FaqsData} />
+        <CallToActionForm />
 
       </div>
     </LandingPageLayout>
