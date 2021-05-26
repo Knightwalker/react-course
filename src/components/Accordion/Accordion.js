@@ -7,9 +7,7 @@ function Accordion(props) {
     let obj = {}
     for (let i = 0; i < data.length; i++) {
       let key = data[i].id;
-      console.log(key);
       obj[key] = false; 
-      console.log(data[i])
     }
     return obj;
   });
