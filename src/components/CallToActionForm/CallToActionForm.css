@@ -1,10 +1,8 @@
-.cta h3 {
-  text-align: center;
-}
-
 .cta {
-  max-width: 950px;
+  max-width: 750px;
   margin: auto;
+  padding-top: 1px;
+  padding-bottom: 1px;
 }
 
 .cta__form {
@@ -12,10 +10,11 @@
 }
 
 .cta__input-container {
+  position: relative;
   flex-grow: 1;
   display: flex;
   background-color: #fafafa;
-  position: relative;
+  margin-right: 1px;
 }
 
 .cta__input {
@@ -54,6 +53,7 @@
 
 .cta__btn {
   display: flex;
+  align-items: center;
   border-left: 1px solid #333;
   padding: 0 30px;
   border-radius: 0px 2px 2px 0px;
@@ -68,4 +68,30 @@
   background-image: linear-gradient(to bottom,#e50914,#db0510);
   box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
   border: 0px;
+  cursor: pointer;
+}
+
+.chevron-right-arrow {
+  height: .75em;
+  width: .35em;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+  -moz-box-flex: 0;
+  -ms-flex: 0 1 auto;
+  flex: 0 1 auto;
+  margin: 0 0 0 .5em;
+  position: relative;
+}
+
+.chevron-right-arrow svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 1px 0;
+  height: 100%;
+  -webkit-transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -ms-transform: scaleX(1);
+  -o-transform: scaleX(1);
+  transform: scaleX(1);
 }

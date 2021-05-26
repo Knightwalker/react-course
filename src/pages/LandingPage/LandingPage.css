@@ -1,0 +1,16 @@
+.LandingPage__accordion-wrapper {
+  padding: 70px 40px;
+  border-bottom: 8px solid #222;
+}
+
+.LandingPage__accordion-wrapper h1 {
+  font-size: 50px;
+  line-height: 50px;
+  text-align: center;
+  margin-block-start: 0px;
+  margin-block-end: 8px;
+}
+
+.LandingPage__accordion-wrapper h3 {
+  text-align: center;
+}

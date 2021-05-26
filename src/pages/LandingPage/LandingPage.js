@@ -10,6 +10,10 @@ import FaqsData from "./FaqsData.json";
 
 import "./LandingPage.css";
 
+const handleSubmit = (data) => {
+  console.log(data.email);
+}
+
 function LandingPage() {
   return (
     <LandingPageLayout>
@@ -29,8 +33,12 @@ function LandingPage() {
           ))}
         </div>
 
-        <Accordion data={FaqsData} />
-        <CallToActionForm />
+        <div className="LandingPage__accordion-wrapper">
+          <h1>Frequently Asked Questions</h1>
+          <Accordion data={FaqsData} />
+          <h3>Ready to watch? Enter your email to create or restart your membership.</h3>
+          <CallToActionForm onSubmit={handleSubmit} />
+        </div>
 
       </div>
     </LandingPageLayout>
