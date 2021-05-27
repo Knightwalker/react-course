@@ -4,7 +4,7 @@ import "./LoginPage.css";
 function LoginPage() {
   return (
     <div className="LoginPage">
-      <div className="LoginPage__background">
+      <div className="LandingPage__nav">
         <img className="LoginPage__logo" src="/assets/netflix_logo_transparent.png" alt="logo"></img>
       </div>
       <button className="LoginPage__btn">Sign In</button>

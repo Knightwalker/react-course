@@ -7,7 +7,7 @@ function LandingPageLayout(props) {
   return (
     <div className="LandingPageLayout">
       <header>
-        WIP
+      
       </header>
 
       {children}
