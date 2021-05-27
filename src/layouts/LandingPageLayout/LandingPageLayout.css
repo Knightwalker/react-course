@@ -1,3 +1,36 @@
+.LandingPageLayout {
+  position: relative;
+}
+
+.LandingPageLayout__nav {
+  max-width: 1920px;
+  padding: 0 50px;
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+}
+
+.LandingPageLayout__nav-logo {
+  position: absolute;
+  left: 0;
+  width: 200px;
+  object-fit: contain;
+  padding-left: 20px;
+}
+
+.LandingPageLayout__nav-btn {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #e50914;
+  border: none;
+  cursor: pointer;
+}
+
 .LandingPageLayout__footer {
   padding: 60px 40px;
   color: #757575;

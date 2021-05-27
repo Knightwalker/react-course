@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./LandingPageLayout.css";
 
 function LandingPageLayout(props) {
@@ -7,7 +8,10 @@ function LandingPageLayout(props) {
   return (
     <div className="LandingPageLayout">
       <header>
-      
+        <div className="LandingPageLayout__nav">
+          <Link to="/"><img className="LandingPageLayout__nav-logo" src="/assets/netflix_logo_transparent.png" alt="logo"></img></Link>
+          <Link to="/login" className="LandingPageLayout__nav-btn">Sign In</Link>
+        </div>
       </header>
 
       {children}
