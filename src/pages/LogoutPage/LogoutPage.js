@@ -1,47 +1,23 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { auth } from "../../configs/firebase";
 import { LandingPageLayout } from "../../layouts";
-import "./LoginPage.css";
+import "./LogoutPage.css";
 
-function LoginPage() {
+function LogoutPage() {
   const history = useHistory();
-  const dispatch = useDispatch();
 
-  const F_Register = async (e) => {
+  const F_Logout = async (e) => {
     e.preventDefault();
-    debugger;
-    const email = e.currentTarget["email"].value;
-    const password = e.currentTarget["password"].value;
 
     try {
-      const result = await auth.createUserWithEmailAndPassword(email, password);
+      const result = await auth.signOut();
       console.log(result);
     } catch (error) {
       console.log(error);
     }
 
-  }
-
-  const F_Login = async (e) => {
-    e.preventDefault();
-    debugger;
-    const email = e.currentTarget["email"].value;
-    const password = e.currentTarget["password"].value;
-
-    try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
-      const objUser = {
-        email: result.user.email
-      }
-      console.log(result);
-      console.log(objUser);
-    } catch (error) {
-      console.log(error);
-    }
-
-    history.push("/browse");
+    history.push("/");
 
   }
 
@@ -53,11 +29,11 @@ function LoginPage() {
           <div className="LandingPage__hero-mid">
              
             <div className="login-form__wrapper">
-              <h1 className="login-form__h1">Sign In</h1>
-              <form className="login-form" onSubmit={F_Login}>
+              <h1 className="login-form__h1">Are you sure you want to log out?</h1>
+              <form className="login-form" onSubmit={F_Logout}>
                 <input className="login-form__input" name="email" placeholder="Email" type="email" />
                 <input className="login-form__input" name="password" placeholder="Password" type="password" />
-                <button className="login-form__btn" type="submit">Sing In</button>
+                <button className="login-form__btn" type="submit">Log Out</button>
               </form>
               <h4 className="login-form__h4">
                 <span className="login-form__gray">New to Netflix?</span> 
@@ -72,4 +48,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LogoutPage;
