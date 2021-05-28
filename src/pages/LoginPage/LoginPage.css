@@ -51,4 +51,9 @@
 
 .login-form__sign-up {
   padding-left: 5px;
+  cursor: pointer;
+}
+
+.login-form__sign-up:hover {
+  text-decoration: underline;
 }
