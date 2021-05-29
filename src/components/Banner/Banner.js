@@ -42,7 +42,7 @@ function Banner() {
         <h1 className="banner__description">{movie.overview ? truncate(movie.overview, 150) : truncate("s", 150)}</h1>
       </div>
 
-      <div className="banner--fadeBottom"></div>
+      <div className="banner__fadeBottom"></div>
     </header>
   )
 }
