@@ -1,47 +1,41 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { auth } from "../../configs/firebase";
+import { AuthService } from "../../configs/firebase";
 import { LandingPageLayout } from "../../layouts";
 import "./LoginPage.css";
 
 function LoginPage() {
   const history = useHistory();
-  const dispatch = useDispatch();
-
-  const F_Register = async (e) => {
-    e.preventDefault();
-    debugger;
-    const email = e.currentTarget["email"].value;
-    const password = e.currentTarget["password"].value;
-
-    try {
-      const result = await auth.createUserWithEmailAndPassword(email, password);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-
-  }
 
   const F_Login = async (e) => {
     e.preventDefault();
-    debugger;
     const email = e.currentTarget["email"].value;
     const password = e.currentTarget["password"].value;
 
     try {
-      const result = await auth.signInWithEmailAndPassword(email, password);
-      const objUser = {
-        email: result.user.email
-      }
+      const result = await AuthService.signInWithEmailAndPassword(email, password);
       console.log(result);
-      console.log(objUser);
     } catch (error) {
       console.log(error);
+      return;
     }
 
     history.push("/browse");
+
+  }
+
+  const F_Register = async (e) => {
+    e.preventDefault();
+    const email = e.currentTarget["email"].value;
+    const password = e.currentTarget["password"].value;
+
+    try {
+      const result = await AuthService.createUserWithEmailAndPassword(email, password);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
 
   }
 

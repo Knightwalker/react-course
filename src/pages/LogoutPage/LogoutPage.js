@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { auth } from "../../configs/firebase";
+import { AuthService } from "../../configs/firebase";
 import { LandingPageLayout } from "../../layouts";
 import "./LogoutPage.css";
 
@@ -11,7 +11,7 @@ function LogoutPage() {
     e.preventDefault();
 
     try {
-      const result = await auth.signOut();
+      const result = await AuthService.signOut();
       console.log(result);
     } catch (error) {
       console.log(error);
