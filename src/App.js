@@ -5,7 +5,7 @@ import AuthenticationContext from "./contexts/AuthenticationContext";
 
 function App() {
   const user = useContext(AuthenticationContext);
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="App">

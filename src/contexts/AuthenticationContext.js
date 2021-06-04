@@ -10,22 +10,27 @@ const AuthenticationContextProvider = (props) => {
   });
 
   useEffect(() => {
-    AuthService.onAuthStateChanged((userAuth) => {
-      if (userAuth) {
-        setObjUser({
-          bUserIsAuthenticated: true,
-          username: userAuth.email,
-        });
+    const firebaseUnsubscribe = AuthService.onAuthStateChanged((user) => {
+      if (user) {
+        // setObjUser({
+        //   bUserIsAuthenticated: true,
+        //   username: userAuth.email,
+        // });
       } else {
         // do nothing
       }
     });
+    return () => {
+      firebaseUnsubscribe();
+    }
   }, []);
 
+  const value = {
+    objUser: objUser
+  }
+
   return (
-    <AuthenticationContext.Provider
-      value={objUser}
-    >
+    <AuthenticationContext.Provider value={value}>
       {props.children}
     </AuthenticationContext.Provider>
   );

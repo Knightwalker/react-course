@@ -57,3 +57,10 @@
 .login-form__sign-up:hover {
   text-decoration: underline;
 }
+
+.login-form__input-error {
+  color: #e87c03;
+  margin-bottom: -6px;
+  padding: 6px 3px;
+  font-size: 16px;
+}
