@@ -21,8 +21,6 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
-  font-size: 3.125rem;
   color: white;
   padding: 20px;
   position: relative;
@@ -34,17 +32,20 @@
   max-width: 800px;
   margin: auto;
   padding: 0px 20px;
+  text-align: center;
 }
 
 .LandingPage__hero-mid h2 {
   font-size: 24px;
   font-weight: 400;
   margin-bottom: 30px;
+  text-align: center;
 }
 
 .LandingPage__hero-mid h3 {
   font-size: 1.3rem;
   font-weight: 400;
+  text-align: center;
 }
 
 .LandingPage__accordion-wrapper {

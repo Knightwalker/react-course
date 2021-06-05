@@ -21,14 +21,19 @@ function LoginPage() {
       .catch((error) => {
         let objErrors = {};
         if (error.code === "auth/invalid-email") {
-          objErrors.email = "The email address is badly formatted.";
+          // "The email address is badly formatted.";
+          objErrors.email = error.message;
+        } else if (error.code === "auth/user-disabled") {
+          // Thrown if the user corresponding to the given email has been disabled.
+          objErrors.email = error.message;
         } else if (error.code === "auth/user-not-found") {
-          objErrors.email = "There is no user record corresponding to this identifier. The user may have been deleted.";
+          // "There is no user record corresponding to this identifier. The user may have been deleted.";
+          objErrors.email = error.message;
         } else if (error.code === "auth/wrong-password") {
-          objErrors.password = "The password is invalid or the user does not have a password.";
+          // "The password is invalid or the user does not have a password.";
+          objErrors.password = error.message;
         }
         setObjErrors(objErrors);
-        return;
       });
 
   }
@@ -48,6 +53,10 @@ function LoginPage() {
 
   }
 
+  console.log('test')
+  console.log(objErrors?.email === true);
+  console.log('test')
+
   return (
     <LandingPageLayout>
       <div className="LoginPage">
@@ -58,10 +67,16 @@ function LoginPage() {
             <div className="login-form__wrapper">
               <h1 className="login-form__h1">Sign In</h1>
               <form className="login-form" onSubmit={F_Login}>
-                <input className="login-form__input" name="email" placeholder="Email" type="email" />
-                <div className="login-form__input-error">{objErrors?.email}</div>
-                <input className="login-form__input" name="password" placeholder="Password" type="password" />
-                <div className="login-form__input-error">{objErrors?.password}</div>
+                <div className="form-control">
+                  <input className={`login-form__input ${objErrors?.email ? "error" : ""}`} name="email" placeholder="Email" type="email" />
+                  <label htmlFor="email">Email or phone number</label>
+                  <div className="login-form__input-error">{objErrors?.email}</div>
+                </div>
+                <div className="form-control">
+                  <input className="login-form__input" name="password" placeholder="Password" type="password" />
+                  <label htmlFor="password">Password</label>
+                  <div className="login-form__input-error">{objErrors?.password}</div>
+                </div>
                 <button className="login-form__btn" type="submit">Sing In</button>
               </form>
               <h4 className="login-form__h4">
