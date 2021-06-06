@@ -4,37 +4,43 @@ import { AuthService } from "../configs/firebase";
 const AuthenticationContext = createContext();
 
 const AuthenticationContextProvider = (props) => {
-  const [objUser, setObjUser] = useState({
-    bUserIsAuthenticated: false,
-    username: "guest",
-  });
+  const [objUser, setObjUser] = useState(props.objUser);
+  const [didLoad, setDidLoad] = useState(false);
+  
+  const value = {
+    objUser: objUser
+  }
 
   useEffect(() => {
     const firebaseUnsubscribe = AuthService.onAuthStateChanged((user) => {
       if (user) {
-        // setObjUser({
-        //   bUserIsAuthenticated: true,
-        //   username: userAuth.email,
-        // });
+        setObjUser({
+          bUserIsAuthenticated: true,
+          username: user.email,
+        });
       } else {
         // do nothing
       }
+      setDidLoad(true);
     });
     return () => {
       firebaseUnsubscribe();
     }
   }, []);
 
-  const value = {
-    objUser: objUser
-  }
-
   return (
     <AuthenticationContext.Provider value={value}>
-      {props.children}
+      {didLoad ? props.children : null}
     </AuthenticationContext.Provider>
   );
 }
+
+AuthenticationContextProvider.defaultProps = {
+  objUser: {
+    bUserIsAuthenticated: false,
+    username: "guest",
+  }
+};
 
 export { AuthenticationContextProvider };
 export default AuthenticationContext;

@@ -1,19 +1,19 @@
 import React, { useEffect } from "react";
 import requests from "../../requests";
 
-import "./HomeScreen.css";
+import "./HomePage.css";
 import Nav from "../../components/Nav/Nav";
 import Banner from "../../components/Banner/Banner";
 import Row from "../../components/Row/Row";
 
-function HomeScreen() {
+function HomePage() {
 
   useEffect(() => {
-    console.log('> HomeScreen useEffect');
+    console.log('> HomePage useEffect');
   }, []);
 
   return (
-    <div className="HomeScreen">
+    <div className="HomePage">
       <Nav />
       <Banner />
       <Row title="NETFLIX ORIGINALS" fetchURL={requests.getNetflixOriginals} isLargeRow={true} />
@@ -28,4 +28,4 @@ function HomeScreen() {
   );
 }
 
-export default HomeScreen;
+export default HomePage;
