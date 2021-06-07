@@ -1,16 +1,14 @@
 import React, { createContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { AuthService } from "../configs/firebase";
 
 const AuthenticationContext = createContext();
 
 const AuthenticationContextProvider = (props) => {
+  const history = useHistory();
   const [objUser, setObjUser] = useState(props.objUser);
   const [didLoad, setDidLoad] = useState(false);
   
-  const value = {
-    objUser: objUser
-  }
-
   useEffect(() => {
     const firebaseUnsubscribe = AuthService.onAuthStateChanged((user) => {
       if (user) {
@@ -19,7 +17,10 @@ const AuthenticationContextProvider = (props) => {
           username: user.email,
         });
       } else {
-        // do nothing
+        setObjUser({
+          bUserIsAuthenticated: false,
+          username: "guest",
+        });
       }
       setDidLoad(true);
     });
@@ -28,8 +29,14 @@ const AuthenticationContextProvider = (props) => {
     }
   }, []);
 
+  const value = {
+    objUser: objUser
+  }
+
   return (
-    <AuthenticationContext.Provider value={value}>
+    <AuthenticationContext.Provider 
+      value={value}
+    >
       {didLoad ? props.children : null}
     </AuthenticationContext.Provider>
   );

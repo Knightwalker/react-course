@@ -1,9 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import { AuthService } from "../../configs/firebase";
 import { LandingPageLayout } from "../../layouts";
 import "./LogoutPage.css";
 
 function LogoutPage() {
+  const history = useHistory();
 
   function F_Logout(e) {
     e.preventDefault();
@@ -14,6 +16,7 @@ function LogoutPage() {
     })
     .catch((error) => {
       console.log(error);
+      history.push("/error");
     })
   }
 
