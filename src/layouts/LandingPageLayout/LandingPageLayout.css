@@ -28,6 +28,8 @@
   color: #ffffff;
   background-color: #e50914;
   border: none;
+  border-radius: 3px;
+  text-decoration: none;
   cursor: pointer;
 }
 
