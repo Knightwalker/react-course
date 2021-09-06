@@ -1,4 +1,4 @@
-Live at: https://netflix-clone-1f135.web.app/
+Live at: https://netflix-clone-1dd4e.web.app/
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
