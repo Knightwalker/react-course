@@ -6,18 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Fundamentals</title>
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
 
 <body>
     <div id="root">App not rendered</div>
     <script src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script>
-        const rootTree = React.createElement("div", {}, React.createElement("h1", {}, "Hello World"));
-        const rootNode = document.getElementById("root");
-        const root = ReactDOM.createRoot(rootNode);
-        root.render(rootTree);
-    </script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <script src="./components/PlayerComponent/PlayerComponent.js"></script>
+    <script src="./index.js" type="text/babel"></script>
 </body>
 
 </html>
