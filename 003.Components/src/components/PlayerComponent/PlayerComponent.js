@@ -4,4 +4,4 @@ const PlayerComponent = (props) => {
         React.createElement("p", {}, props.alignment),
         React.createElement("p", {}, props.force),
     ]);
-}
+};
