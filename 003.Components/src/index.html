@@ -15,12 +15,16 @@
     <script src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
     <script src="./components/PlayerComponent/PlayerComponent.js"></script>
     <script>
-        const App = () => React.createElement("div", {}, [
-            React.createElement("h1", { className: "text-center" }, "Choose Your Character"),
-            React.createElement(PlayerComponent, { name: "Luke Skywalker", alignment: "Jedi", force: "Force Push" }),
-            React.createElement(PlayerComponent, { name: "Darth Vader", alignment: "Sith", force: "Force Grip" }),
-            React.createElement(PlayerComponent, { name: "Obi Wan", alignment: "Jedi", force: "Mind Trick" })
-        ]);
+        const { React, ReactDOM, PlayerComponent } = window;
+
+        const App = () => {
+            return React.createElement("div", {},
+                React.createElement("h1", { className: "text-center" }, "Choose Your Character"),
+                React.createElement(PlayerComponent, { name: "Luke Skywalker", alignment: "Jedi", force: "Force Push" }),
+                React.createElement(PlayerComponent, { name: "Darth Vader", alignment: "Sith", force: "Force Grip" }),
+                React.createElement(PlayerComponent, { name: "Obi Wan", alignment: "Jedi", force: "Mind Trick" })
+            );
+        };
 
         const rootNode = document.getElementById("root");
         const root = ReactDOM.createRoot(rootNode);
