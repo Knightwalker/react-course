@@ -10,27 +10,31 @@
     <!-- Libraries -->
     <script crossorigin="" src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
     <script crossorigin="" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
+    <script crossorigin="" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
     <!-- Components -->
     <script src="./components/PlayerComponent/PlayerComponent.js"></script>
 </head>
 
 <body>
     <div id="root">App not rendered</div>
-    <script>
+    <script type="text/babel">
         const { React, ReactDOM } = window;
-  
+        const e = React.createElement;
+        
         const App = () => {
-            return React.createElement("div", { className: "AppComponent"},
-                React.createElement("h1", { className: "text-center" }, "Choose Your Character"),
-                React.createElement(PlayerComponent, { name: "Luke Skywalker", alignment: "Jedi", force: "Force Push" }),
-                React.createElement(PlayerComponent, { name: "Darth Vader", alignment: "Sith", force: "Force Grip" }),
-                React.createElement(PlayerComponent, { name: "Obi Wan", alignment: "Jedi", force: "Mind Trick" })
+            return (
+                <div className="AppComponent">
+                    <h1 className="text-center">Choose Your Character</h1>
+                    <PlayerComponent name="Luke Skywalker" alignment="Jedi" force="Force Push" />
+                    <PlayerComponent name="Darth Vader" alignment="Sith" force="Force Grip" />
+                    <PlayerComponent name="Obi Wan" alignment="Jedi" force="Mind Trick" />
+                </div>
             );
         };
 
         const rootNode = document.getElementById("root");
         const root = ReactDOM.createRoot(rootNode);
-        root.render(React.createElement(App));
+        root.render(<App />);
     </script>
 </body>
 

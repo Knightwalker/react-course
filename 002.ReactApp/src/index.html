@@ -17,22 +17,22 @@
         const { React, ReactDOM } = window;
 
         const App = () => {
-            return React.createElement("div", {},
+            return React.createElement("div", { className: "AppComponent" },
                 React.createElement("h1", { className: "text-center" }, "Choose your character"),
                 React.createElement("div", { className: "PlayerComponent" },
-                    React.createElement("p", {}, "Luke Skywalker"),
-                    React.createElement("p", {}, "Jedi"),
-                    React.createElement("p", {}, "Force Push"),
+                    React.createElement("p", null, "Luke Skywalker"),
+                    React.createElement("p", null, "Jedi"),
+                    React.createElement("p", null, "Force Push"),
                 ),
                 React.createElement("div", { className: "PlayerComponent" },
-                    React.createElement("p", {}, "Darth Vader"),
-                    React.createElement("p", {}, "Sith"),
-                    React.createElement("p", {}, "Force Grip"),
+                    React.createElement("p", null, "Darth Vader"),
+                    React.createElement("p", null, "Sith"),
+                    React.createElement("p", null, "Force Grip"),
                 ),
                 React.createElement("div", { className: "PlayerComponent" },
-                    React.createElement("p", {}, "Obi Wan"),
-                    React.createElement("p", {}, "Jedi"),
-                    React.createElement("p", {}, "Mind Trick"),
+                    React.createElement("p", null, "Obi Wan"),
+                    React.createElement("p", null, "Jedi"),
+                    React.createElement("p", null, "Mind Trick"),
                 )
             );
         };
