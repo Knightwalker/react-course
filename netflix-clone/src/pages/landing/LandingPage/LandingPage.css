@@ -1,0 +1,65 @@
+.LandingPage {
+    color: white;
+}
+
+.LandingPage__hero {
+    position: relative;
+    height: 750px;
+    background: url("../../../assets/landing_page_hero.jpg") center no-repeat;
+    background-size: cover;
+    border-bottom: 8px solid #222;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.LandingPage__gradient {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    background-image: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%);
+}
+
+.LandingPage__hero-mid {
+    position: relative;
+    margin: 0 auto;
+    max-width: 950px;
+    padding: 75px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.LandingPage__hero-mid h1 {
+    max-width: 800px;
+    margin: 20px auto;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+.LandingPage__hero-mid h2 {
+    font-size: 1.625rem;
+    margin-bottom: 20px;
+}
+
+.LandingPage__hero-mid h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.LandingPage__accordion-wrapper {
+    padding: 70px 40px;
+    border-bottom: 8px solid #222;
+}
+
+.LandingPage__accordion-wrapper h1 {
+    font-size: 50px;
+    line-height: 50px;
+    text-align: center;
+    margin-block-start: 0px;
+    margin-block-end: 8px;
+}
+
+.LandingPage__accordion-wrapper h3 {
+    text-align: center;
+}

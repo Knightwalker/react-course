@@ -1,0 +1,42 @@
+.MoviesLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.MoviesLayout__header {
+    border: 1px solid black;
+    height: 60px;
+    background-color: black;
+    color: white;
+}
+
+.MoviesLayout__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0px 16px 0px 16px;
+}
+
+.MoviesLayout__ul {
+    display: flex;
+    margin-bottom: 0px; /* overwrites bootstrap's __reboot.scss */
+    list-style: none;
+}
+
+.MoviesLayout__ul li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.MoviesLayout__main {
+    flex-grow: 1;
+}
+
+.MoviesLayout__footer {
+    border: 1px solid black;
+    height: 60px;
+    background-color: #234365;
+    color: white;
+}

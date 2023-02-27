@@ -1,0 +1,13 @@
+const SERVICE_STATUS_ENUM = {
+    INIT: "INIT",
+    LOADING: "LOADING",
+    SUCCESS: "SUCCESS",
+    ERROR: "ERROR",
+    CANCELLED: "CANCELLED",
+};
+
+const POSITION = {
+    LEFT: "LEFT",
+    RIGHT: "RIGHT",
+};
+export { SERVICE_STATUS_ENUM, POSITION };
