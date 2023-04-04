@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
             outDir: path.resolve(__dirname, "build")
         },
         server: {
-            port: 3001
+            port: 3000
         },
         resolve: {
             alias: {

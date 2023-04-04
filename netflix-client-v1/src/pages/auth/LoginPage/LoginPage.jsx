@@ -1,4 +1,8 @@
+// Libs
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom"
+
+// Local Imports
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -78,6 +82,7 @@ const LoginPage = () => {
                 <h1>Sign In</h1>
                 <form onSubmit={handleSubmit}>
                     <input
+                        className="LoginPage__form-wrapper-input"
                         name="email"
                         type="text"
                         placeholder="Enter your email"
@@ -85,6 +90,7 @@ const LoginPage = () => {
                         onChange={handleChange}
                     />
                     <input
+                        className="LoginPage__form-wrapper-input"
                         name="password"
                         type="password"
                         placeholder="Password"
@@ -92,10 +98,24 @@ const LoginPage = () => {
                         onChange={handleChange}
                     />
                     <button
+                        className="LoginPage__btn"
                         disabled={!state.form.options.isFormValid}
                     >
-                        Login
+                        Sign In
                     </button>
+
+                    <div className="LoginPage__checkbox-wrapper">
+                        <div>
+                            <input id="checkbox" name="checkbox" type="checkbox" />
+                            <label htmlFor="checkbox">Remember me</label>
+                        </div>
+                        <Link to="/">Need help?</Link>
+                    </div>
+
+                    <div className="LoginPage__others-wrapper">
+                        <p>New to netflix? <Link to="/auth/register">Sign up now</Link>.</p>
+                    </div>
+
                 </form>
             </div>
         </div>

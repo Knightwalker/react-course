@@ -7,6 +7,7 @@ import AuthLayout from "../layouts/AuthLayout/AuthLayout";
 
 // Pages
 import LandingPage from "../pages/landing/LandingPage/LandingPage";
+import LoginPage from "../pages/auth/LoginPage/LoginPage";
 
 const routerInstance = createBrowserRouter([
     {
@@ -20,7 +21,7 @@ const routerInstance = createBrowserRouter([
         path: "/auth",
         element: <AuthLayout />,
         children: [
-            // { path: "/auth/login", element: <LoginPage /> },
+            { path: "/auth/login", element: <LoginPage /> },
             // { path: "/auth/register", element: <RegisterPage /> }
         ]
     },

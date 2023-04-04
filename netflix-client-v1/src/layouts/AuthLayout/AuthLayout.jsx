@@ -13,16 +13,7 @@ const AuthLayout = () => {
                     >
                         <img className="AuthLayout__logo-img" src={LogoImg} alt="logo" />
                     </Link>
-                    <button className="AuthLayout__login-btn">Sign In</button>
                 </nav>
-                <div className="AuthLayout__hero">
-                    <div className="AuthLayout__hero-gradient"></div>
-                    <div className="AuthLayout__hero-content">
-                        <h1>Unlimited movies, TV shows, and more.</h1>
-                        <h2>Plans now start at EUR4.99/month.</h2>
-                        <CTAComponent cbHandleSubmit={handleSubmit} />
-                    </div>
-                </div>
             </header>
             <main className="AuthLayout__main">
                 <Outlet />

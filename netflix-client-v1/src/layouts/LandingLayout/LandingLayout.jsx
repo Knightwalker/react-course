@@ -1,5 +1,5 @@
 // Libs
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // Assets
 import LogoImg from "../../assets/netflix_logo_transparent.png";
@@ -9,6 +9,12 @@ import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
 import "./LandingLayout.css";
 
 const LandingLayout = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/auth/login");
+    }
+
     const handleSubmit = (email) => {
         console.log(email);
     }
@@ -23,7 +29,12 @@ const LandingLayout = () => {
                     >
                         <img className="LandingLayout__logo-img" src={LogoImg} alt="logo" />
                     </Link>
-                    <button className="LandingLayout__login-btn">Sign In</button>
+                    <button
+                        className="LandingLayout__login-btn"
+                        onClick={handleClick}
+                    >
+                        Sign In
+                    </button>
                 </nav>
                 <div className="LandingLayout__hero">
                     <div className="LandingLayout__hero-gradient"></div>

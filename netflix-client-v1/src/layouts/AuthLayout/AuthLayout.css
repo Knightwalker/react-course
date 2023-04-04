@@ -31,3 +31,55 @@
     width: 100%;
     object-fit: contain;
 }
+
+.AuthLayout__main {
+    flex-grow: 1;
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, .8) 0%, rgba(0, 0, 0, .2) 60%, rgba(0, 0, 0, .8)), url("../../assets/hero.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Netflix M Breakpoint (tablets, 640px and up) */
+@media (min-width: 640px) {
+    .AuthLayout__logo-a {
+        width: 120px;
+    }
+
+    .AuthLayout__nav {
+        max-width: calc(100% - 4rem);
+    }
+}
+
+/* Netflix X Breakpoint (desktops, 960px and up) */
+@media (min-width: 960px) {
+    .AuthLayout__logo-a {
+        width: 120px;
+    }
+
+    .AuthLayout__nav {
+        max-width: calc(100% - 4rem);
+    }
+}
+
+/* Netflix XL Breakpoint (large desktops, 1280px and up) */
+@media (min-width: 1280px) {
+    .AuthLayout__logo-a {
+        width: 160px;
+    }
+
+    .AuthLayout__nav {
+        max-width: calc(83.33333333333334% - 6rem);
+    }
+}
+
+/* Netflix XLL Breakpoint (larger desktops, 1920px and up) */
+@media (min-width: 1920px) {
+    .AuthLayout__logo-a {
+        width: 200px;
+    }
+
+    .AuthLayout__nav {
+        max-width: calc(66.66666666666666% - 6rem);
+    }
+}
