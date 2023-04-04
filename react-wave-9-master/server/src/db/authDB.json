@@ -1,0 +1,10 @@
+{
+    "users": {
+        "gosho@abv.bg": {
+            "email": "gosho@abv.bg",
+            "password": "123",
+            "firstName": "Gosho",
+            "lastName": "Goshev"
+        }
+    }
+}

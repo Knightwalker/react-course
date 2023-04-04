@@ -1,0 +1,26 @@
+.root {
+    background-color: beige;
+}
+
+.moviesContainer {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movieCard {
+    border: 1px solid black;
+    margin: 2px;
+    padding: 2px;
+}
+
+.moviesModal {
+    position: absolute;
+    width: 360px;
+    height: 400px;
+    background-color: beige;
+    z-index: 1;
+    border: 1px solid black;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

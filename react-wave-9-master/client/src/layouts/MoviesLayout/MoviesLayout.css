@@ -1,0 +1,61 @@
+.MoviesLayout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.MoviesLayout a {
+    color: white;
+}
+
+.MoviesLayout a:hover {
+    color: white;
+}
+
+.MoviesLayout__header {
+    border: 1px solid black;
+    height: 60px;
+    background-color: black;
+    color: white;
+}
+
+.MoviesLayout__nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0px 16px 0px 16px;
+}
+
+
+.MoviesLayout__ul {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px;
+    /* overwrites bootstrap's __reboot.scss */
+    list-style: none;
+    height: 100%;
+}
+
+.MoviesLayout__ul li {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.MoviesLayout__main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.MoviesLayout__main>div {
+    flex-grow: 1;
+}
+
+.MoviesLayout__footer {
+    border: 1px solid black;
+    height: 60px;
+    background-color: black;
+    color: white;
+    text-align: center;
+}

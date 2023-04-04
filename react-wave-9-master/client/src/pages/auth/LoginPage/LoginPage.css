@@ -1,0 +1,120 @@
+.LoginPage {
+    padding-top: 100px;
+}
+
+.LoginPage a {
+    color: white;
+}
+
+.LoginPage a:hover {
+    color: white;
+}
+
+.LoginPage p {
+    color: #b3b3b3;
+}
+
+.LoginPage a:hover {
+    color: b3b3b3;
+}
+
+.LoginPage__form-wrapper {
+    margin: 0 auto;
+    max-width: 450px;
+    background-color: rgba(0,0,0,.75);
+    border-radius: 4px;
+    padding: 60px;
+}
+
+.LoginPage__form-wrapper-label {
+    font-weight: bold;
+    margin-block-end: 28px;
+}
+
+.LoginPage__form-wrapper input {
+    background: #333;
+    border: 0;
+    border-radius: 4px;
+    color: white;
+    width: 100%;
+    padding: 16px 20px;
+    margin-top: 15px;
+   
+}
+.LoginPage__form-wrapper input:focus {
+    outline: none;
+}
+
+.LoginPage__login-btn {
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    }
+
+.LoginPage__checkbox-container {
+    display: flex;
+    align-items: baseline;
+} 
+
+.LoginPage__checkbox-wrapper {
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: baseline;
+    width: 100%;
+    position: relative;
+    color: #b3b3b3;
+    font-size: 14px;
+}
+
+.LoginPage__checkbox-wrapper a {
+    justify-content: space-between;
+}
+
+#new {
+    margin-top: 40px;
+    font-size: 17px;
+}
+
+.LoginPage__checkbox-wrapper a {
+    position: right;
+}
+input#rememberMe-true {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 1px;
+    margin-right: 5px;
+    padding: 5px;
+    width: fit-content;
+}
+
+input:checked {
+background-color: gray;
+}
+
+#recaptcha {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: left;
+    color: #b3b3b3;
+}
+.LoginPage span.g-recaptcha {
+    color: #b3b3b3;
+    font-size: 14px;
+}
+
+.LoginPage__form-wrapper .error  {
+    color: #e87c03;
+    padding-left: 3px;
+    margin-top: 6px;
+    margin-left: 3px;
+    font-size: 13px;
+}
+ 
+input.hasError{
+    border-bottom: 2px solid #e87c03;
+}
+
+a.blue {
+    color: blue;
+}
+

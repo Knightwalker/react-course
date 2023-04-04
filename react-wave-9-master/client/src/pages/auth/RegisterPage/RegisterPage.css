@@ -1,0 +1,39 @@
+.RegisterPage {
+    padding-top: 100px;
+}
+
+.RegisterPage a {
+    color: white;
+}
+
+.RegisterPage a:hover {
+    color: white;
+}
+
+.RegisterPage__form-wrapper {
+    margin: 0 auto;
+    max-width: 450px;
+    background-color: rgba(0,0,0,.75);
+    border-radius: 4px;
+    padding: 60px;
+}
+
+.RegisterPage__form-wrapper-label {
+    font-weight: bold;
+    margin-block-end: 28px;
+}
+
+.RegisterPage__form-wrapper input {
+    background: #333;
+    border: 0;
+    border-radius: 4px;
+    color: white;
+    width: 100%;
+    padding: 16px 20px;
+    margin-bottom: 15px;
+}
+
+.RegisterPage__login-btn {
+    width: 100%;
+    margin-bottom: 15px;
+}
