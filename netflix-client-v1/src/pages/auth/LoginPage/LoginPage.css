@@ -1,0 +1,11 @@
+.LoginPage {
+    padding-top: 100px;
+}
+
+.LoginPage__form-wrapper {
+    margin: 0 auto;
+    max-width: 450px;
+    padding: 60px;
+    background-color: rgba(0,0,0, .75);
+    border-radius: .25em;
+}

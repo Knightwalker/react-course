@@ -1,0 +1,33 @@
+.AuthLayout {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    color: white;
+    background-color: black;
+}
+
+.AuthLayout__header {
+    position: relative;
+}
+
+.AuthLayout__nav {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    margin: auto;
+    max-width: calc(100% - 3rem);
+    position: absolute;
+    right: 0;
+    z-index: 1;
+}
+
+.AuthLayout__logo-a {
+    display: block;
+    width: 100px;
+}
+
+.AuthLayout__logo-img {
+    width: 100%;
+    object-fit: contain;
+}
