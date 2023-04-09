@@ -6,6 +6,12 @@ const ENUM_REGISTER_ACTION_TYPES = {
     VALIDATE_FORM: 4,
 }
 
+const ENUM_REQUEST_STATUS = {
+    hasErrors: "hasErrors",
+    isCancelled: "isCancelled"
+}
+
 export {
-    ENUM_REGISTER_ACTION_TYPES
+    ENUM_REGISTER_ACTION_TYPES,
+    ENUM_REQUEST_STATUS
 }

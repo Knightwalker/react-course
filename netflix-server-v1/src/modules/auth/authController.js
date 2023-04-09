@@ -10,15 +10,20 @@ const findUser = (email) => {
 }
 
 const registerUser = async (req, res) => {
+    const data = {
+        email: req.body.email,
+        password: req.body.password
+    };
+
     // TODO: Data Validation
-    const isUserFound = findUser(req.body.email);
+    const isUserFound = findUser(data.email);
     if (isUserFound) {
         return res.send({ message: "User already exists." });
-    }
+    };
 
     // Step 2. Generate a salt and hash
     const salt = crypto.randomBytes(16).toString("hex");
-    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
+    const hash = crypto.pbkdf2Sync(data.password, salt, 1000, 64, "sha512").toString("hex");
 
     // Step 3. Create user and save to db
     const user = {
@@ -30,6 +35,7 @@ const registerUser = async (req, res) => {
 
     db.data.users.push(user);
     await db.write();
+    res.status(201).send({ message: "User was created" });
 };
 
 const loginUser = (req, res) => {

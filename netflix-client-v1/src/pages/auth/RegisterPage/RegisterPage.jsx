@@ -1,22 +1,38 @@
 import { useEffect, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
-import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
+import { ENUM_REGISTER_ACTION_TYPES, ENUM_REQUEST_STATUS } from "../../../enums/auth";
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import "./RegisterPage.css";
 
+// Services
+import { usePostRegister } from "../../../services/AuthService";
+
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const [makeRequestPostRegister, cancelRequestPostRegister] = usePostRegister();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Step 1. Prepare data
-        const { name, email, password } = registerState.form.fields;
+        const payload = {
+            email: registerState.form.fields.email.value,
+            password: registerState.form.fields.password.value,
+            confirmPassword: registerState.form.fields.confirmPassword.value
+        };
 
         // Step 2. Send POST request to BE
-        console.log(name, email, password);
+        try {
+            const data = await makeRequestPostRegister(payload);
+            console.log(data);
+        } catch (err) {
+            if (err.message = ENUM_REQUEST_STATUS.isCancelled) {
+                return;
+            }
+            console.log(err);
+        }
 
         // Step 3. Navigate to login
         navigate("/auth/login");
@@ -105,6 +121,13 @@ const RegisterPage = () => {
         registerState.form.fields.password.value,
         registerState.form.fields.confirmPassword.value
     ]);
+
+    useEffect(() => {
+        return () => {
+            debugger;
+            cancelRequestPostRegister();
+        }
+    }, []);
 
     return (
         <div className="RegisterPage">
