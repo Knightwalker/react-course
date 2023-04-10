@@ -26,14 +26,15 @@ const RegisterPage = () => {
         // Step 2. Send POST request to BE
         try {
             const data = await makeRequestPostRegister(payload);
+            debugger;
             console.log(data);
         } catch (err) {
-            if (err.message = ENUM_REQUEST_STATUS.isCancelled) {
+            if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
                 return;
             }
-            console.log(err);
+            alert("We have encountered an unknown error.");
         }
-
+        
         // Step 3. Navigate to login
         navigate("/auth/login");
     };

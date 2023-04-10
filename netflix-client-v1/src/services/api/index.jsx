@@ -25,7 +25,8 @@ const useQuery = () => {
                 return resolve(data);
             } catch (err) {
                 if (err.message === ENUM_REQUEST_STATUS.hasErrors) {
-                    // TODO: log file
+                    // TODO: log errors to file
+                    reject(err);
                 }
                 return reject(err);
             }
@@ -71,7 +72,8 @@ const useMutate = () => {
                 return resolve(data);
             } catch (err) {
                 if (err.message === ENUM_REQUEST_STATUS.hasErrors) {
-                    // TODO: log file
+                    // TODO: log errors to file
+                    reject(err);
                 }
                 return reject(err);
             }

@@ -1,11 +1,19 @@
 // Libs
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom"
+import { useContext, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom"
+import { AuthContext } from "../../../context/AuthContext";
+import { ENUM_REQUEST_STATUS } from "../../../enums/auth";
+
+// Services
+import { usePostLogin } from "../../../services/AuthService";
 
 // Local Imports
 import "./LoginPage.css";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const { handleSetUser } = useContext(AuthContext);
+    const [makeRequestPostLogin, cancelRequestPostLogin] = usePostLogin();
     const [state, setState] = useState({
         form: {
             fields: {
@@ -27,15 +35,32 @@ const LoginPage = () => {
         });
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = {
+        // Step 1. Prepare data
+        const payload = {
             email: state.form.fields.email,
             password: state.form.fields.password
         };
 
-        console.log(data);
+        // Step 2. Send POST request to BE
+        try {
+            const data = await makeRequestPostLogin(payload);
+            debugger;
+            console.log(data);
+        } catch (err) {
+            if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
+                return;
+            }
+            alert("We have encountered an unknown error.");
+        }
+
+        // Step 3. Save user in client
+        handleSetUser(payload.email);
+
+        // Step 4. Navigate to home module
+        navigate("/browse");
     }
 
     const validateFields = () => {
@@ -76,6 +101,12 @@ const LoginPage = () => {
         state.form.fields.password
     ]);
 
+    useEffect(() => {
+        return () => {
+            cancelRequestPostLogin();
+        }
+    }, []);
+
     return (
         <div className="LoginPage">
             <div className="LoginPage__form-wrapper">
@@ -88,6 +119,7 @@ const LoginPage = () => {
                         placeholder="Enter your email"
                         value={state.form.fields.email}
                         onChange={handleChange}
+                        autoComplete="username"
                     />
                     <input
                         className="LoginPage__form-wrapper-input"
@@ -96,6 +128,7 @@ const LoginPage = () => {
                         placeholder="Password"
                         value={state.form.fields.password}
                         onChange={handleChange}
+                        autoComplete="current-password"
                     />
                     <button
                         className="LoginPage__btn"

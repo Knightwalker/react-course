@@ -13,6 +13,18 @@ const usePostRegister = () => {
     return [makeRequest, _cancelRequest];
 }
 
+const usePostLogin = () => {
+    const [_makeRequest, _cancelRequest] = useMutate();
+
+    const makeRequest = (payload) => {
+        const URL = `${BASE_URL}/api/auth/login`;
+        return _makeRequest(URL, "POST", payload);
+    }
+
+    return [makeRequest, _cancelRequest];
+}
+
 export {
-    usePostRegister
+    usePostRegister,
+    usePostLogin
 }
