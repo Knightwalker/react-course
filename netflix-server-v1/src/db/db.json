@@ -1,14 +1,9 @@
 {
   "users": [
     {
-      "email": "admin@abv.bg",
-      "salt": "1a137a5a2c8c5d286d2bd48df8b1fff3",
-      "hash": "fcddf8606abcd93cf2443a3db2589904e549921c7fa871a14d62be89303ec51b52bd597a6ae1cc3db6a08a9a5df96bcb7d9681a2e9c62eca1f4820699890c8ce"
-    },
-    {
-      "email": "admin1@abv.bg",
-      "salt": "fff8969f6db621611bd25d1a4ae05763",
-      "hash": "24f922601cf2ff78e768f62d853936d875ae445a39586f19ce874c1ccc6ff852fde62a6c7c059a242550d37a8e009a39b1f8d8db71dae1ae26e7c24bd5087d84"
+      "email": "admin@gmail.com",
+      "salt": "1518b454a54dcbd71f9f3d1a17a5872b",
+      "hash": "4c294306d3e75552391b6275ed421eda7449f7c7aa6f43a87ff02df0760954ff94f4b112f2a82d63d2d5be1832c71fa549f0d987c1c84dd3b13fd2db3eb1abb5"
     }
   ]
 }

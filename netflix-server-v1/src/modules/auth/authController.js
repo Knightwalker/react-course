@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import db from "../../db/config.js";
 
-const findUser = (email) => {
+const findUserByEmail = (email) => {
     const results = db.data.users.filter(user => user.email === email);
     if (results.length === 0) {
         return false;
@@ -9,14 +9,23 @@ const findUser = (email) => {
     return true;
 }
 
+const getUserByEmail = (email) => {
+    const results = db.data.users.filter(user => user.email === email);
+    if (results.length === 0) {
+        return null;
+    }
+    return results[0];
+}
+
 const registerUser = async (req, res) => {
+    // TODO: Model Validations
     const data = {
         email: req.body.email,
         password: req.body.password
     };
 
-    // TODO: Data Validation
-    const isUserFound = findUser(data.email);
+    // Step 1. Database Validations
+    const isUserFound = findUserByEmail(data.email);
     if (isUserFound) {
         return res.send({ message: "User already exists." });
     };
@@ -35,29 +44,34 @@ const registerUser = async (req, res) => {
 
     db.data.users.push(user);
     await db.write();
-    res.status(201).send({ message: "User was created" });
+    res.status(201).send({ message: "User was created." });
 };
 
 const loginUser = (req, res) => {
-    const crypto = require('crypto');
+    // TODO: Model Validations
+    const data = {
+        email: req.body.email,
+        password: req.body.password
+    };
 
-    // Generate a random salt (in real life this should be retrieved from the database)
-    const salt = '4c531eb7ba11d1b4c7b2c9a74184a12a';
+    // Step 1. Database Validations
+    const isUserFound = findUserByEmail(data.email);
+    if (!isUserFound) {
+        return res.status(401).send({ message: "Credentials are wrong." });
+    };
+    const user = getUserByEmail(data.email);
 
-    // The user's password (in real life this should come from the login form)
-    const password = 'myPassword123';
-
-    // Hash the provided password with the stored salt
-    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString('hex');
-
-    // Check if the hash matches the stored hash
-    if (hash === storedHash) {
-        // Login successful
-    } else {
-        // Login failed
+    // Step 2. Check if the hash matches the stored hash
+    // Hash the provided password with the stored salt, retrieved from the database.
+    const hash = crypto.pbkdf2Sync(data.password, user.salt, 1000, 64, "sha512").toString("hex");
+    if (!hash === user.hash) {
+        return res.status(401).send({ message: "Credentials are wrong." });
     }
+
+    return res.status(200).send({message: "You are authenticated."});
 }
 
 export {
-    registerUser
+    registerUser,
+    loginUser
 }
