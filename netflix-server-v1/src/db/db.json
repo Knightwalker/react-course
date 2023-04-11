@@ -8,12 +8,15 @@
     ],
     "movies": [
         {
+            "id": "4aa3356f-d38f-4372-8ba6-3c6effa26357",
             "title": "Interstellar"
         },
         {
+            "id": "951ea0ae-035f-43cd-b87e-674455900c70",
             "title": "Inception"
         },
         {
+            "id": "57e8a05d-1ee9-424c-b898-b28ce19d3c77",
             "title": "Love and Monsters"
         }
     ]

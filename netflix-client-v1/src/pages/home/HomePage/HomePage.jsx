@@ -1,52 +1,56 @@
 // Libs
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+// Components
+import BillboardComponent from "../../../components/home/BillboardComponent/BillboardComponent";
+
+// Services
+import {
+    getMovies,
+    getMoviesById
+} from "../../../services/HomeService";
+
 const HomePage = () => {
-    const { data: moviesData, status: moviesStatus } = useQuery({
-        queryKey: ["movies"],
-        queryFn: async ({ signal }) => {
-            const apiRes = await fetch("http://localhost:5000/api/home/movies", {
-                signal: signal
-            });
-            if (!apiRes.ok) {
-                throw new Error(`fetch not ok`);
-            }
-            return await apiRes.json();
-        }
+    const [state, setState] = useState({
+        movieId: null
     });
 
-    /**
-     * Fires a request to get one move by id
-     * @returns {void}
-     */
-    const handleGetMovieById = async () => {
-        const id = 1;
-
-        // try {
-        //     const _favoriteMovie = await makeRequestGetMoviesById(id);
-        //     setFavoriteMovie(_favoriteMovie);
-        // } catch (err) {
-        //     if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
-        //         return;
-        //     }
-        //     // Handle Visual Stuff
-        //     console.log(err);
-        // }
+    const handleGetMovieById = async (movieId) => {
+        setState({
+            movieId: movieId
+        });
     }
 
+    const { data: moviesData, status: moviesStatus } = useQuery({
+        queryKey: ["movies"],
+        queryFn: ({ signal }) => getMovies(signal)
+    });
+
+    const { data: movieData, status: movieStatus } = useQuery({
+        queryKey: ["movies", state.movieId],
+        queryFn: ({ signal }) => getMoviesById(state.movieId, signal),
+        enabled: !!state.movieId // Enable the query only if movieId is available
+    });
+
     return (
-        <div>
-            <h1>Hello from Home</h1>
+        <div className="HomePage">
+            <BillboardComponent />
+
             <div className="CarouselComponent">
-                {moviesStatus === "success" && moviesData.movies.map((movie, idx) => {
+                {moviesStatus === "success" && moviesData.map((movie) => {
                     return (
-                        <div key={idx}>
+                        <div key={movie.id}>
                             <div>{movie.title}</div>
-                            <button onClick={handleGetMovieById}>Get Movie</button>
+                            <button onClick={handleGetMovieById.bind(this, movie.id)}>Get Movie</button>
                         </div>
                     );
                 })}
             </div>
+
+            {movieStatus === "success" && (
+                <div>{movieData.id}</div>
+            )}
 
         </div>
     )

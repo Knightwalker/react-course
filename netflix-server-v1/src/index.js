@@ -11,6 +11,7 @@ app.use(cors({
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: '*',
 }));
+app.use(express.static("public"));
 app.use(express.json());
 app.use(routerInstance);
 

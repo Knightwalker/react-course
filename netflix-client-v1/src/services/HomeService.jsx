@@ -1,30 +1,28 @@
-import { useQuery } from "./api";
+const BASE_URL = "http://localhost:5000";
 
-const BASE_URL = "https://swapi.dev";
-
-const useGetMovies = () => {
-    const [_makeRequest, _cancelRequest] = useQuery();
-
-    const makeRequest = () => {
-        const URL = `${BASE_URL}/api/people`;
-        return _makeRequest(URL);
+const getMovies = async (signal) => {
+    const res = await fetch(`${BASE_URL}/api/home/movies`, {
+        signal: signal
+    });
+    if (!res.ok) {
+        throw new Error(`fetch not ok`);
     }
+    const data = await res.json();
+    return data.movies;
+}
 
-    return [makeRequest, _cancelRequest]
-};
-
-const useGetMovieById = () => {
-    const [_makeRequest, _cancelRequest] = useQuery();
-
-    const makeRequest = (id) => {
-        const URL = `${BASE_URL}/api/people/${id}`;
-        return _makeRequest(URL);
+const getMoviesById = async (id, signal) => {
+    const res = await fetch(`${BASE_URL}/api/home/movie?id=${id}`, {
+        signal: signal
+    });
+    if (!res.ok) {
+        throw new Error(`fetch not ok`);
     }
-
-    return [makeRequest, _cancelRequest]
-};
+    const data = await res.json();
+    return data.movie;
+}
 
 export {
-    useGetMovies,
-    useGetMovieById
+    getMovies,
+    getMoviesById,
 }

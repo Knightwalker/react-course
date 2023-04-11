@@ -1,0 +1,25 @@
+.BillboardComponent {
+    position: relative;
+    background-color: black;
+    height: 56.25vw;
+    width: 100%;
+}
+
+.BillboardComponent__video {
+    height: 100%;
+    width: 100%;
+    filter: brightness(.60);
+}
+
+.BillboardComponent__title {
+    position: absolute;
+    top: 40%;
+    margin-left: 4rem;
+}
+
+.BillboardComponent__title p {
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+}
