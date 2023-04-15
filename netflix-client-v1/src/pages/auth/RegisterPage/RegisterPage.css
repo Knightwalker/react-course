@@ -8,6 +8,7 @@
     padding: 60px;
     background-color: rgba(0, 0, 0, 0.75);
     border-radius: 0.25em;
+    position: relative;
 }
 
 .RegisterPage__form-wrapper h1 {
@@ -103,4 +104,25 @@
 .RegisterPage__others-wrapper a:hover {
     color: white;
     text-decoration: underline;
+}
+
+.RegisterPage__form-state {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.RegisterPage__form-state-success {
+    font-size: 32px;
+    color: var(--netflix-color-green);
+}
+
+.RegisterPage__form-state-error {
+    font-size: 32px;
+    color: var(--netflix-color-red);
 }

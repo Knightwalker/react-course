@@ -1,17 +1,23 @@
 import { useEffect, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
 import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
-import { ENUM_REGISTER_ACTION_TYPES, ENUM_REQUEST_STATUS } from "../../../enums/auth";
+import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import "./RegisterPage.css";
 
 // Services
-import { usePostRegister } from "../../../services/AuthService";
+import { postRegister } from "../../../services/AuthService";
+import { ENUM_SERVICE_ERROR_TYPE } from "../../../services/enums";
+import { wait } from "../../../utils/shared";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
-    const [makeRequestPostRegister, cancelRequestPostRegister] = usePostRegister();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
+
+    const registerMutationInstance = useMutation({
+        mutationFn: postRegister
+    });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -24,18 +30,39 @@ const RegisterPage = () => {
         };
 
         // Step 2. Send POST request to BE
+        let hasErrors = false;
         try {
-            const data = await makeRequestPostRegister(payload);
-            debugger;
+            const data = await registerMutationInstance.mutateAsync(payload);
             console.log(data);
-        } catch (err) {
-            if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
-                return;
+        } catch (error) {
+            hasErrors = true;
+            // Handle specific error types or status codes
+            if (error.type === ENUM_SERVICE_ERROR_TYPE.NETWORK_ERROR) {
+                alert(error.message);
+                // Handle network errors
+            } else if (error.type === ENUM_SERVICE_ERROR_TYPE.PARSE_ERROR) {
+                // Handle parse errors
+                alert(error.message);
+            } else if (error.type === ENUM_SERVICE_ERROR_TYPE.UNSUCCESSFUL_RESPONSE) {
+                // Handle unsuccessful response errors
+                if (error.status >= 400 && error.status < 500) {
+                    // Handle client errors
+                } else if (error.status >= 500 && error.status < 600) {
+                    // Handle server errors
+                } else {
+                    // Handle other errors, not in (200-299)
+                }
+            } else {
+                // Handle other unknown errors. (I'm not sure if we can ever hit such a case at this level)
+                alert("We have encountered an unknown error. If this persists, please contact support.");
             }
-            alert("We have encountered an unknown error.");
         }
-        
+        if (hasErrors) {
+            return;
+        }
+
         // Step 3. Navigate to login
+        await wait(500); // Let some effects apply
         navigate("/auth/login");
     };
 
@@ -122,13 +149,6 @@ const RegisterPage = () => {
         registerState.form.fields.password.value,
         registerState.form.fields.confirmPassword.value
     ]);
-
-    useEffect(() => {
-        return () => {
-            debugger;
-            cancelRequestPostRegister();
-        }
-    }, []);
 
     return (
         <div className="RegisterPage">
@@ -279,6 +299,21 @@ const RegisterPage = () => {
                         </p>
                     </div>
                 </form>
+
+                <div className="RegisterPage__form-state">
+                    {registerMutationInstance.status === "loading" && (
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="sr-only"></span>
+                        </div>
+                    )}
+                    {registerMutationInstance.status === "success" && (
+                        <i className="RegisterPage__form-state-success bi bi-check-circle"></i>
+                    )}
+                    {registerMutationInstance.status === "error" && (
+                        <i className="RegisterPage__form-state-error bi bi-exclamation-triangle"></i>
+                    )}
+                </div>
+
             </div>
         </div>
     );
