@@ -27,7 +27,7 @@ const registerUser = async (req, res) => {
     // Step 1. Database Validations
     const isUserFound = findUserByEmail(data.email);
     if (isUserFound) {
-        return res.send({ message: "User already exists." });
+        return res.status(409).send({ message: "User already exists." });
     };
 
     // Step 2. Generate a salt and hash
@@ -57,7 +57,7 @@ const loginUser = (req, res) => {
     // Step 1. Database Validations
     const isUserFound = findUserByEmail(data.email);
     if (!isUserFound) {
-        return res.status(401).send({ message: "Credentials are wrong." });
+        return res.status(401).send({ message: "We couldn't verify your account with that information." });
     };
     const user = getUserByEmail(data.email);
 
@@ -65,10 +65,10 @@ const loginUser = (req, res) => {
     // Hash the provided password with the stored salt, retrieved from the database.
     const hash = crypto.pbkdf2Sync(data.password, user.salt, 1000, 64, "sha512").toString("hex");
     if (!hash === user.hash) {
-        return res.status(401).send({ message: "Credentials are wrong." });
+        return res.status(401).send({ message: "We couldn't verify your account with that information." });
     }
 
-    return res.status(200).send({message: "You are authenticated."});
+    return res.status(200).send({message: "You were verified successfully!"});
 }
 
 export {
