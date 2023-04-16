@@ -34,11 +34,16 @@
     border-radius: 4px;
     color: white;
     width: 100%;
-    padding: 16px 20px;
+    padding: 16px 20px 16px 20px;
 }
 
 .RegisterPage__form-input:focus {
     outline: none;
+}
+
+.RegisterPage__form-input.has-error.was-touched {
+    border-bottom: 2px solid #e87c03;
+    padding: 16px 20px 14px 20px; /* -2px for the `border-bottom` */
 }
 
 .RegisterPage__form-error {

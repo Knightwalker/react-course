@@ -7,7 +7,7 @@ class ServiceError extends Error {
         this.type = type;
         this.status = status;
     }
-} 
+}
 
 const BASE_URL = "http://localhost:5000";
 
@@ -47,17 +47,6 @@ const postRegister = async (payload) => {
     return responseData;
 }
 
-const usePostRegister = () => {
-    const [_makeRequest, _cancelRequest] = useMutate();
-
-    const makeRequest = (payload) => {
-        const URL = `${BASE_URL}/api/auth/register`;
-        return _makeRequest(URL, "POST", payload);
-    }
-
-    return [makeRequest, _cancelRequest];
-}
-
 const usePostLogin = () => {
     const [_makeRequest, _cancelRequest] = useMutate();
 
@@ -69,8 +58,30 @@ const usePostLogin = () => {
     return [makeRequest, _cancelRequest];
 }
 
+const postRegisterErrorHandler = (error) => {
+    console.error(error.message);
+    // Handle specific error types or status codes
+    if (error.type === ENUM_SERVICE_ERROR_TYPE.NETWORK_ERROR) {
+        // Handle network errors
+    } else if (error.type === ENUM_SERVICE_ERROR_TYPE.PARSE_ERROR) {
+        // Handle parse errors
+    } else if (error.type === ENUM_SERVICE_ERROR_TYPE.UNSUCCESSFUL_RESPONSE) {
+        // Handle unsuccessful response errors
+        if (error.status >= 400 && error.status < 500) {
+            // Handle client errors
+        } else if (error.status >= 500 && error.status < 600) {
+            // Handle server errors
+        } else {
+            // Handle other errors, not in (200-299)
+        }
+    } else {
+        // Handle other unknown errors. (I'm not sure if we can ever hit such a case at this level)
+        console.error("We have encountered an unknown error. If this persists, please contact support.");
+    }
+}
+
 export {
-    usePostRegister,
     usePostLogin,
-    postRegister
+    postRegister,
+    postRegisterErrorHandler
 }

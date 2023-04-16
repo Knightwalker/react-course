@@ -1,15 +1,21 @@
+// Libs
 import { useEffect, useReducer } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
-import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
-import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import "./RegisterPage.css";
 
-// Services
-import { postRegister } from "../../../services/AuthService";
-import { ENUM_SERVICE_ERROR_TYPE } from "../../../services/enums";
+// Reducers
+import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
+
+// Enums
+import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
+
+// Utils
+import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import { wait } from "../../../utils/shared";
+
+// Services
+import { postRegister, postRegisterErrorHandler } from "../../../services/AuthService";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -30,40 +36,16 @@ const RegisterPage = () => {
         };
 
         // Step 2. Send POST request to BE
-        let hasErrors = false;
         try {
-            const data = await registerMutationInstance.mutateAsync(payload);
-            console.log(data);
+            await registerMutationInstance.mutateAsync(payload);
         } catch (error) {
-            debugger;
-            hasErrors = true;
-            // Handle specific error types or status codes
-            if (error.type === ENUM_SERVICE_ERROR_TYPE.NETWORK_ERROR) {
-                alert(error.message);
-                // Handle network errors
-            } else if (error.type === ENUM_SERVICE_ERROR_TYPE.PARSE_ERROR) {
-                // Handle parse errors
-                alert(error.message);
-            } else if (error.type === ENUM_SERVICE_ERROR_TYPE.UNSUCCESSFUL_RESPONSE) {
-                // Handle unsuccessful response errors
-                if (error.status >= 400 && error.status < 500) {
-                    // Handle client errors
-                } else if (error.status >= 500 && error.status < 600) {
-                    // Handle server errors
-                } else {
-                    // Handle other errors, not in (200-299)
-                }
-            } else {
-                // Handle other unknown errors. (I'm not sure if we can ever hit such a case at this level)
-                alert("We have encountered an unknown error. If this persists, please contact support.");
-            }
-        }
-        if (hasErrors) {
-            return;
+            postRegisterErrorHandler(error);
+            return; // If we have any errors, we would like to stop the execution flow of this function.
         }
 
         // Step 3. Navigate to login
         await wait(600); // Give humans time to process that the account was created.
+        registerDispatch({ type: ENUM_REGISTER_ACTION_TYPES.RESET_STATE });
         navigate("/auth/login");
     };
 
@@ -81,7 +63,7 @@ const RegisterPage = () => {
         }
         let isFormValid = false;
 
-        for (let field in fields) {
+        for (const field in fields) {
             const value = registerState.form.fields[field].value;
 
             if (value.length <= 0) {
@@ -163,7 +145,7 @@ const RegisterPage = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="RegisterPage__form-input-wrapper">
                         <input
-                            className="RegisterPage__form-input"
+                            className={registerState.form.fields.email.className.join(" ")}
                             name="email"
                             type="text"
                             placeholder="Email"
@@ -204,7 +186,7 @@ const RegisterPage = () => {
                     </div>
                     <div className="RegisterPage__form-input-wrapper">
                         <input
-                            className="RegisterPage__form-input"
+                            className={registerState.form.fields.password.className.join(" ")}
                             name="password"
                             type="password"
                             placeholder="Password"
@@ -245,7 +227,7 @@ const RegisterPage = () => {
                     </div>
                     <div className="RegisterPage__form-input-wrapper">
                         <input
-                            className="RegisterPage__form-input"
+                            className={registerState.form.fields.confirmPassword.className.join(" ")}
                             name="confirmPassword"
                             type="password"
                             placeholder="Password again"
