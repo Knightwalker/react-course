@@ -35,6 +35,7 @@ const RegisterPage = () => {
             const data = await registerMutationInstance.mutateAsync(payload);
             console.log(data);
         } catch (error) {
+            debugger;
             hasErrors = true;
             // Handle specific error types or status codes
             if (error.type === ENUM_SERVICE_ERROR_TYPE.NETWORK_ERROR) {
@@ -62,7 +63,7 @@ const RegisterPage = () => {
         }
 
         // Step 3. Navigate to login
-        await wait(500); // Let some effects apply
+        await wait(600); // Give humans time to process that the account was created.
         navigate("/auth/login");
     };
 
@@ -154,6 +155,11 @@ const RegisterPage = () => {
         <div className="RegisterPage">
             <div className="RegisterPage__form-wrapper">
                 <h1>Sign Up</h1>
+                {registerMutationInstance.status === "error" && (
+                    <div className="RegisterPage__form-error-container">
+                        {registerMutationInstance.error.message}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
                     <div className="RegisterPage__form-input-wrapper">
                         <input

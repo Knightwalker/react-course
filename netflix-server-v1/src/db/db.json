@@ -1,23 +1,23 @@
 {
-    "users": [
-        {
-            "email": "admin@gmail.com",
-            "salt": "1518b454a54dcbd71f9f3d1a17a5872b",
-            "hash": "4c294306d3e75552391b6275ed421eda7449f7c7aa6f43a87ff02df0760954ff94f4b112f2a82d63d2d5be1832c71fa549f0d987c1c84dd3b13fd2db3eb1abb5"
-        }
-    ],
-    "movies": [
-        {
-            "id": "4aa3356f-d38f-4372-8ba6-3c6effa26357",
-            "title": "Interstellar"
-        },
-        {
-            "id": "951ea0ae-035f-43cd-b87e-674455900c70",
-            "title": "Inception"
-        },
-        {
-            "id": "57e8a05d-1ee9-424c-b898-b28ce19d3c77",
-            "title": "Love and Monsters"
-        }
-    ]
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "salt": "1518b454a54dcbd71f9f3d1a17a5872b",
+      "hash": "4c294306d3e75552391b6275ed421eda7449f7c7aa6f43a87ff02df0760954ff94f4b112f2a82d63d2d5be1832c71fa549f0d987c1c84dd3b13fd2db3eb1abb5"
+    }
+  ],
+  "movies": [
+    {
+      "id": "4aa3356f-d38f-4372-8ba6-3c6effa26357",
+      "title": "Interstellar"
+    },
+    {
+      "id": "951ea0ae-035f-43cd-b87e-674455900c70",
+      "title": "Inception"
+    },
+    {
+      "id": "57e8a05d-1ee9-424c-b898-b28ce19d3c77",
+      "title": "Love and Monsters"
+    }
+  ]
 }

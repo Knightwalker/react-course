@@ -2,6 +2,13 @@
     padding: 100px 0px;
 }
 
+.RegisterPage__form-error-container {
+    background-color: var(--netflix-color-orange);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border-radius: 4px;
+}
+
 .RegisterPage__form-wrapper {
     margin: 0 auto;
     max-width: 450px;
@@ -35,8 +42,10 @@
 }
 
 .RegisterPage__form-error {
-    color: var(--netflix-color-red);
+    color: var(--netflix-color-orange);
+    font-size: 13px;
     margin-top: 0;
+    padding: 0px 3px;
 }
 
 .RegisterPage__btn {

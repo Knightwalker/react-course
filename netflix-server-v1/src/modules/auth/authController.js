@@ -1,33 +1,33 @@
+"use strict";
+
 import crypto from "node:crypto";
 import db from "../../db/config.js";
-
-const findUserByEmail = (email) => {
-    const results = db.data.users.filter(user => user.email === email);
-    if (results.length === 0) {
-        return false;
-    }
-    return true;
-}
-
-const getUserByEmail = (email) => {
-    const results = db.data.users.filter(user => user.email === email);
-    if (results.length === 0) {
-        return null;
-    }
-    return results[0];
-}
+import UserModel from "./userModel.js";
+import { 
+    findUserByEmail, 
+    getUserByEmail 
+} from "./userService.js";
 
 const registerUser = async (req, res) => {
-    // TODO: Model Validations
     const data = {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword
     };
 
-    // Step 1. Database Validations
+    // Step 1. Model Validations
+    if (
+        !UserModel.isValidEmail(data.email) ||
+        !UserModel.isValidPassword(data.password) ||
+        !UserModel.doPasswordsMatch(data.password, data.confirmPassword)
+    ) {
+        return res.status(400).json({ message: "We couldn't process your input data." });
+    }
+
+    // Step 2. Database Validations
     const isUserFound = findUserByEmail(data.email);
     if (isUserFound) {
-        return res.status(409).send({ message: "User already exists." });
+        return res.status(409).send({ message: "We couldn't create your account with that information." });
     };
 
     // Step 2. Generate a salt and hash
@@ -35,16 +35,16 @@ const registerUser = async (req, res) => {
     const hash = crypto.pbkdf2Sync(data.password, salt, 1000, 64, "sha512").toString("hex");
 
     // Step 3. Create user and save to db
-    const user = {
+    const user = new UserModel({
         name: req.body.name,
         email: req.body.email,
         salt: salt,
         hash: hash
-    }
+    });
 
     db.data.users.push(user);
     await db.write();
-    res.status(201).send({ message: "User was created." });
+    res.status(201).send({ message: "Account has been successfully created!" });
 };
 
 const loginUser = (req, res) => {
@@ -68,7 +68,7 @@ const loginUser = (req, res) => {
         return res.status(401).send({ message: "We couldn't verify your account with that information." });
     }
 
-    return res.status(200).send({message: "You were verified successfully!"});
+    return res.status(200).send({ message: "You were verified successfully!" });
 }
 
 export {
