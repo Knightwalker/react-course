@@ -71,6 +71,7 @@ const CTAComponent = ({
                         type="text"
                         value={email}
                         onChange={handleChangeEmail}
+                        required={true}
                         // autoComplete="username"
                     />
                     <label
