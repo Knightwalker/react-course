@@ -1,44 +1,88 @@
-// TODO: Improve this component in the future
+// Libs
+import { useEffect, useState, useId } from "react";
+
+// Local imports
 import "./CTAComponent.css";
 
-const CTAComponent = ({ cbHandleSubmit }) => {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const formEl = e.currentTarget;
-        const formData = new FormData(formEl);
-        const email = formData.get("email");
-        if (email === null) {
+const CTAComponent = ({
+    label = "label placeholder",
+    cbHandleSubmit
+}) => {
+    const uid = useId();
+    const [classNames, setClassNames] = useState({
+        "CTAComponent__form-input": ["CTAComponent__form-input"]
+    });
+    const [email, setEmail] = useState("");
+    const [isValidEmail, setIsValidEmail] = useState(false);
+
+    const handleChangeEmail = (event) => {
+        const newEmail = event.target.value;
+        setEmail(newEmail);
+    };
+
+    useEffect(() => {
+        // TODO: improve the check bellow. I want to run this validations only if the field has been touched.
+        if (email === "") {
             return;
         }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            setClassNames((prevClassNames) => {
+                return {
+                    ...prevClassNames,
+                    "CTAComponent__form-input": ["CTAComponent__form-input", "error"]
+                }
+            });
+            return;
+        }
+
+        setIsValidEmail(true);
+        setClassNames((prevClassNames) => {
+            return {
+                ...prevClassNames,
+                "CTAComponent__form-input": ["CTAComponent__form-input", "success"]
+            }
+        });
+    }, [email]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
         cbHandleSubmit(email);
-    }
+    };
 
     return (
         <div className="CTAComponent">
-            <p className="CTAComponent__p">Ready to watch? Enter your email to create or restart your membership.</p>
+            <p>{label}</p>
             <form className="CTAComponent__form" onSubmit={handleSubmit}>
-                <div className="CTAComponent__input-container">
-                    <input 
-                        className="CTAComponent__input" 
-                        name="email" 
-                        type="text" 
-                        required={true} 
-                        autoComplete="username"
+                <div className="CTAComponent__form-control">
+                    <input
+                        id={`${uid}-email`}
+                        className={classNames["CTAComponent__form-input"].join(" ")}
+                        name="email"
+                        type="text"
+                        value={email}
+                        onChange={handleChangeEmail}
+                        // autoComplete="username"
+                        required
                     />
-                    <label className="CTAComponent__label">Email address</label>
+                    <label
+                        htmlFor={`${uid}-email`}
+                        className="CTAComponent__form-label"
+                    >
+                        Email address
+                    </label>
                 </div>
-                <button className="CTAComponent__btn" type="submit">
-                    <span className="CTAComponent__btn-text">Get Started</span>
-                    <span className="chevron-right-arrow">
-                        <svg viewBox="0 0 6 12" xmlns="http://www.w3.org/2000/svg">
-                            <desc>chevron</desc>
-                            <path d="M.61 1.312l.78-.624L5.64 6l-4.25 5.312-.78-.624L4.36 6z" fill="#fafafa" fillRule="evenodd"></path>
-                        </svg>
-                    </span>
+
+                <button
+                    className="CTAComponent-btn"
+                    disabled={!isValidEmail}
+                >
+                    Get Started
+                    <i className="CTAComponent__btn-icon bi bi-chevron-right"></i>
                 </button>
             </form>
         </div>
     );
-}
-
+};
 export default CTAComponent;

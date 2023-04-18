@@ -1,9 +1,6 @@
-.CTAComponent {
-    max-width: 750px;
-    margin: auto;
-}
-
-.CTAComponent__p {
+.CTAComponent p {
+    font-size: 20px;
+    margin-bottom: 18px;
     font-size: 1.3rem;
     font-weight: 400;
     text-align: center;
@@ -11,94 +8,68 @@
 
 .CTAComponent__form {
     display: flex;
+    justify-content: center;
+    gap: 5px;
 }
 
-.CTAComponent__input-container {
+.CTAComponent__form-control {
     position: relative;
-    display: flex;
-    background-color: #fafafa;
-    margin-right: 6px;
     flex-grow: 1;
-    height: 70px;
-    border-radius: 0.25em;
-    border: solid 1px #8c8c8c;
 }
 
-.CTAComponent__input {
-    position: relative;
-    width: 100%;
-    background-color: #fff0;
-    border: none;
+.CTAComponent__form-input {
+    background-color: rgb(22 22 22 / 70%);
+    border-color: rgb(128 128 128 / 70%);
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 4px;
+    color: white;
+    padding: 20px 10px;
     font-size: 16px;
-    padding-left: 10px;
-    z-index: 2;
+    width: 100%
 }
 
-.CTAComponent__input:focus {
-    outline: none;
+.CTAComponent__form-input.error {
+    border-color: var(--netflix-color-red);
 }
 
-.CTAComponent__label {
+.CTAComponent__form-input.success {
+    border-color: var(--netflix-color-green);
+}
+
+.CTAComponent__form-label {
     position: absolute;
-    width: 100%;
-    color: #8c8c8c;
-    z-index: 1;
-    transition: all .1s ease;
-    top: 50%;
-    left: 10px;
-    transform: translateY(-50%);
-    font-size: 16px;
-}
-
-.CTAComponent__input:focus~label,
-.CTAComponent__input:valid~label {
-    top: 6px;
-    font-size: 13px;
-    font-weight: 700;
-    transform: translateY(0);
-}
-
-.CTAComponent__btn {
+    top: 18px;
+    left: 0;
+    margin-left: 10px;
+    font-size: 1em;
     display: flex;
     align-items: center;
-    border-left: 1px solid #333;
-    padding: 0 30px;
-    border-radius: 0.25rem;
-    min-height: 70px;
-
+    cursor: text;
+    transition: .2s ease-in-out;
     user-select: none;
-    text-align: center;
-    color: #fafafa;
-    font-size: 30px;
-    line-height: 30px;
-    background-color: #E50914;
-    background-image: linear-gradient(to bottom, #E50914, #DB0510);
-    box-shadow: 0 1px 0 rgb(0 0 0 / 45%);
-    border: 0px;
+    color: #a6a6a6;
+}
+
+.CTAComponent__form-input:focus+.CTAComponent__form-label,
+.CTAComponent__form-input:valid+.CTAComponent__form-label {
+    font-size: 12px;
+    top: 6px;
+}
+
+.CTAComponent-btn {
+    border: 0;
+    border-radius: 0.25rem;
+    color: white;
     cursor: pointer;
+    font-weight: 500;
+    padding: 0px 30px;
+    user-select: none;
+    font-size: 19px;
+    background-image: linear-gradient(to bottom, var(--netflix-color-red), #DB0510);
 }
 
-.chevron-right-arrow {
-    height: .75em;
-    width: .35em;
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 1 auto;
-    -moz-box-flex: 0;
-    -ms-flex: 0 1 auto;
-    flex: 0 1 auto;
-    margin: 0 0 0 .5em;
-    position: relative;
-}
-
-.chevron-right-arrow svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin: 1px 0;
-    height: 100%;
-    -webkit-transform: scaleX(1);
-    -moz-transform: scaleX(1);
-    -ms-transform: scaleX(1);
-    -o-transform: scaleX(1);
-    transform: scaleX(1);
+.CTAComponent__btn-icon {
+    font-size: 17px;
+    padding-left: 5px;
 }

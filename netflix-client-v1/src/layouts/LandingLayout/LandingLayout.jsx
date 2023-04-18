@@ -4,8 +4,10 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 // Assets
 import LogoImg from "../../assets/netflix_logo_transparent.png";
 
-// Local Imports
+// Components
 import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
+
+// Local Imports
 import "./LandingLayout.css";
 
 const LandingLayout = () => {
@@ -16,7 +18,11 @@ const LandingLayout = () => {
     }
 
     const handleSubmit = (email) => {
-        console.log(email);
+        navigate("/auth/register", { 
+            state: { 
+                email: email 
+            }
+        });
     }
 
     return (
@@ -41,7 +47,10 @@ const LandingLayout = () => {
                     <div className="LandingLayout__hero-content">
                         <h1>Unlimited movies, TV shows, and more.</h1>
                         <h2>Plans now start at EUR4.99/month.</h2>
-                        <CTAComponent cbHandleSubmit={handleSubmit} />
+                        <CTAComponent 
+                            label="Ready to watch? Enter your email to create or restart your membership."
+                            cbHandleSubmit={handleSubmit}
+                        />
                     </div>
                 </div>
             </header>
