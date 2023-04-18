@@ -95,16 +95,26 @@
     flex-grow: 1;
 }
 
-.LandingLayout__footer {
-    padding: 60px 40px;
-    color: #757575;
-    max-width: 1000px;
-    margin: 0 auto;
+/* .LandingLayout__footer {
+} */
+
+.LandingLayout__footer-CTA-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: calc(72px - 8px) 0px 72px 0px; /* the -8px is because we must balance the `AccordionComponent` */
+    border-bottom: 8px solid #222;
 }
 
 .LandingLayout__footer a {
     color: #757575;
     text-decoration: none;
+}
+
+.LandingLayout__footer-body {
+    padding: 60px 40px;
+    color: #757575;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .LandingLayout__footer-head {

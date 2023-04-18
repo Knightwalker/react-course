@@ -1,0 +1,9 @@
+.LandingPage__FAQ-wrapper {
+    max-width: 815px;
+    margin: 0px auto;
+}
+
+.LandingPage__FAQ {
+    font-size: 3rem;
+    font-weight: 900;
+}
