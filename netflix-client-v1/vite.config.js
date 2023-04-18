@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
     return {
         plugins: [react()],
-        root: path.relative(__dirname, "src"),
+        root: path.relative(__dirname, ""),
         build: {
             outDir: path.resolve(__dirname, "build")
         },
