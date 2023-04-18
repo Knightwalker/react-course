@@ -13,19 +13,21 @@ const CTAComponent = ({
         "CTAComponent__form-input": ["CTAComponent__form-input"]
     });
     const [email, setEmail] = useState("");
+    const [isTouched, setIsTouched] = useState(false);
     const [isValidEmail, setIsValidEmail] = useState(false);
 
     const handleChangeEmail = (event) => {
         const newEmail = event.target.value;
         setEmail(newEmail);
+        if (!isTouched) {
+            setIsTouched(true);
+        }
     };
 
     useEffect(() => {
-        // TODO: improve the check bellow. I want to run this validations only if the field has been touched.
-        if (email === "") {
+        if (!isTouched) {
             return;
         }
-
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
             setClassNames((prevClassNames) => {
@@ -34,6 +36,7 @@ const CTAComponent = ({
                     "CTAComponent__form-input": ["CTAComponent__form-input", "error"]
                 }
             });
+            setIsValidEmail(false);
             return;
         }
 
@@ -68,8 +71,7 @@ const CTAComponent = ({
                         type="text"
                         value={email}
                         onChange={handleChangeEmail}
-                        required={true}
-                    // autoComplete="username"
+                        // autoComplete="username"
                     />
                     <label
                         htmlFor={`${uid}-email`}
