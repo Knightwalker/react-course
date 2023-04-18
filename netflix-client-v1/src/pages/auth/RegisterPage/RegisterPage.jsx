@@ -1,6 +1,6 @@
 // Libs
 import { useEffect, useReducer } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import "./RegisterPage.css";
 
@@ -19,6 +19,7 @@ import { postRegister, postRegisterErrorHandler } from "../../../services/AuthSe
 
 const RegisterPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
 
     const registerMutationInstance = useMutation({
@@ -132,6 +133,21 @@ const RegisterPage = () => {
         registerState.form.fields.password.value,
         registerState.form.fields.confirmPassword.value
     ]);
+
+    // Side-effect, which pre-populates the `email` input field, based on what path we navigated from. If we navigated from the `CTAComponent` in the landing page, our email will be pre-populated. Otherwise it will be empty.
+    useEffect(() => {
+        if (location.state === null) {
+            return;
+        }
+        const { email } = location.state;
+        registerDispatch({
+            type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE,
+            payload: {
+                name: "email",
+                value: email
+            }
+        });
+    }, [location]);
 
     return (
         <div className="RegisterPage">

@@ -54,8 +54,13 @@ const CTAComponent = ({
     return (
         <div className="CTAComponent">
             <p>{label}</p>
-            <form className="CTAComponent__form" onSubmit={handleSubmit}>
-                <div className="CTAComponent__form-control">
+            <form
+                className="CTAComponent__form"
+                onSubmit={handleSubmit}
+            >
+                <div
+                    className="CTAComponent__form-control"
+                >
                     <input
                         id={`${uid}-email`}
                         className={classNames["CTAComponent__form-input"].join(" ")}
@@ -63,8 +68,8 @@ const CTAComponent = ({
                         type="text"
                         value={email}
                         onChange={handleChangeEmail}
-                        // autoComplete="username"
-                        required
+                        required={true}
+                    // autoComplete="username"
                     />
                     <label
                         htmlFor={`${uid}-email`}
