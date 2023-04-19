@@ -1,11 +1,14 @@
 "use strict";
 
 import crypto from "node:crypto";
-import db from "../../db/config.js";
-import UserModel from "./userModel.js";
-import { 
-    findUserByEmail, 
-    getUserByEmail 
+import UserModel, {
+    isValidEmail,
+    isValidPassword,
+    doPasswordsMatch
+} from "./userModel.js";
+import {
+    findUserByEmail,
+    getUserByEmail
 } from "./userService.js";
 
 const registerUser = async (req, res) => {
@@ -17,18 +20,22 @@ const registerUser = async (req, res) => {
 
     // Step 1. Model Validations
     if (
-        !UserModel.isValidEmail(data.email) ||
-        !UserModel.isValidPassword(data.password) ||
-        !UserModel.doPasswordsMatch(data.password, data.confirmPassword)
+        !isValidEmail(data.email) ||
+        !isValidPassword(data.password) ||
+        !doPasswordsMatch(data.password, data.confirmPassword)
     ) {
         return res.status(400).json({ message: "We couldn't process your input data." });
     }
 
     // Step 2. Database Validations
-    const isUserFound = findUserByEmail(data.email);
-    if (isUserFound) {
-        return res.status(409).send({ message: "We couldn't create your account with that information." });
-    };
+    try {
+        const isUserFound = await findUserByEmail(data.email);
+        if (isUserFound) {
+            return res.status(409).send({ message: "We couldn't create your account with that information." });
+        };
+    } catch (error) {
+        return res.status(500).send({ message: "We encountered a server error." });
+    }
 
     // Step 2. Generate a salt and hash
     const salt = crypto.randomBytes(16).toString("hex");
@@ -36,18 +43,22 @@ const registerUser = async (req, res) => {
 
     // Step 3. Create user and save to db
     const user = new UserModel({
-        name: req.body.name,
         email: req.body.email,
         salt: salt,
         hash: hash
     });
 
-    db.data.users.push(user);
-    await db.write();
+    try {
+        await user.save();
+    } catch (error) {
+        console.error("Error creating user:", error.message);
+        return res.status(500).send({ message: "We encountered a server error." });
+    }
+
     res.status(201).send({ message: "Account has been successfully created!" });
 };
 
-const loginUser = (req, res) => {
+const loginUser = async (req, res) => {
     // TODO: Model Validations
     const data = {
         email: req.body.email,
@@ -55,11 +66,16 @@ const loginUser = (req, res) => {
     };
 
     // Step 1. Database Validations
-    const isUserFound = findUserByEmail(data.email);
-    if (!isUserFound) {
-        return res.status(401).send({ message: "We couldn't verify your account with that information." });
-    };
-    const user = getUserByEmail(data.email);
+    let user = null;
+    try {
+        const isUserFound = await findUserByEmail(data.email);
+        if (isUserFound) {
+            return res.status(401).send({ message: "We couldn't verify your account with that information." });
+        };
+        user = await getUserByEmail(data.email);
+    } catch (error) {
+        return res.status(500).send({ message: "We encountered a server error." });
+    }
 
     // Step 2. Check if the hash matches the stored hash
     // Hash the provided password with the stored salt, retrieved from the database.

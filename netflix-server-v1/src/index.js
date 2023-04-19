@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import routerInstance from "./routes.js";
+import connectDB from "./configs/database.config.js";
 
 const PORT = 5000;
 
@@ -14,6 +15,9 @@ app.use(cors({
 app.use(express.static("public"));
 app.use(express.json());
 app.use(routerInstance);
+
+// Connect to MongoDB
+connectDB();
 
 app.listen(PORT, () => {
     console.log(`App listening on http://localhost:${PORT}`)

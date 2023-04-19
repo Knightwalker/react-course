@@ -2,13 +2,8 @@
   "users": [
     {
       "email": "admin@gmail.com",
-      "salt": "1518b454a54dcbd71f9f3d1a17a5872b",
-      "hash": "4c294306d3e75552391b6275ed421eda7449f7c7aa6f43a87ff02df0760954ff94f4b112f2a82d63d2d5be1832c71fa549f0d987c1c84dd3b13fd2db3eb1abb5"
-    },
-    {
-      "email": "admin2@gmail.com",
-      "salt": "a48804b7258d6ccee186932545885835",
-      "hash": "211f0e0bbc227dfb6c54fbe8aba16a62743b88c09791178a51e5c7d78309f65132d836994bf9d7ad5ffaf4f7ec3f15a7b1a0caaea8e5c1abe1fe23fdcbe28c73"
+      "salt": "816e0afe7db966177a229015f2c19883",
+      "hash": "12123d95efdfb7bdb5d7eea241e95e2bd05bc765888e1b1290e4b3dd8250ba7c81060392eeb6fdee6bd713f297af76f493a10a40ebc10c9a14f3a3a1dbe26f22"
     }
   ],
   "movies": [

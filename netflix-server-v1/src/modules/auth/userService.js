@@ -1,22 +1,29 @@
 "use strict";
 
-import db from "../../db/config.js";
+import UserModel from "./userModel.js";
 
-const findUserByEmail = (email) => {
-    const results = db.data.users.filter(user => user.email === email);
-    if (results.length === 0) {
-        return false;
+const findUserByEmail = async (email) => {
+    try {
+        const user = await UserModel.findOne({ email });
+        if (user === null) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error("Error finding user by email:", error.message);
+        throw error;
     }
-    return true;
-}
+};
 
-const getUserByEmail = (email) => {
-    const results = db.data.users.filter(user => user.email === email);
-    if (results.length === 0) {
-        return null;
+const getUserByEmail = async (email) => {
+    try {
+        const user = await UserModel.findOne({ email });
+        return user;
+    } catch (error) {
+        console.error("Error finding user by email:", error.message);
+        throw error;
     }
-    return results[0];
-}
+};
 
 export {
     findUserByEmail,
