@@ -50,7 +50,6 @@ const useMutate = () => {
             try {
                 // Request: We fire a request
                 // Cancel Request: We also provide a mechanism for cancelling the request
-                debugger;
                 const response = await fetch(url, {
                     method: method,
                     headers: {
@@ -59,11 +58,9 @@ const useMutate = () => {
                     body: JSON.stringify(payload),
                     signal: abortControllerInstance.current.signal
                 });
-                debugger;
                 if (!response.ok) {
                     throw new Error(ENUM_REQUEST_STATUS.hasErrors);
                 }
-                debugger;
                 const data = await response.json();
                 // Cancel Request: We provide a fall-back mechanism for cancelling the request
                 if (!isMounted.current) {

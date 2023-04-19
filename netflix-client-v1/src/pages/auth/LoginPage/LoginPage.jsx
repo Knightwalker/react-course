@@ -47,7 +47,6 @@ const LoginPage = () => {
         // Step 2. Send POST request to BE
         try {
             const data = await makeRequestPostLogin(payload);
-            debugger;
             console.log(data);
         } catch (err) {
             if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
@@ -56,6 +55,7 @@ const LoginPage = () => {
             alert("We have encountered an unknown error.");
         }
 
+        return;
         // Step 3. Save user in client
         handleSetUser(payload.email);
 

@@ -1,11 +1,15 @@
 "use strict";
 
+// Libs
 import crypto from "node:crypto";
-import UserModel, {
-    isValidEmail,
-    isValidPassword,
-    doPasswordsMatch
-} from "./userModel.js";
+import jwt from "jsonwebtoken";
+
+// Models
+import RegisterRequestModel from "./models/registerRequestModel.js";
+import LoginRequestModel from "./models/loginRequestModel.js";
+import UserModel from "./models/userModel.js";
+
+// Services
 import {
     findUserByEmail,
     getUserByEmail
@@ -19,11 +23,16 @@ const registerUser = async (req, res) => {
     };
 
     // Step 1. Model Validations
-    if (
-        !isValidEmail(data.email) ||
-        !isValidPassword(data.password) ||
-        !doPasswordsMatch(data.password, data.confirmPassword)
-    ) {
+    try {
+        const registerRequest = new RegisterRequestModel(data);
+        await registerRequest.validate();
+    } catch (error) {
+        const errorMessagesArr = []
+        for (const key in error.errors) {
+            const message = error.errors[key].message;
+            errorMessagesArr.push(message);
+        }
+        console.error(errorMessagesArr); // TODO: log this to logfile
         return res.status(400).json({ message: "We couldn't process your input data." });
     }
 
@@ -42,14 +51,12 @@ const registerUser = async (req, res) => {
     const hash = crypto.pbkdf2Sync(data.password, salt, 1000, 64, "sha512").toString("hex");
 
     // Step 3. Create user and save to db
-    const user = new UserModel({
-        email: req.body.email,
-        salt: salt,
-        hash: hash
-    });
-
     try {
-        await user.save();
+        await UserModel.create({
+            email: req.body.email,
+            salt: salt,
+            hash: hash
+        });
     } catch (error) {
         console.error("Error creating user:", error.message);
         return res.status(500).send({ message: "We encountered a server error." });
@@ -59,17 +66,30 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-    // TODO: Model Validations
     const data = {
         email: req.body.email,
         password: req.body.password
     };
 
-    // Step 1. Database Validations
+    // Step 1. Model Validations
+    try {
+        const registerRequest = new LoginRequestModel(data);
+        await registerRequest.validate();
+    } catch (error) {
+        const errorMessagesArr = []
+        for (const key in error.errors) {
+            const message = error.errors[key].message;
+            errorMessagesArr.push(message);
+        }
+        console.error(errorMessagesArr); // TODO: log this to logfile
+        return res.status(400).json({ message: "We couldn't process your input data." });
+    }
+
+    // Step 2. Database Validations
     let user = null;
     try {
         const isUserFound = await findUserByEmail(data.email);
-        if (isUserFound) {
+        if (!isUserFound) {
             return res.status(401).send({ message: "We couldn't verify your account with that information." });
         };
         user = await getUserByEmail(data.email);
@@ -84,7 +104,18 @@ const loginUser = async (req, res) => {
         return res.status(401).send({ message: "We couldn't verify your account with that information." });
     }
 
-    return res.status(200).send({ message: "You were verified successfully!" });
+    // Step 3. Create JWT
+    const loginResponseModel = {
+        email: user.email
+    }
+
+    const maxAge = 3 * 24 * 60 * 60 // 3 days
+    const token = jwt.sign({ loginResponseModel: loginResponseModel }, "Keyboard Cats", {
+        expiresIn: maxAge
+    });
+
+    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 })
+    return res.status(200).send({ token: token, message: "You were verified successfully!" });
 }
 
 export {

@@ -1,6 +1,6 @@
 "use strict";
 
-import UserModel from "./userModel.js";
+import UserModel from "./models/userModel.js";
 
 const findUserByEmail = async (email) => {
     try {
