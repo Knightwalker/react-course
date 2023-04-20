@@ -1,3 +1,10 @@
+// Libs
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+// Context
+import { AuthContext } from "../../../context/AuthContext";
+
 // Components
 import AccordionComponent from "../../../components/landing/AccordionComponent/AccordionComponent";
 import LongCardComponent from "../../../components/landing/LongCardComponent/LongCardComponent";
@@ -10,6 +17,15 @@ import accordionComponentData from "../../../data/landing/accordionComponentData
 import "./LandingPage.css";
 
 const LandingPage = () => {
+    const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user.isLoggedIn) {
+            navigate("/browse");
+        }
+    }, [user.isLoggedIn]);
+
     return (
         <div className="LandingPage">
 

@@ -2,7 +2,6 @@
 import { useEffect, useReducer } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import "./RegisterPage.css";
 
 // Reducers
 import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
@@ -16,6 +15,9 @@ import { wait } from "../../../utils/shared";
 
 // Services
 import { postRegister, postRegisterErrorHandler } from "../../../services/AuthService";
+
+// Local imports
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
     const navigate = useNavigate();
@@ -233,7 +235,7 @@ const RegisterPage = () => {
                                     }
                                 });
                             }}
-                            autoComplete="current-password"
+                            autoComplete="new-password"
                         />
                         {registerState.form.fields.password.error.length > 0 && registerState.form.fields.password.isTouched && (
                             <p className="RegisterPage__form-error">
@@ -274,7 +276,7 @@ const RegisterPage = () => {
                                     }
                                 });
                             }}
-                            autoComplete="current-password"
+                            autoComplete="new-password"
                         />
                         {registerState.form.fields.confirmPassword.error.length > 0 && registerState.form.fields.confirmPassword.isTouched && (
                             <p className="RegisterPage__form-error">

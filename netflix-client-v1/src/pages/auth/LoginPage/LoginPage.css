@@ -1,5 +1,12 @@
 .LoginPage {
-    padding-top: 100px;
+    padding: 100px 0px;
+}
+
+.LoginPage__form-error-container {
+    background-color: var(--netflix-color-orange);
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    border-radius: 4px;
 }
 
 .LoginPage__form-wrapper {
@@ -8,6 +15,7 @@
     padding: 60px;
     background-color: rgba(0, 0, 0, .75);
     border-radius: .25em;
+    position: relative;
 }
 
 .LoginPage__form-wrapper h1 {
@@ -16,18 +24,33 @@
     margin-block-end: 28px;
 }
 
-.LoginPage__form-wrapper-input {
-    background-color: #333;
+.LoginPage__form-input-wrapper {
+    margin-bottom: 16px;
+}
+
+.LoginPage__form-input {
+    background-color: #333333;
     border: 0;
     border-radius: 4px;
     color: white;
     width: 100%;
-    padding: 16px 20px;
-    margin-bottom: 16px;
+    padding: 16px 20px 16px 20px;
 }
 
-.LoginPage__form-wrapper-input:focus {
+.LoginPage__form-input:focus {
     outline: none;
+}
+
+.LoginPage__form-input.has-error.was-touched {
+    border-bottom: 2px solid #e87c03;
+    padding: 16px 20px 14px 20px; /* -2px for the `border-bottom` */
+}
+
+.LoginPage__form-error {
+    color: var(--netflix-color-orange);
+    font-size: 13px;
+    margin-top: 0;
+    padding: 0px 3px;
 }
 
 .LoginPage__btn {
@@ -96,4 +119,25 @@
 .LoginPage__others-wrapper a:hover {
     color: white;
     text-decoration: underline;
+}
+
+.LoginPage__form-state {
+    position: absolute;
+    left: 0;
+    bottom: 24px;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.LoginPage__form-state-success {
+    font-size: 32px;
+    color: var(--netflix-color-green);
+}
+
+.LoginPage__form-state-error {
+    font-size: 32px;
+    color: var(--netflix-color-red);
 }

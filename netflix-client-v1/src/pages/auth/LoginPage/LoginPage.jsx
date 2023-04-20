@@ -1,138 +1,229 @@
 // Libs
-import { useContext, useState, useEffect } from "react";
+import { useContext, useReducer, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom"
+import { useMutation } from "@tanstack/react-query";
+
+// Context
 import { AuthContext } from "../../../context/AuthContext";
-import { ENUM_REQUEST_STATUS } from "../../../enums/auth";
+
+// Reducers
+import { loginReducer, loginInitialState } from "../../../reducers/auth/loginReducer";
+
+// Enums
+import { ENUM_LOGIN_ACTION_TYPES } from "../../../enums/auth";
+
+// Utils
+import { isEmailValid, isPasswordValid } from "../../../utils/auth";
+import { wait } from "../../../utils/shared";
 
 // Services
-import { usePostLogin } from "../../../services/AuthService";
+import { postLogin, postLoginErrorHandler } from "../../../services/AuthService";
 
 // Local Imports
 import "./LoginPage.css";
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const [loginState, loginDispatch] = useReducer(loginReducer, loginInitialState);
     const { handleSetUser } = useContext(AuthContext);
-    const [makeRequestPostLogin, cancelRequestPostLogin] = usePostLogin();
-    const [state, setState] = useState({
-        form: {
-            fields: {
-                email: "",
-                password: ""
-            },
-            options: {
-                isFormValid: false
-            }
-        }
+    
+    const loginMutationInstance = useMutation({
+        mutationFn: postLogin
     });
-
-    const handleChange = (e) => {
-        const { name, value } = e.currentTarget;
-        setState((oldState) => {
-            const newState = { ...oldState }; // shallow-copy
-            newState.form.fields[name] = value;
-            return newState;
-        });
-    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         // Step 1. Prepare data
         const payload = {
-            email: state.form.fields.email,
-            password: state.form.fields.password
+            email: loginState.form.fields.email.value,
+            password: loginState.form.fields.password.value,
         };
 
         // Step 2. Send POST request to BE
+        let data = null;
         try {
-            const data = await makeRequestPostLogin(payload);
-            console.log(data);
-        } catch (err) {
-            if (err.message === ENUM_REQUEST_STATUS.isCancelled) {
-                return;
-            }
-            alert("We have encountered an unknown error.");
+            data = await loginMutationInstance.mutateAsync(payload);
+        } catch (error) {
+            postLoginErrorHandler(error);
+            return; // If we have any errors, we would like to stop the execution flow of this function.
         }
 
-        return;
         // Step 3. Save user in client
-        handleSetUser(payload.email);
+        handleSetUser(payload.email, data.token);
 
         // Step 4. Navigate to home module
+        await wait(500);        
         navigate("/browse");
     }
 
     const validateFields = () => {
-        const emailIsValid = (() => {
-            const value = state.form.fields.email;
-            if (value === "") {
-                return false;
+        let fields = {
+            email: {
+                isValid: false
+            },
+            password: {
+                isValid: false
             }
-            return true;
-        })();
+        }
+        let isFormValid = false;
 
-        const passwordIsValid = (() => {
-            const value = state.form.fields.password;
-            if (value === "") {
-                return false;
+        for (const field in fields) {
+            const value = loginState.form.fields[field].value;
+
+            if (value.length <= 0) {
+                loginDispatch({
+                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
+                    payload: {
+                        field: field,
+                        error: "Field cannot be empty."
+                    }
+                });
+            } else if (field === "email" && !isEmailValid(value)) {
+                loginDispatch({
+                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
+                    payload: {
+                        field: field,
+                        error: "Email address is not valid"
+                    }
+                });
+            } else if (field === "password" && !isPasswordValid(value)) {
+                loginDispatch({
+                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
+                    payload: {
+                        field: field,
+                        error: "Password must be between 6 and 60 characters and may not contain a tilde (~)"
+                    }
+                });
+            } else {
+                fields[field].isValid = true;
+                loginDispatch({
+                    type: ENUM_LOGIN_ACTION_TYPES.CLEAR_FIELD_ERROR,
+                    payload: {
+                        field: field
+                    }
+                });
             }
-            return true;
-        })();
+        }
 
-        const isFormValid = (() => {
-            if (!emailIsValid || !passwordIsValid) {
-                return false;
+        if (
+            fields.email.isValid &&
+            fields.password.isValid
+        ) {
+            isFormValid = true;
+        }
+
+        loginDispatch({
+            type: ENUM_LOGIN_ACTION_TYPES.VALIDATE_FORM,
+            payload: {
+                isFormValid: isFormValid
             }
-            return true;
-        })();
-
-        setState((oldState) => {
-            const newState = { ...oldState };
-            newState.form.options.isFormValid = isFormValid;
-            return newState;
         });
     }
 
     useEffect(() => {
         validateFields();
     }, [
-        state.form.fields.email,
-        state.form.fields.password
+        loginState.form.fields.email.value,
+        loginState.form.fields.password.value,
+        loginState.form.fields.confirmPassword.value
     ]);
-
-    useEffect(() => {
-        return () => {
-            cancelRequestPostLogin();
-        }
-    }, []);
 
     return (
         <div className="LoginPage">
             <div className="LoginPage__form-wrapper">
                 <h1>Sign In</h1>
+                {loginMutationInstance.status === "error" && (
+                    <div className="LoginPage__form-error-container">
+                        {loginMutationInstance.error.message}
+                    </div>
+                )}
                 <form onSubmit={handleSubmit}>
-                    <input
-                        className="LoginPage__form-wrapper-input"
-                        name="email"
-                        type="text"
-                        placeholder="Enter your email"
-                        value={state.form.fields.email}
-                        onChange={handleChange}
-                        autoComplete="username"
-                    />
-                    <input
-                        className="LoginPage__form-wrapper-input"
-                        name="password"
-                        type="password"
-                        placeholder="Password"
-                        value={state.form.fields.password}
-                        onChange={handleChange}
-                        autoComplete="current-password"
-                    />
+                    <div className="LoginPage__form-input-wrapper">
+                        <input
+                            className={loginState.form.fields.email.className.join(" ")}
+                            name="email"
+                            type="text"
+                            placeholder="Email"
+                            value={loginState.form.fields.email.value}
+                            onChange={(e) => {
+                                const { name, value } = e.currentTarget;
+                                loginDispatch({
+                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE,
+                                    payload: {
+                                        field: name,
+                                        value: value
+                                    }
+                                });
+                                if (!loginState.form.fields[name].isTouched) {
+                                    loginDispatch({
+                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                        payload: {
+                                            field: name,
+                                        }
+                                    });
+                                }
+                            }}
+                            onBlur={(e) => {
+                                loginDispatch({
+                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                    payload: {
+                                        field: e.currentTarget.name,
+                                    }
+                                });
+                            }}
+                            autoComplete="username"
+                        />
+                        {loginState.form.fields.email.error.length > 0 && loginState.form.fields.email.isTouched && (
+                            <p className="LoginPage__form-error">
+                                {loginState.form.fields.email.error}
+                            </p>
+                        )}
+                    </div>
+                    <div className="LoginPage__form-input-wrapper">
+                        <input
+                            className={loginState.form.fields.password.className.join(" ")}
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            value={loginState.form.fields.password.value}
+                            onChange={(e) => {
+                                const { name, value } = e.currentTarget;
+                                loginDispatch({
+                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE,
+                                    payload: {
+                                        field: name,
+                                        value: value
+                                    }
+                                });
+                                if (!loginState.form.fields[name].isTouched) {
+                                    loginDispatch({
+                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                        payload: {
+                                            field: name,
+                                        }
+                                    });
+                                }
+                            }}
+                            onBlur={(e) => {
+                                loginDispatch({
+                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                    payload: {
+                                        field: e.currentTarget.name,
+                                    }
+                                });
+                            }}
+                            autoComplete="current-password"
+                        />
+                        {loginState.form.fields.password.error.length > 0 && loginState.form.fields.password.isTouched && (
+                            <p className="LoginPage__form-error">
+                                {loginState.form.fields.password.error}
+                            </p>
+                        )}
+                    </div>
                     <button
                         className="LoginPage__btn"
-                        disabled={!state.form.options.isFormValid}
+                        disabled={!loginState.form.options.isFormValid}
                     >
                         Sign In
                     </button>
@@ -148,8 +239,22 @@ const LoginPage = () => {
                     <div className="LoginPage__others-wrapper">
                         <p>New to netflix? <Link to="/auth/register">Sign up now</Link>.</p>
                     </div>
-
                 </form>
+
+                <div className="LoginPage__form-state">
+                    {loginMutationInstance.status === "loading" && (
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="sr-only"></span>
+                        </div>
+                    )}
+                    {loginMutationInstance.status === "success" && (
+                        <i className="LoginPage__form-state-success bi bi-check-circle"></i>
+                    )}
+                    {loginMutationInstance.status === "error" && (
+                        <i className="LoginPage__form-state-error bi bi-exclamation-triangle"></i>
+                    )}
+                </div>
+
             </div>
         </div>
     );

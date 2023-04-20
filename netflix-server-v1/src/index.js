@@ -2,15 +2,17 @@ import express from "express";
 import cors from "cors";
 import routerInstance from "./routes.js";
 import connectDB from "./configs/database.config.js";
+import * as dotenv from "dotenv";
+dotenv.config();
 
 const PORT = 5000;
 
 // Configure the server
 const app = express();
 app.use(cors({
-    origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: '*',
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type"]
 }));
 app.use(express.static("public"));
 app.use(express.json());

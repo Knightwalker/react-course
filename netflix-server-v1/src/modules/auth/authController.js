@@ -106,15 +106,12 @@ const loginUser = async (req, res) => {
 
     // Step 3. Create JWT
     const loginResponseModel = {
-        email: user.email
+        id: user._id
     }
-
-    const maxAge = 3 * 24 * 60 * 60 // 3 days
-    const token = jwt.sign({ loginResponseModel: loginResponseModel }, "Keyboard Cats", {
-        expiresIn: maxAge
+    const token = jwt.sign({ loginResponseModel: loginResponseModel }, process.env.JWT_SECRET, {
+      expiresIn: 3 * 24 * 60 * 60 // 3 days
     });
-
-    res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 })
+    
     return res.status(200).send({ token: token, message: "You were verified successfully!" });
 }
 

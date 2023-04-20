@@ -4,7 +4,7 @@ const AuthContext = createContext(null);
 
 const initialUser = {
     email: "",
-    isLoggedin: false
+    isLoggedIn: false
 };
 
 const AuthContextProvider = ({ children }) => {
@@ -13,7 +13,7 @@ const AuthContextProvider = ({ children }) => {
     const handleSetUser = (email) => {
         const user = {
             email: email,
-            isLoggedin: true
+            isLoggedIn: true
         }
         localStorage.setItem("NetflixClone", JSON.stringify(user));
         setUser(user);
