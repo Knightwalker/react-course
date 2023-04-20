@@ -10,6 +10,7 @@ import HomeLayout from "../layouts/HomeLayout/HomeLayout";
 import LandingPage from "../pages/landing/LandingPage/LandingPage";
 import LoginPage from "../pages/auth/LoginPage/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage/RegisterPage";
+import LogoutPage from "../pages/auth/LogoutPage/LogoutPage";
 import HomePage from "../pages/home/HomePage/HomePage";
 
 const routerInstance = createBrowserRouter([
@@ -25,7 +26,8 @@ const routerInstance = createBrowserRouter([
         element: <AuthLayout />,
         children: [
             { path: "/auth/login", element: <LoginPage /> },
-            { path: "/auth/register", element: <RegisterPage /> }
+            { path: "/auth/register", element: <RegisterPage /> },
+            { path: "/auth/logout", element: <LogoutPage /> }
         ]
     },
     {

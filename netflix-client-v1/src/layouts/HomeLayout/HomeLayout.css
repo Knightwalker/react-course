@@ -7,39 +7,7 @@
 .HomeLayout__header {
     background-color: black; /* TODO: improve this */
     color: white; /* TODO: improve this */
-    height: 70px;
     position: relative;
-}
-
-.HomeLayout__nav {
-    align-items: center;
-    display: flex;
-    justify-content: space-between;
-    margin: 10px auto 0px auto;
-    max-width: calc(100% - 3rem);
-    position: absolute;
-    left: 0;
-    right: 0;
-    z-index: 1;
-}
-
-.HomeLayout__logo-a {
-    display: block;
-    width: 100px;
-}
-
-.HomeLayout__logo-img {
-    width: 100%;
-    object-fit: contain;
-}
-
-.HomeLayout__ul {
-    display: flex;
-    list-style: none;
-}
-
-.HomeLayout__ul li {
-    margin: 0px 10px;
 }
 
 .HomeLayout__main {
