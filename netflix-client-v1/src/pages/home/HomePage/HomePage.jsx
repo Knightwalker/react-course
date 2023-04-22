@@ -28,7 +28,7 @@ const HomePage = () => {
     });
 
     const { data: movieData, status: movieStatus } = useQuery({
-        queryKey: ["movies", state.movieId],
+        queryKey: ["movie", state.movieId],
         queryFn: ({ signal }) => getMoviesById(state.movieId, signal),
         enabled: !!state.movieId // Enable the query only if movieId is available
     });
@@ -40,16 +40,16 @@ const HomePage = () => {
             <div className="CarouselComponent">
                 {moviesStatus === "success" && moviesData.map((movie) => {
                     return (
-                        <div key={movie.id}>
+                        <div key={movie._id}>
                             <div>{movie.title}</div>
-                            <button onClick={handleGetMovieById.bind(this, movie.id)}>Get Movie</button>
+                            <button onClick={handleGetMovieById.bind(this, movie._id)}>Get Movie</button>
                         </div>
                     );
                 })}
             </div>
 
             {movieStatus === "success" && (
-                <div>{movieData.id}</div>
+                <div>{movieData.title}</div>
             )}
 
         </div>

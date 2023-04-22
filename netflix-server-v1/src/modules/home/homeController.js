@@ -1,27 +1,35 @@
-import db from "../../db/config.js";
+import MovieModel from "./models/movieModel.js";
 
-const _getMovieById = (id) => {
-    const results = db.data.movies.filter(movie => movie.id === id);
-    if (results.length === 0) {
-        return null;
+const getMovies = async (req, res) => {
+    let movies = [];
+    try {
+        movies = await MovieModel.find({});
+    } catch (error) {
+        console.error("Error getting movies:", error.message);
+        return res.status(500).send({ message: "We encountered a server error", movies: movies });
     }
-    return results[0];
-}
-
-const getAllMovies = async (req, res) => {
-    const movies = db.data.movies;
 
     return res.status(200).send({ movies: movies });
-};
+}
 
 const getMovieById = async (req, res) => {
     const movieId = req.query.id;
-    console.log(movieId);
-    const movie = _getMovieById(movieId);
-    return res.status(200).send({ movie: movie });
+    let movie = null;
+    try {
+        movie = await MovieModel.findById(movieId);
+    } catch (error) {
+        console.error("Error getting movie by ID:", error.message);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+    if (movie) {
+        res.status(200).send({ movie: movie });
+    } else {
+        res.status(404).json({ message: "Movie Not Found" });
+    }
 }
 
 export {
-    getAllMovies,
+    getMovies,
     getMovieById
 }
