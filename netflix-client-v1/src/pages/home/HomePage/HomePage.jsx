@@ -8,7 +8,8 @@ import BillboardComponent from "../../../components/home/BillboardComponent/Bill
 // Services
 import {
     getMovies,
-    getMoviesById
+    getMoviesById,
+    getRandomMovie
 } from "../../../services/HomeService";
 
 const HomePage = () => {
@@ -33,9 +34,16 @@ const HomePage = () => {
         enabled: !!state.movieId // Enable the query only if movieId is available
     });
 
+    const { data: randomMovieData, status: randomMovieStatus } = useQuery({
+        queryKey: ["random-movie"],
+        queryFn: ({ signal }) => getRandomMovie(signal)
+    });
+
     return (
         <div className="HomePage">
-            <BillboardComponent />
+            {randomMovieStatus === "success" && (
+                <BillboardComponent data={randomMovieData} />
+            )}
 
             <div className="CarouselComponent">
                 {moviesStatus === "success" && moviesData.map((movie) => {

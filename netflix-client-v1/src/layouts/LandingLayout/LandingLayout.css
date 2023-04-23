@@ -160,7 +160,7 @@
     }
 }
 
-/* Netflix X Breakpoint (desktops, 960px and up) */
+/* Netflix L Breakpoint (desktops, 960px and up) */
 @media (min-width: 960px) {
     .LandingLayout__logo-a {
         width: 120px;

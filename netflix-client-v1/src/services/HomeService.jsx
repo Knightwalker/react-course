@@ -22,7 +22,19 @@ const getMoviesById = async (id, signal) => {
     return data.movie;
 }
 
+const getRandomMovie = async (signal) => {
+    const res = await fetch(`${BASE_URL}/api/home/random-movie`, {
+        signal: signal
+    });
+    if (!res.ok) {
+        throw new Error(`fetch not ok`);
+    }
+    const data = await res.json();
+    return data.movie;
+}
+
 export {
     getMovies,
     getMoviesById,
+    getRandomMovie
 }
