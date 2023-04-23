@@ -7,6 +7,15 @@ const MovieSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    posterPath: {
+        type: String
+    },
+    trailerPath: {
+        type: String
+    },
+    thumbnailPath: {
+        type: String
+    },
     description: {
         type: String,
     }

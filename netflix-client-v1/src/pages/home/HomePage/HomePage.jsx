@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 // Components
 import BillboardComponent from "../../../components/home/BillboardComponent/BillboardComponent";
+import Carousel from "../../../components/home/Carousel/Carousel";
 
 // Services
 import {
@@ -45,19 +46,19 @@ const HomePage = () => {
                 <BillboardComponent data={randomMovieData} />
             )}
 
-            <div className="CarouselComponent">
-                {moviesStatus === "success" && moviesData.map((movie) => {
-                    return (
-                        <div key={movie._id}>
-                            <div>{movie.title}</div>
-                            <button onClick={handleGetMovieById.bind(this, movie._id)}>Get Movie</button>
-                        </div>
-                    );
-                })}
-            </div>
+            {movieStatus === "success" ? (
+                <div className="text-center">Currently Watching: {movieData.title}</div>
+            ) : (
+                <div>&nbsp;</div>
+            )}
 
-            {movieStatus === "success" && (
-                <div>{movieData.title}</div>
+            {moviesStatus === "success" && (
+                <div className="HomePage__carousel-wrapper">
+                    <Carousel 
+                        movies={moviesData}
+                        cbGetMovieById={handleGetMovieById}
+                    />
+                </div>
             )}
 
         </div>

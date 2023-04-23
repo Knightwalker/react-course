@@ -33,7 +33,7 @@ const BillboardComponent = ({ data }) => {
                 <p className="BillboardComponent__title">{title}</p>
                 <p className="BillboardComponent__description">{description}</p>
                 <div className="BillboardComponent__info-btns-wrapper">
-                    <button className="BillboardComponent__info-btn"><i class="bi bi-info-circle"></i> More info</button>
+                    <button className="BillboardComponent__info-btn"><i className="bi bi-info-circle"></i> More info</button>
                 </div>
             </div>
         </div>
