@@ -1,17 +1,17 @@
 import mongoose from "mongoose";
 
-const connectionString = "mongodb+srv://codegigas:e6ZrTLHCHskAASzn@sandbox.7lffu.mongodb.net/netflix-clone";
-
 const connectDB = async () => {
-  try {
-    await mongoose.connect(connectionString, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log("MongoDB connected...");
-  } catch (error) {
-    console.error("Error connecting to MongoDB:", error.message);
-  }
+    const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING; // This is being loaded runtime. TODO: figure out how to load all env variables asap
+
+    try {
+        await mongoose.connect(DB_CONNECTION_STRING, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+        });
+        console.log("MongoDB connected...");
+    } catch (error) {
+        console.error("Error connecting to MongoDB:", error.message);
+    }
 };
 
 export default connectDB;

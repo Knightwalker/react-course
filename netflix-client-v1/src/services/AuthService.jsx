@@ -1,5 +1,7 @@
 import { ENUM_SERVICE_ERROR_TYPE } from "./enums";
 
+const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+
 class ServiceError extends Error {
     constructor(message, type, status = null) {
         super(message);
@@ -8,15 +10,13 @@ class ServiceError extends Error {
     }
 }
 
-const BASE_URL = "http://localhost:5000";
-
 const postRegister = async (payload) => {
     let response = null;
     let responseData = null;
 
     // Step 1. Networking Layer: Make the request. If it fails, handle network errors.
     try {
-        response = await fetch(`${BASE_URL}/api/auth/register`, {
+        response = await fetch(`${VITE_SERVER_BASE_URL}/api/auth/register`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -52,7 +52,7 @@ const postLogin = async (payload) => {
 
     // Step 1. Networking Layer: Make the request. If it fails, handle network errors.
     try {
-        response = await fetch(`${BASE_URL}/api/auth/login`, {
+        response = await fetch(`${VITE_SERVER_BASE_URL}/api/auth/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

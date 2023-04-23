@@ -5,7 +5,7 @@ import connectDB from "./configs/database.config.js";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const PORT = 5000;
+const PORT = process.env.PORT;
 
 // Configure the server
 const app = express();

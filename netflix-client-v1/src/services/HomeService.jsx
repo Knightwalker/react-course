@@ -1,7 +1,7 @@
-const BASE_URL = "http://localhost:5000";
+const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const getMovies = async (signal) => {
-    const res = await fetch(`${BASE_URL}/api/home/movies`, {
+    const res = await fetch(`${VITE_SERVER_BASE_URL}/api/home/movies`, {
         signal: signal
     });
     if (!res.ok) {
@@ -12,7 +12,7 @@ const getMovies = async (signal) => {
 }
 
 const getMoviesById = async (id, signal) => {
-    const res = await fetch(`${BASE_URL}/api/home/movie?id=${id}`, {
+    const res = await fetch(`${VITE_SERVER_BASE_URL}/api/home/movie?id=${id}`, {
         signal: signal
     });
     if (!res.ok) {
@@ -23,7 +23,7 @@ const getMoviesById = async (id, signal) => {
 }
 
 const getRandomMovie = async (signal) => {
-    const res = await fetch(`${BASE_URL}/api/home/random-movie`, {
+    const res = await fetch(`${VITE_SERVER_BASE_URL}/api/home/random-movie`, {
         signal: signal
     });
     if (!res.ok) {
