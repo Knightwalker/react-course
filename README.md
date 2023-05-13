@@ -26,3 +26,27 @@
 **Back-End**: Node.js, Express.js
 **Databases**: MongoDB
 **ORM/ODM**: Mongoose
+
+## II. Contributing
+### II.1. Commit Message Format
+The `<type>` and `<summary>` fields are mandatory.
+
+#### II.1.1 Commit Message Syntax
+```
+<type>: <short summary>
+  │            │
+  │            └─⫸ Summary in present tense. Not capitalized. No period at the end.
+  │
+  │ 
+  │
+  │
+  │
+  │
+  │
+  └─⫸ Commit Type: materials
+```
+
+#### II.1.2. Type
+Must be one of the following:
+* **materials**: Materials changes for when I prepare lectures, labs, exercises or do CRUD operations on the materials. For example `materials: creates new lecture for ESLint`
+* **fs**: File system changes for when I do CRUD operations on files and folders. For example `fs: renames files & folders at root directory`

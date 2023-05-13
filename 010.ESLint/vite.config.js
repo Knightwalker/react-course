@@ -5,4 +5,7 @@ import path from "path";
 export default defineConfig({
     plugins: [react()],
     root: path.relative(__dirname, ""),
+    server: {
+        port: 3000
+    },
 });
