@@ -6,7 +6,7 @@ import styles from "./Carousel.module.css";
 const Carousel = ({ 
     title = "Trending now", 
     movies = [], 
-    cbGetMovieById = () => { console.log("Please provide a callback function `cbGetMovieById`" )} 
+    cbGetMovieById = () => { console.log("Please provide a callback function `cbGetMovieById`" ); }
 }) => {
     const [offset, setOffset] = useState(0);
     const [progressBarsCount, setProgressBarsCount] = useState(0);
@@ -24,7 +24,7 @@ const Carousel = ({
             arrows.forEach(arrow => {
                 arrow.style.visibility = "visible";
                 arrow.style.opacity = "1";
-            })
+            });
         } else {
             progressBar.style.visibility = "hidden";
             progressBar.style.opacity = "0";
@@ -32,9 +32,9 @@ const Carousel = ({
             arrows.forEach(arrow => {
                 arrow.style.visibility = "hidden";
                 arrow.style.opacity = "0";
-            })
+            });
         }
-    }
+    };
 
     const onArrowClick = (e) => {
         const arrow = e.currentTarget;
@@ -49,12 +49,12 @@ const Carousel = ({
         }
 
         setOffset(newOffset);
-    }
+    };
 
     const calculateProgressBarsCount = (itemsPerSlide) => {
         const newProgressBarsCount = Math.ceil(movies.length / itemsPerSlide);
         setProgressBarsCount(newProgressBarsCount);
-    }
+    };
 
     const calculateMaxItemWidth = (screenSize) => {
         let maxWidthPercentage = 20;
@@ -79,7 +79,7 @@ const Carousel = ({
             return () => {
                 clearTimeout(timer);
                 timer = setTimeout(() => {
-                    calculateMaxItemWidth(window.innerWidth)
+                    calculateMaxItemWidth(window.innerWidth);
                 }, 200);
             };
         };
@@ -132,7 +132,7 @@ const Carousel = ({
                 </button>
             </div>
         </div >
-    )
+    );
 };
 
 export default Carousel;

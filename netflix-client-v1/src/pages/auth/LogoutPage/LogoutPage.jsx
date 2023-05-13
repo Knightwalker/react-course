@@ -18,7 +18,7 @@ const LogoutPage = () => {
 
         return () => {
             window.clearTimeout(id);
-        }
+        };
     }, []);
     
     return (
@@ -26,7 +26,7 @@ const LogoutPage = () => {
             Welcome to LogoutPage
             TODO: Leaving so soon? You will be logged out in 30 seconds.
         </div>
-    )
-}
+    );
+};
 
 export default LogoutPage;

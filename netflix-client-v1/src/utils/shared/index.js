@@ -6,4 +6,4 @@ const wait = (ms) => {
 
 export {
     wait
-}
+};

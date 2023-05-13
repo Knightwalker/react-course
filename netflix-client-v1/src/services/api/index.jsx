@@ -31,12 +31,12 @@ const useQuery = () => {
                 return reject(err);
             }
         });
-    }
+    };
 
     const cancelRequest = () => {
         isMounted.current = false;
         abortControllerInstance.current.abort("isCancelled");
-    }
+    };
 
     return [makeRequest, cancelRequest];
 };
@@ -75,12 +75,12 @@ const useMutate = () => {
                 return reject(err);
             }
         });
-    }
+    };
 
     const cancelRequest = () => {
         isMounted.current = false;
         abortControllerInstance.current.abort("isCancelled");
-    }
+    };
 
     return [makeRequest, cancelRequest];
 };

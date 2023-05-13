@@ -26,4 +26,4 @@ function isPasswordValid(password) {
 export {
     isEmailValid,
     isPasswordValid
-}
+};

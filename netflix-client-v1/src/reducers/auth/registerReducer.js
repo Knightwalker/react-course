@@ -77,9 +77,9 @@ const registerReducer = (oldState, action) => {
     } else {
         return oldState;
     }
-}
+};
 
 export {
     registerReducer,
     registerInitialState
-}
+};

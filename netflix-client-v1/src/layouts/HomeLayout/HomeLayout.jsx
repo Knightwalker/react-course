@@ -18,7 +18,7 @@ const HomeLayout = () => {
             </main>
             <footer className="HomeLayout__footer"></footer>
         </div>
-    )
-}
+    );
+};
 
 export default HomeLayout;

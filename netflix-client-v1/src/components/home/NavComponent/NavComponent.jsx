@@ -19,12 +19,12 @@ const NavComponent = () => {
             } else {
                 setShowBackground(false);
             }
-        }
+        };
         window.addEventListener("scroll", handleScroll);
 
         return () => {
             window.removeEventListener("scroll", handleScroll);
-        }
+        };
     }, []);
 
     return (
@@ -68,7 +68,7 @@ const NavComponent = () => {
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
 export default NavComponent;

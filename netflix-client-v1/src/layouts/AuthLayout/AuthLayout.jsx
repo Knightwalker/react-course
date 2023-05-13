@@ -20,6 +20,6 @@ const AuthLayout = () => {
             </main>
         </div>
     );
-}
+};
 
 export default AuthLayout;

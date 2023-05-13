@@ -44,7 +44,7 @@ const postRegister = async (payload) => {
 
     // Step 4. Application Layer: Handle successful response status codes (within the range of 200-299).
     return responseData;
-}
+};
 
 const postLogin = async (payload) => {
     let response = null;
@@ -80,7 +80,7 @@ const postLogin = async (payload) => {
 
     // Step 4. Application Layer: Handle successful response status codes (within the range of 200-299).
     return responseData;
-}
+};
 
 const postRegisterErrorHandler = (error) => {
     console.error(error.message);
@@ -102,7 +102,7 @@ const postRegisterErrorHandler = (error) => {
         // Handle other unknown errors. (I'm not sure if we can ever hit such a case at this level)
         console.error("We have encountered an unknown error. If this persists, please contact support.");
     }
-}
+};
 
 const postLoginErrorHandler = (error) => {
     console.error(error.message);
@@ -124,11 +124,11 @@ const postLoginErrorHandler = (error) => {
         // Handle other unknown errors. (I'm not sure if we can ever hit such a case at this level)
         console.error("We have encountered an unknown error. If this persists, please contact support.");
     }
-}
+};
 
 export {
     postRegister,
     postRegisterErrorHandler,
     postLogin,
     postLoginErrorHandler
-}
+};

@@ -15,7 +15,7 @@ const LandingLayout = () => {
 
     const handleClick = () => {
         navigate("/auth/login");
-    }
+    };
 
     const handleSubmit = (email) => {
         navigate("/auth/register", {
@@ -23,7 +23,7 @@ const LandingLayout = () => {
                 email: email
             }
         });
-    }
+    };
 
     return (
         <div className="LandingLayout">
@@ -87,7 +87,7 @@ const LandingLayout = () => {
                 </div>
             </footer>
         </div>
-    )
-}
+    );
+};
 
 export default LandingLayout;

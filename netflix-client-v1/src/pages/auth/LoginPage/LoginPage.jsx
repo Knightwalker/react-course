@@ -1,6 +1,6 @@
 // Libs
 import { useContext, useReducer, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 // Context
@@ -55,7 +55,7 @@ const LoginPage = () => {
         // Step 4. Navigate to home module
         await wait(500);        
         navigate("/browse");
-    }
+    };
 
     const validateFields = () => {
         let fields = {
@@ -65,7 +65,7 @@ const LoginPage = () => {
             password: {
                 isValid: false
             }
-        }
+        };
         let isFormValid = false;
 
         for (const field in fields) {
@@ -119,7 +119,7 @@ const LoginPage = () => {
                 isFormValid: isFormValid
             }
         });
-    }
+    };
 
     useEffect(() => {
         validateFields();
@@ -258,6 +258,6 @@ const LoginPage = () => {
             </div>
         </div>
     );
-}
+};
 
 export default LoginPage;

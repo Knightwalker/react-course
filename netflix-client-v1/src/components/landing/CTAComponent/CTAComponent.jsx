@@ -34,7 +34,7 @@ const CTAComponent = ({
                 return {
                     ...prevClassNames,
                     "CTAComponent__form-input": ["CTAComponent__form-input", "error"]
-                }
+                };
             });
             setIsValidEmail(false);
             return;
@@ -45,7 +45,7 @@ const CTAComponent = ({
             return {
                 ...prevClassNames,
                 "CTAComponent__form-input": ["CTAComponent__form-input", "success"]
-            }
+            };
         });
     }, [email]);
 

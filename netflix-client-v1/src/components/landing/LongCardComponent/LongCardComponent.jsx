@@ -1,4 +1,3 @@
-import React from "react";
 import "./LongCardComponent.css";
 
 function LongCardComponent(props) {
@@ -33,7 +32,7 @@ function LongCardComponent_watchOnTvEl(props) {
                 <source src={import.meta.env.BASE_URL + videoPath} type="video/mp4" />
             </video>
         </div>
-    )
+    );
 }
 
 export default LongCardComponent;

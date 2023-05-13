@@ -18,7 +18,7 @@ const CarouselProgressBar = ({ progress, setProgress, progressBarsCount }) => {
                 />
             ))}
         </div >
-    )
-}
+    );
+};
 
 export default CarouselProgressBar;

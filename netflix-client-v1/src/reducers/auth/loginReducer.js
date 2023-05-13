@@ -77,9 +77,9 @@ const loginReducer = (oldState, action) => {
     } else {
         return oldState;
     }
-}
+};
 
 export {
     loginReducer,
     loginInitialState
-}
+};

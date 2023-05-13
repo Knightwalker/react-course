@@ -38,6 +38,6 @@ const BillboardComponent = ({ data }) => {
             </div>
         </div>
     );
-}
+};
 
 export default BillboardComponent;

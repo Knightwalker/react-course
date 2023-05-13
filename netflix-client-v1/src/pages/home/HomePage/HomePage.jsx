@@ -22,7 +22,7 @@ const HomePage = () => {
         setState({
             movieId: movieId
         });
-    }
+    };
 
     const { data: moviesData, status: moviesStatus } = useQuery({
         queryKey: ["movies"],
@@ -62,7 +62,7 @@ const HomePage = () => {
             )}
 
         </div>
-    )
-}
+    );
+};
 
 export default HomePage;

@@ -63,7 +63,7 @@ const RegisterPage = () => {
             confirmPassword: {
                 isValid: false
             }
-        }
+        };
         let isFormValid = false;
 
         for (const field in fields) {

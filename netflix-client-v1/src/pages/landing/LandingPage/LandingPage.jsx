@@ -49,7 +49,7 @@ const LandingPage = () => {
                 <AccordionComponent data={accordionComponentData} />
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default LandingPage;

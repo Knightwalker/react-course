@@ -22,7 +22,7 @@ const CarouselItem = ({ _id, title, thumbnailPath, itemMaxWidth, cbGetMovieById 
             />
             <h4>{title}</h4>
         </div>
-    )
-}
+    );
+};
 
 export default CarouselItem;

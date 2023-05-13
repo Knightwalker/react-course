@@ -7,7 +7,7 @@ import "./AccordionComponent.css";
 
 function AccordionComponent({ data }) {
     const [bItemsAreToggled, setItemsAreToggled] = useState(() => {
-        let obj = {}
+        let obj = {};
         for (let i = 0; i < data.length; i++) {
             let key = data[i].id;
             obj[key] = false;
@@ -18,12 +18,12 @@ function AccordionComponent({ data }) {
     const toggleItem = (id) => {
         setItemsAreToggled((prevState) => {
             let currentChange = !prevState[id];
-            let newState = { ...prevState }
+            let newState = { ...prevState };
             for (let key in newState) { newState[key] = false; }
             newState[id] = currentChange;
             return newState;
-        })
-    }
+        });
+    };
 
     return (
         <ul className="AccordionComponent">
@@ -46,7 +46,7 @@ function AccordionComponent({ data }) {
                 </li>
             ))}
         </ul>
-    )
+    );
 }
 
 export default AccordionComponent;

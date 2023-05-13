@@ -16,7 +16,7 @@ const AuthContextProvider = ({ children }) => {
             email: email,
             token: token,
             isLoggedIn: true
-        }
+        };
         localStorage.setItem("NetflixClone", JSON.stringify(user));
         setUser(user);
     };
@@ -24,7 +24,7 @@ const AuthContextProvider = ({ children }) => {
     const handleLogoutUser = () => {
         setUser(initialUser);
         localStorage.clear("NetflixClone");
-    }
+    };
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("NetflixClone"));
@@ -44,8 +44,10 @@ const AuthContextProvider = ({ children }) => {
         }}>
             {children}
         </AuthContext.Provider>
-    )
-}
+    );
+};
 
 export default AuthContextProvider;
-export { AuthContext }
+export { 
+    AuthContext 
+};

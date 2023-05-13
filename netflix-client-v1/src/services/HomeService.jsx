@@ -9,7 +9,7 @@ const getMovies = async (signal) => {
     }
     const data = await res.json();
     return data.movies;
-}
+};
 
 const getMoviesById = async (id, signal) => {
     const res = await fetch(`${VITE_SERVER_BASE_URL}/api/home/movie?id=${id}`, {
@@ -20,7 +20,7 @@ const getMoviesById = async (id, signal) => {
     }
     const data = await res.json();
     return data.movie;
-}
+};
 
 const getRandomMovie = async (signal) => {
     const res = await fetch(`${VITE_SERVER_BASE_URL}/api/home/random-movie`, {
@@ -31,10 +31,10 @@ const getRandomMovie = async (signal) => {
     }
     const data = await res.json();
     return data.movie;
-}
+};
 
 export {
     getMovies,
     getMoviesById,
     getRandomMovie
-}
+};
