@@ -1,17 +1,9 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-
 const App = () => {
     return (
-        <div>
-            Hello World!
+        <div className="App">
+            <h1>Hello World!</h1>
         </div>
     );
 };
 
-const root = createRoot(document.getElementById("root"));
-root.render(
-    <React.StrictMode>
-        <App />
-    </React.StrictMode>
-);
+export default App;
