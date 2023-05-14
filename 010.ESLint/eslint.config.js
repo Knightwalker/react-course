@@ -22,22 +22,26 @@ const config = [
             ...js.configs.recommended.rules,
             "no-duplicate-imports": "warn",
             "no-unused-vars": "warn",
-            "capitalized-comments": ["warn", "never"],
             "semi": ["warn", "always"],
             "eqeqeq": "warn"
         }
     },
-    {
+    { 
         files: ["src/**/*.{jsx,tsx}"],
         languageOptions: {
             parserOptions: {
-                ecmaFeatures: eslintPluginReact.configs.recommended.parserOptions.ecmaFeatures
+                ecmaFeatures: {
+                    jsx: true
+                }
             }
         },
         plugins: {
             react: eslintPluginReact
         },
-        rules: eslintPluginReact.configs.recommended.rules,
+        rules: { 
+            ...eslintPluginReact.configs.recommended.rules,
+            ...eslintPluginReact.configs["jsx-runtime"].rules
+        },
         settings: {
             react: {
                 version: "detect"
