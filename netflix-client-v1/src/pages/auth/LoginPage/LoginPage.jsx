@@ -31,7 +31,7 @@ const LoginPage = () => {
         mutationFn: postLogin
     });
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         // Step 1. Prepare data

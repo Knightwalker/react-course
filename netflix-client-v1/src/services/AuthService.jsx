@@ -10,7 +10,7 @@ class ServiceError extends Error {
     }
 }
 
-const postRegister = async (payload) => {
+const postRegister = async(payload) => {
     let response = null;
     let responseData = null;
 
@@ -46,7 +46,7 @@ const postRegister = async (payload) => {
     return responseData;
 };
 
-const postLogin = async (payload) => {
+const postLogin = async(payload) => {
     let response = null;
     let responseData = null;
 

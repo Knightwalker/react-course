@@ -28,7 +28,7 @@ const RegisterPage = () => {
         mutationFn: postRegister
     });
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         // Step 1. Prepare data
@@ -130,6 +130,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         validateFields();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         registerState.form.fields.email.value,
         registerState.form.fields.password.value,

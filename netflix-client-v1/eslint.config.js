@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import globals from "globals";
 import eslintPluginReact from "eslint-plugin-react";
+import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 
 const config = [
     {
@@ -20,10 +21,23 @@ const config = [
         },
         rules: {
             ...js.configs.recommended.rules,
+            // Possible Problems
             "no-duplicate-imports": "warn",
             "no-unused-vars": "warn",
+            // Suggestions
+            "eqeqeq": "warn",
+            "yoda": "warn",
+            // Layout & Formatting
             "semi": ["warn", "always"],
-            "eqeqeq": "warn"
+            "semi-spacing": ["warn", { "before": false, "after": true }],
+            "semi-style": ["warn", "last"],
+            "space-before-blocks": ["error", "always"],
+            "space-before-function-paren": ["warn", "never"],
+            "space-infix-ops": ["warn", { "int32Hint": false }],
+            "space-unary-ops": ["warn", { "words": true, "nonwords": false }],
+            "switch-colon-spacing": "warn",
+            "template-curly-spacing": ["warn", "never"],
+            "wrap-regex": "warn",
         }
     },
     {
@@ -36,11 +50,14 @@ const config = [
             }
         },
         plugins: {
-            react: eslintPluginReact
+            react: eslintPluginReact,
+            "react-hooks": eslintPluginReactHooks
         },
-        rules: { 
+        rules: {
             ...eslintPluginReact.configs.recommended.rules,
-            ...eslintPluginReact.configs["jsx-runtime"].rules
+            ...eslintPluginReact.configs["jsx-runtime"].rules,
+            "react/prop-types": 0,
+            ...eslintPluginReactHooks.configs.recommended.rules
         },
         settings: {
             react: {
