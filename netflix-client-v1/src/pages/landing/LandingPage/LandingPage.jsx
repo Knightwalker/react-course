@@ -17,18 +17,18 @@ import accordionComponentData from "../../../data/landing/accordionComponentData
 import "./LandingPage.css";
 
 const LandingPage = () => {
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const { user } = useContext(AuthContext);
 
     useEffect(() => {
         if (user.isLoggedIn) {
             navigate("/browse");
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user.isLoggedIn]);
 
     return (
         <div className="LandingPage">
-
             <div className="LandingPage__LongCardComponent-wrapper">
                 {longCardComponentData.map((item, idx) => (
                     <LongCardComponent

@@ -2,6 +2,7 @@ import js from "@eslint/js";
 import globals from "globals";
 import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
+import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 
 const config = [
     {
@@ -22,6 +23,7 @@ const config = [
         rules: {
             ...js.configs.recommended.rules,
             // Possible Problems
+            "no-debugger": "warn", // overrides a default recommended rule
             "no-duplicate-imports": "warn",
             "no-unused-vars": "warn",
             // Suggestions
@@ -51,13 +53,15 @@ const config = [
         },
         plugins: {
             react: eslintPluginReact,
-            "react-hooks": eslintPluginReactHooks
+            "react-hooks": eslintPluginReactHooks,
+            "jsx-a11y": eslintPluginJsxA11y
         },
         rules: {
             ...eslintPluginReact.configs.recommended.rules,
             ...eslintPluginReact.configs["jsx-runtime"].rules,
-            "react/prop-types": 0,
-            ...eslintPluginReactHooks.configs.recommended.rules
+            "react/prop-types": "off",
+            ...eslintPluginReactHooks.configs.recommended.rules,
+            ...eslintPluginJsxA11y.configs.recommended.rules
         },
         settings: {
             react: {
