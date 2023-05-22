@@ -1,0 +1,16 @@
+{
+  "name": "redux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "start": "vite dev"
+  },
+  "dependencies": {
+    "redux": "^4.2.1",
+    "vite": "^4.3.8"
+  }
+}
