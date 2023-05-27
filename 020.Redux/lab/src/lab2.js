@@ -1,4 +1,8 @@
-import { createStore, combineReducers } from "redux";
+import { 
+    createStore, 
+    combineReducers,
+    bindActionCreators
+} from "redux";
 
 // Create initial state
 const initialState = {
@@ -12,12 +16,14 @@ const initialState = {
     ]
 };
 
+// Action types enum
 const ACTION_TYPES = {
     LOGIN: "LOGIN",
     LOGOUT: "LOGOUT",
     ADD_MOVIE: "ADD_MOVIE"
 }
 
+// Action Creator
 const loginAction = (username) => {
     return {
         type: ACTION_TYPES.LOGIN,
@@ -27,6 +33,7 @@ const loginAction = (username) => {
     }
 }
 
+// Action Creator
 const logoutAction = () => {
     return {
         type: ACTION_TYPES.LOGOUT

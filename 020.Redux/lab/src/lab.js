@@ -6,17 +6,23 @@ const initialState = {
     isLoggedIn: false
 };
 
+// Action types enum
+const ACTION_TYPES = {
+    USER_LOGGED_IN: "USER_LOGGED_IN",
+    USER_LOGGED_OUT: "USER_LOGGED_OUT"
+}
+
 // Create a reducer function
 const reducer = (state, action) => {
-    if (action.type === "LOGIN") {
+    if (action.type === ACTION_TYPES.USER_LOGGED_IN) {
         const { username } = action.payload;
-        
-        return { 
+
+        return {
             ...state,
             username: username,
             isLoggedIn: true
         };
-    } else if (action.type === "LOGOUT") {
+    } else if (action.type === ACTION_TYPES.USER_LOGGED_OUT) {
         return {
             ...state,
             username: "",
@@ -29,20 +35,17 @@ const reducer = (state, action) => {
 // Create global state (store)
 const store = createStore(reducer, initialState);
 
-// Action Creator
-const loginAction = (username) => {
-    return {
-        type: "LOGIN",
-        payload: {
-            username: username
-        }
+// Action with payload
+const loginAction = {
+    type: "USER_LOGGED_IN",
+    payload: {
+        username: "Gosho"
     }
 }
 
-const logoutAction = () => {
-    return {
-        type: "LOGOUT"
-    }
+// Basic action
+const logoutAction = {
+    type: "USER_LOGGED_OUT"
 }
 
 // Subscribe to changes
@@ -50,6 +53,6 @@ store.subscribe(() => {
     console.log(store.getState());
 });
 
-// Dispatch changes with `Action Creator` function
-store.dispatch(loginAction("Gosho"));
-store.dispatch(logoutAction());
+// Dispatch actions
+store.dispatch(loginAction);
+store.dispatch(logoutAction);
