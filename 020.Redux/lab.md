@@ -39,7 +39,7 @@ However, `createStore` returns an object, which has 4 more.
 
 So technically, there is a grand total of 9, but that is the entire surface area of the Redux API.
 
-#### 2. Redux Basics
+#### 2. Redux Basics (State Management)
 ##### The Global State
 Alright, the official documentation states:
 
@@ -53,7 +53,7 @@ Basically, when our application is simple, there'd be no need for **Redux** at a
 
 Redux is simply that: a solution for storing, updating, and reading application state outside of your components.
 
-##### Redux API: createStore
+##### The Store
 When using **Redux**, we create a single object called a "store", which stores our application state. There is a top-level method called `createStore()` which creates and returns a store object, that's responsible for the entire state of your application. 
 
 Let's go ahead an create a store
