@@ -31,9 +31,9 @@ const loginAction = (username) => {
 store.dispatch(loginAction("Gosho"));
 ```
 
-This is just a plain old JavaScript function, but the approach in general is considered "Good Practice", because in our business logic, from our controller, we would like to fire `dispatch` calls, with specific actions, hiding away the complexity of the implementation. Plus, if we refactor down the road, this thin layer of abstraction means we have fewer changes to make.
+This is just a plain old JavaScript function, but the approach in general is considered **Good Practice**, because in our business logic, from our controller, we would like to fire `dispatch` calls, with specific actions, hiding away the implementation details. Plus, if we refactor down the road, this thin layer of abstraction means we have fewer changes to make.
 
-Q: Can we take this a step further? What do you think can be further improved?
+Q: Can we take this a step further? What do you think can be further improved? Can we abstract more?
 A1: Arguably the `store.dispatch()` part is another unnecessary coupling.
 A2: Maybe it's a good idea to group common functionality, inside a single package, like `userActions`
 
@@ -52,7 +52,7 @@ const loggedInAction = (username) => {
   };
 };
 
-const loggedOutAction = (username) => {
+const loggedOutAction = () => {
   return {
     type: "USER_LOGGED_OUT"
   };

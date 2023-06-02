@@ -5,7 +5,7 @@ Before we dive into **Redux**, we need to say a few words about **state manageme
 Traditionally, **state management** in front-end applications was handled through local component state. Each component would have it's own state, and data would be passed down through props from parent to child components. While this approach can work well for small applications, it becomes challenging to maintain and synchronize state as the application grows.
 
 Let's be explicit and highlight the problems:
-- Shared State & State Synchronization: As we already said, without proper state management, passing state through props can become cumbersome and result in deeply nested prop chains. Also when different components often need the same data or respond to changes in the state and it can become difficult to keep everything in sync.
+- Shared State & State Synchronization: Without proper state management, passing state through props can become cumbersome and result in deeply nested prop chains. Also when different components often need the same data or respond to changes in the state and it can become difficult to keep everything in sync.
 - Predictable Data Flow: In a large application without a structured approach to state management, data flow can become convoluted. State management libraries typically follow a unidirectional data flow, where state changes are made through actions or events. This approach makes it easier to understand and reason about how the state is updated, leading to more predictable behavior.
 - Complex State Updates: State management libraries provide mechanisms to handle complex state updates, such as merging partial state updates, handling asynchronous operations, or managing derived state. They offer features like reducers, middleware, and selectors that facilitate efficient and structured state updates.
 - Performance Optimization: Rerendering components unnecessarily can lead to decreased performance. State management libraries often employ techniques like immutability and change detection to optimize rerendering.
@@ -17,7 +17,7 @@ The documentation also preaches about having a `single source of truth`, basical
 In conclusion, **State Management** is a key component in modern front-end applications and **Redux** is all about that.
 
 ##### What is Redux?
-**Redux** is a predictable state container for JavaScript apps. It helps you write applications that behave consistently, run in different environments (client, server, and native), and are easy to test. The **state management** solution can be used with any view library, but it's commonly paired with **React**.
+**Redux** is a predictable, centralized state container for JavaScript apps. It is a **state management** solution that that can be used with any view library, but it's commonly paired with **React**. It can also run can also run in different environments (client, server, and native), and is easy to test.
 
 ##### Redux API
 The Redux API is relatively small, it only has 5 functions.
@@ -67,7 +67,7 @@ const store = createStore();
 This will blow up, but you can see a helpful error in the console, which basically says that this method takes a `reducer` function as a required argument.
 
 Q: So what is a `reducer`?
-A1: In Redux, a `reducer` basically is a pure function, where 2 things go in, the state of our application and things that happen (e.g. users click buttons, network request comes back, updates happen, so on and so forth), things happen, which dispatch events, so you get the state of the application, which is a JavaScript object, you take an event, dispatched by a thing that happend, which is a JavaScript object and they both go in there together, but only one thing comes out, a new state of the application.
+A1: In Redux, a `reducer` basically is a pure function, where 2 things go in, the state of our application and things that happen (e.g. users click buttons, network request comes back, updates happen, so on and so forth), things happen, which dispatch events and we recieve them. So, you get the state of the application, which is a JavaScript object, you take an event, dispatched by a thing that happend, which is a JavaScript object and they both go in there together, but only one thing comes out, a new state of the application.
 
 That's the job of the reducer. It's just a function, which takes 2 parameters: the current state of the application and an action. It does what it does, but in the end it returns one thing: the new state of the application.
 
@@ -128,9 +128,9 @@ const action = {
 **Reducer**
 Let's imagine that we own a small family store in a town and that occasionally we learn news about things that happend. (We either read newspapers or watch TV news) either way we get "news report" and if we can call that an action, then a reducer is the person reading the report and choosing if they want to change anything in the store they own, according to the news they learned.
 
-So what is a reducer in Redux terms? It's just a plain old function you write that takes the current state, and the action to be processed, and returns the new state. For example, let's say a login action comes in and we would like to handle it.
+So what is a reducer in Redux terms? It's just a plain old function you write that takes 2 things (the current state and the action to be processed) and returns the new state. For example, let's say an action comes in, saying that a used logged in, we would then like to update our state to reflect that the user did log in.
 
-Let's update our reducer.
+Let's see how this happens. Let's update our reducer.
 
 ```js
 const reducer = (state, action) => {
@@ -147,7 +147,7 @@ const reducer = (state, action) => {
 };
 ```
 
-You'll notice that we're creating a brand new object rather than mutating the existing one. That's how it works, Redux should take care to figure out the differences, but if we have a change, we must always provide a brand new state object. 
+You'll notice that we're creating a brand new object rather than mutating the existing one. That's how it works in Redux, we cannot mutate the state, we must always provide a brand new state object. Redux should take care to figure out the differences.
 
 When we handle the `action.type`, it doesn't matter if we use `if-else` or `switch`, all it matters is to check if we should act and update, otherwise we must return the old state. Basically a reducer should always return the state, even if you didn't change it, and even if it's just `null`. You may not return `undefined`.
 
@@ -176,7 +176,7 @@ This is the only way to trigger a state change. The store's reducing function wi
 
 So far so good, but how does the UI layer know if the state was modified? For example in React we don't want to call `store.getState()`, but instead we want the store to tell us when it's state is changed and pass different props down the components tree.
 
-Well, we just hinted it and the answer is **change listeners**. The store has a `subscribe()` method, which works like registering an event listener with `addEventListener()`, except that there is not corresponding `store.unsubscribe()` method. Instead, `store.subscribe()` returns a function that you can call to cancel the subscription.
+Well, we just hinted it, with **change listeners**. The store has a `subscribe()` method, which works like registering an event listener with `addEventListener()`, except that there is not corresponding `store.unsubscribe()` method. Instead, `store.subscribe()` returns a function that you can call to cancel the subscription.
 
 Let's see a basic example
 
@@ -211,10 +211,16 @@ So far, we've covered 3 of the 4 methods on a Redux store, leaving out only `rep
 You now understand the very basics of Redux.
 
 **Section Summary**
+Recap on what we learned
+- Theory: Redux, state management
+- Redux API: `createStore()`
+- The returned store object: `getState()`, `dispatch(action)`, `subscribe(listener)`, `unsubscribe()`
+
 Recap on rules:
-- Reducers must always return the state, even if you didn't change it, and even if it's just `null`. You may not return `undefined`.
+- Actions must contain a `type` property of data type `string`. Otherwise some Redux functionality and plugins, like time trave debugging, might break.
+- Reducers must always return the state, even if you didn't change it, and even if it's just `null`. You can't return `undefined`.
 
 Recap on conventions:
-- Actions should report a "thing that happened", so `type` keys should be in "past tense". For action `type` values, we use **SCREAMING_SNAKE_CASE**. Actions could contain data and the good practice is to pass the data as a `payload` property.
+- Actions should report a "thing that happened", so `type` keys should be in "past tense". For action `type` values, we use **SCREAMING_SNAKE_CASE**, since they are supposed to be a const. Optionally actions could contain data and the good practice is to pass the data in the `payload` property.
 
 Rules are mandatory, but following conventions will make it easier for other folks who are familiar with Redux to make sense of your code.
