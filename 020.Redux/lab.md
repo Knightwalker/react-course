@@ -189,7 +189,7 @@ const unsubscribe = store.subscribe(subscriber);
 
 // Basic dispatch
 store.dispatch({
-  type: "LOGIN",
+  type: "USER_LOGGED_IN",
   payload: {
     username: "Gosho",
   },
@@ -198,7 +198,7 @@ store.dispatch({
 unsubscribe();
 
 store.dispatch({
-  type: "LOGIN",
+  type: "USER_LOGGED_IN",
   payload: {
     username: "Pesho",
   },
@@ -212,15 +212,14 @@ You now understand the very basics of Redux.
 
 **Section Summary**
 Recap on what we learned
-- Theory: Redux, state management
-- Redux API: `createStore()`
-- The returned store object: `getState()`, `dispatch(action)`, `subscribe(listener)`, `unsubscribe()`
+- Theory: Redux, State Management with Redux
+- Redux API: `createStore()` with all returned functions from the store object, `getState()`, `dispatch(action)`, `subscribe(listener)`, `unsubscribe()`
 
 Recap on rules:
 - Actions must contain a `type` property of data type `string`. Otherwise some Redux functionality and plugins, like time trave debugging, might break.
 - Reducers must always return the state, even if you didn't change it, and even if it's just `null`. You can't return `undefined`.
 
 Recap on conventions:
-- Actions should report a "thing that happened", so `type` keys should be in "past tense". For action `type` values, we use **SCREAMING_SNAKE_CASE**, since they are supposed to be a const. Optionally actions could contain data and the good practice is to pass the data in the `payload` property.
+- Actions should report a "thing that happened", so `type` keys should be in "past tense". For action `type` values, we use **SCREAMING_SNAKE_CASE**. Optionally actions could contain data, passed in a property called `payload`.
 
 Rules are mandatory, but following conventions will make it easier for other folks who are familiar with Redux to make sense of your code.

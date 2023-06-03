@@ -167,12 +167,12 @@ const moviesReducer = (moviesState = initialState.movies, action) => {
     return moviesState;
 }
 
-const combinedReducers = combineReducers({
+const combinedReducer = combineReducers({
     user: userReducer,
     movies: moviesReducer
 });
 
-const anotherStore = createStore(combinedReducers);
+const anotherStore = createStore(combinedReducer);
 
 console.log("anotherStore init: getState()", anotherStore.getState());
 anotherStore.dispatch(loggedInAction("Gosho"));
