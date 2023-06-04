@@ -1,0 +1,14 @@
+.LandingPage__LongCardComponent-wrapper {
+    margin-bottom: 72px;
+}
+
+.LandingPage__FAQ-wrapper {
+    max-width: 815px;
+    margin: 0px auto;
+    text-align: center;
+}
+
+.LandingPage__FAQ {
+    font-size: 3rem;
+    font-weight: 900;
+}

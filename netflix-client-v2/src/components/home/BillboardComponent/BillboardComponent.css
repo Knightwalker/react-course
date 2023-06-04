@@ -1,0 +1,72 @@
+.BillboardComponent {
+    position: relative;
+    background-color: black;
+    height: 56.25vw;
+    width: 100%;
+    color: white;
+}
+
+.BillboardComponent__video {
+    height: 100%;
+    width: 100%;
+    filter: brightness(.60);
+    object-fit: cover;
+}
+
+.BillboardComponent__info {
+    position: absolute;
+    top: 30%;
+    margin-left: 1rem;
+    width: 36%;
+}
+
+.BillboardComponent__title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+    margin: 0px;
+}
+
+.BillboardComponent__description {
+    font-size: 8px;
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+    margin: 0.5vw 0 0.5vw 0;
+}
+
+.BillboardComponent__info-btns-wrapper {
+    display: flex;
+    justify-items: center;
+    gap: 3px;
+}
+
+.BillboardComponent__info-btn {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(109, 109, 110, 0.7);
+    border: 0;
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 8px 16px;
+    gap: 6px;
+}
+
+.BillboardComponent__info-btn:hover {
+    background-color: rgba(109, 109, 110, 0.4);
+}
+
+/* Netflix L Breakpoint (desktop, 960px and up) */
+@media (min-width: 960px) {
+    .BillboardComponent__info {
+        position: absolute;
+        top: 40%;
+        margin-left: 4rem;
+    }
+    .BillboardComponent__title {
+        font-size: 3rem;
+    }
+    .BillboardComponent__description {
+        font-size: 1.125rem;
+    }
+}
