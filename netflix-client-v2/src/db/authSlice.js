@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+import { postRegister } from "../services/AuthService";
 
 const initialState = {
     user: {
@@ -24,10 +25,20 @@ const authSlice = createSlice({
             state.user.token = initialState.user.token;
             state.user.isLoggedIn = initialState.user.isLoggedIn;
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(postRegister.fulfilled, (state, action) => {
+            return action.payload;
+        });
     }
 });
 
 const { userLoggedIn, userLoggedOut } = authSlice.actions;
+
+const useSelectAuth = () => {
+    const auth = useSelector(state => state.auth);
+    return auth;
+}
 
 const useSelectUser = () => {
     const user = useSelector(state => state.auth.user);
@@ -38,5 +49,6 @@ export default authSlice;
 export { 
     userLoggedIn,
     userLoggedOut,
+    useSelectAuth,
     useSelectUser
 };

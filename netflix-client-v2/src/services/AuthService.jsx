@@ -1,3 +1,4 @@
+import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ENUM_SERVICE_ERROR_TYPE } from "./enums";
 
 const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -10,7 +11,7 @@ class ServiceError extends Error {
     }
 }
 
-const postRegister = async(payload) => {
+const postRegister = createAsyncThunk("auth/postRegister", async (payload) => {
     let response = null;
     let responseData = null;
 
@@ -44,7 +45,7 @@ const postRegister = async(payload) => {
 
     // Step 4. Application Layer: Handle successful response status codes (within the range of 200-299).
     return responseData;
-};
+});
 
 const postLogin = async(payload) => {
     let response = null;

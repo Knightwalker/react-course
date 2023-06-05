@@ -9,7 +9,7 @@ const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
     const dispatch = useDispatch();
-    
+
     const handleSetUser = (email, token) => {
         const user = {
             email: email,

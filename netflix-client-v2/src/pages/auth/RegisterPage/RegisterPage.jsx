@@ -1,7 +1,7 @@
 // Libs
-import { useEffect, useReducer } from "react";
+import { useEffect, useState, useReducer } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 
 // Reducers
 import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
@@ -20,16 +20,16 @@ import { postRegister, postRegisterErrorHandler } from "../../../services/AuthSe
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
-
-    const registerMutationInstance = useMutation({
-        mutationFn: postRegister
-    });
+    const [postRegisterStatus, setPostRegisterStatus] = useState("INIT"); // "INIT", "LOADING", "SUCCESS", "ERROR"
+    const [postRegisterError, setPostRegisterError] = useState(null);
 
     const handleSubmit = async(e) => {
         e.preventDefault();
+        setPostRegisterStatus("LOADING");
 
         // Step 1. Prepare data
         const payload = {
@@ -40,8 +40,11 @@ const RegisterPage = () => {
 
         // Step 2. Send POST request to BE
         try {
-            await registerMutationInstance.mutateAsync(payload);
+            await dispatch(postRegister(payload)).unwrap();
+            setPostRegisterStatus("SUCCESS");
         } catch (error) {
+            setPostRegisterStatus("ERROR");
+            setPostRegisterError(error);
             postRegisterErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         }
@@ -156,9 +159,9 @@ const RegisterPage = () => {
         <div className="RegisterPage">
             <div className="RegisterPage__form-wrapper">
                 <h1>Sign Up</h1>
-                {registerMutationInstance.status === "error" && (
+                {postRegisterStatus === "ERROR" && (
                     <div className="RegisterPage__form-error-container">
-                        {registerMutationInstance.error.message}
+                        {postRegisterError.message}
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>
@@ -308,15 +311,15 @@ const RegisterPage = () => {
                 </form>
 
                 <div className="RegisterPage__form-state">
-                    {registerMutationInstance.status === "loading" && (
+                    {postRegisterStatus === "LOADING" && (
                         <div className="spinner-border text-primary" role="status">
                             <span className="sr-only"></span>
                         </div>
                     )}
-                    {registerMutationInstance.status === "success" && (
+                    {postRegisterStatus === "SUCCESS" && (
                         <i className="RegisterPage__form-state-success bi bi-check-circle"></i>
                     )}
-                    {registerMutationInstance.status === "error" && (
+                    {postRegisterStatus === "ERROR" && (
                         <i className="RegisterPage__form-state-error bi bi-exclamation-triangle"></i>
                     )}
                 </div>
