@@ -1,28 +1,27 @@
-import { createContext, useState, useEffect } from "react";
+// Libs
+import { createContext, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
+// State Management
+import { userLoggedIn, userLoggedOut } from "./authSlice";
 
 const AuthContext = createContext(null);
 
-const initialUser = {
-    email: "",
-    token: null,
-    isLoggedIn: false
-};
-
 const AuthContextProvider = ({ children }) => {
-    const [user, setUser] = useState(initialUser);
-
+    const dispatch = useDispatch();
+    
     const handleSetUser = (email, token) => {
         const user = {
             email: email,
             token: token,
             isLoggedIn: true
         };
+        dispatch(userLoggedIn(user));
         localStorage.setItem("NetflixClone", JSON.stringify(user));
-        setUser(user);
     };
 
     const handleLogoutUser = () => {
-        setUser(initialUser);
+        dispatch(userLoggedOut());
         localStorage.clear("NetflixClone");
     };
 
@@ -33,13 +32,12 @@ const AuthContextProvider = ({ children }) => {
             return;
         }
 
-        setUser(user);
+        dispatch(userLoggedIn(user));
     }, []);
 
     return (
         <AuthContext.Provider value={{
-            user: user,
-            handleSetUser: handleSetUser,
+            handleSetUser: handleSetUser, 
             handleLogoutUser: handleLogoutUser
         }}>
             {children}
@@ -48,6 +46,4 @@ const AuthContextProvider = ({ children }) => {
 };
 
 export default AuthContextProvider;
-export { 
-    AuthContext 
-};
+export { AuthContext };

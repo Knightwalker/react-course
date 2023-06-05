@@ -1,17 +1,18 @@
 // Libs
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-// State Management
-import { userLoggedOut } from "../../../db/authSlice";
+// State Management, Context
+import { AuthContext } from "../../../db/AuthContextProvider";
 
 const LogoutPage = () => {
+    const { handleLogoutUser } = useContext(AuthContext);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(userLoggedOut());
+        handleLogoutUser();
         
         const id = setTimeout(() => {
             navigate("/");

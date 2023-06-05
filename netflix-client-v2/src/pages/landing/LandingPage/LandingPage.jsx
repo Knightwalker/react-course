@@ -1,7 +1,9 @@
 // Libs
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+// State Management
+import { useSelectUser } from "../../../db/authSlice";
 
 // Components
 import AccordionComponent from "../../../components/landing/AccordionComponent/AccordionComponent";
@@ -15,7 +17,7 @@ import accordionComponentData from "../../../data/landing/accordionComponentData
 import "./LandingPage.css";
 
 const LandingPage = () => {
-    const user = useSelector((state) => state.auth.user);
+    const user = useSelectUser();
     const navigate = useNavigate();
 
     useEffect(() => {

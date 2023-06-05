@@ -1,11 +1,10 @@
 // Libs
-import { useReducer, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useContext, useReducer, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
 // State Management, Context
-import { userLoggedIn } from "../../../db/authSlice";
+import { AuthContext } from "../../../db/AuthContextProvider";
 
 // Reducers
 import { loginReducer, loginInitialState } from "../../../reducers/auth/loginReducer";
@@ -24,7 +23,7 @@ import { postLogin, postLoginErrorHandler } from "../../../services/AuthService"
 import "./LoginPage.css";
 
 const LoginPage = () => {
-    const dispatch = useDispatch();
+    const { handleSetUser } = useContext(AuthContext);
     const navigate = useNavigate();
     const [loginState, loginDispatch] = useReducer(loginReducer, loginInitialState);
 
@@ -51,10 +50,7 @@ const LoginPage = () => {
         }
 
         // Step 3. Save user in client
-        dispatch(userLoggedIn({
-            email: payload.email,
-            token: data.token
-        }));
+        handleSetUser(payload.email, data.token);
 
         // Step 4. Navigate to home module
         await wait(500);
