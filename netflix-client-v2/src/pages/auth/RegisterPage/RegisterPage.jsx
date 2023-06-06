@@ -1,5 +1,5 @@
 // Libs
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
@@ -8,6 +8,7 @@ import { registerReducer, registerInitialState } from "../../../reducers/auth/re
 
 // Enums
 import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
+import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
@@ -24,12 +25,13 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
-    const [postRegisterStatus, setPostRegisterStatus] = useState("INIT"); // "INIT", "LOADING", "SUCCESS", "ERROR"
+    const [postRegisterStatus, setPostRegisterStatus] = useState(ENUM_SERVICE_STATUS.INIT);
     const [postRegisterError, setPostRegisterError] = useState(null);
+    const postRegisterRef = useRef(null);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setPostRegisterStatus("LOADING");
+        setPostRegisterStatus(ENUM_SERVICE_STATUS.LOADING);
 
         // Step 1. Prepare data
         const payload = {
@@ -40,17 +42,24 @@ const RegisterPage = () => {
 
         // Step 2. Send POST request to BE
         try {
-            await dispatch(postRegister(payload)).unwrap();
-            setPostRegisterStatus("SUCCESS");
+            await wait(600); // Give humans time to process the loading.
+            const actionResult = dispatch(postRegister(payload));
+            postRegisterRef.current = actionResult;
+            const promiseResult = await actionResult.unwrap();
+            setPostRegisterStatus(ENUM_SERVICE_STATUS.SUCCESS);
+            await wait(600); // Give humans time to process that the account was created.
         } catch (error) {
-            setPostRegisterStatus("ERROR");
+            if (error.name === "AbortError") {
+                // Don't proceed any further. We have unmounted this component!
+                return;
+            }
+            setPostRegisterStatus(ENUM_SERVICE_STATUS.ERROR);
             setPostRegisterError(error);
             postRegisterErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         }
 
         // Step 3. Navigate to login
-        await wait(600); // Give humans time to process that the account was created.
         registerDispatch({ type: ENUM_REGISTER_ACTION_TYPES.RESET_STATE });
         navigate("/auth/login");
     };
@@ -133,7 +142,7 @@ const RegisterPage = () => {
 
     useEffect(() => {
         validateFields();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         registerState.form.fields.email.value,
         registerState.form.fields.password.value,
@@ -155,11 +164,19 @@ const RegisterPage = () => {
         });
     }, [location]);
 
+    useEffect(() => {
+        return () => {
+            if (postRegisterRef.current) {
+                postRegisterRef.current.abort();
+            }
+        }
+    }, []);
+
     return (
         <div className="RegisterPage">
             <div className="RegisterPage__form-wrapper">
                 <h1>Sign Up</h1>
-                {postRegisterStatus === "ERROR" && (
+                {postRegisterStatus === ENUM_SERVICE_STATUS.ERROR && (
                     <div className="RegisterPage__form-error-container">
                         {postRegisterError.message}
                     </div>
@@ -311,15 +328,15 @@ const RegisterPage = () => {
                 </form>
 
                 <div className="RegisterPage__form-state">
-                    {postRegisterStatus === "LOADING" && (
+                    {postRegisterStatus === ENUM_SERVICE_STATUS.LOADING && (
                         <div className="spinner-border text-primary" role="status">
                             <span className="sr-only"></span>
                         </div>
                     )}
-                    {postRegisterStatus === "SUCCESS" && (
+                    {postRegisterStatus === ENUM_SERVICE_STATUS.SUCCESS && (
                         <i className="RegisterPage__form-state-success bi bi-check-circle"></i>
                     )}
-                    {postRegisterStatus === "ERROR" && (
+                    {postRegisterStatus === ENUM_SERVICE_STATUS.ERROR && (
                         <i className="RegisterPage__form-state-error bi bi-exclamation-triangle"></i>
                     )}
                 </div>

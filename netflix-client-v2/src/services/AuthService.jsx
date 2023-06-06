@@ -11,13 +11,14 @@ class ServiceError extends Error {
     }
 }
 
-const postRegister = createAsyncThunk("auth/postRegister", async (payload) => {
+const postRegister = createAsyncThunk("auth/postRegister", async (payload, { signal }) => {
     let response = null;
     let responseData = null;
 
     // Step 1. Networking Layer: Make the request. If it fails, handle network errors.
     try {
         response = await fetch(`${VITE_SERVER_BASE_URL}/api/auth/register`, {
+            signal: signal,
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
