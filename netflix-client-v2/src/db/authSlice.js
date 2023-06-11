@@ -1,6 +1,9 @@
+// Libs
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
-import { postRegister } from "../services/AuthService";
+
+// Services
+import { postRegister, postLogin } from "../services/AuthService";
 
 const initialState = {
     user: {
@@ -28,6 +31,9 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(postRegister.fulfilled, (state, action) => {
+            return action.payload;
+        });
+        builder.addCase(postLogin.fulfilled, (state, action) => {
             return action.payload;
         });
     }

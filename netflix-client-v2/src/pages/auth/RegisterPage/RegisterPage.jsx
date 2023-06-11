@@ -57,9 +57,11 @@ const RegisterPage = () => {
             setPostRegisterError(error);
             postRegisterErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
+        } finally {
+            postRegisterRef.current = null;
         }
 
-        // Step 3. Navigate to login
+        // Step 4. Navigate to login
         registerDispatch({ type: ENUM_REGISTER_ACTION_TYPES.RESET_STATE });
         navigate("/auth/login");
     };

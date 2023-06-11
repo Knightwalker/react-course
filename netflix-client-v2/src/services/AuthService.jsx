@@ -1,4 +1,7 @@
+// Libs
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+// Enums
 import { ENUM_SERVICE_ERROR_TYPE } from "./enums";
 
 const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
@@ -48,13 +51,14 @@ const postRegister = createAsyncThunk("auth/postRegister", async (payload, { sig
     return responseData;
 });
 
-const postLogin = async(payload) => {
+const postLogin = createAsyncThunk("auth/postLogin", async(payload, { signal }) => {
     let response = null;
     let responseData = null;
 
     // Step 1. Networking Layer: Make the request. If it fails, handle network errors.
     try {
         response = await fetch(`${VITE_SERVER_BASE_URL}/api/auth/login`, {
+            signal: signal,
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -82,7 +86,7 @@ const postLogin = async(payload) => {
 
     // Step 4. Application Layer: Handle successful response status codes (within the range of 200-299).
     return responseData;
-};
+});
 
 const postRegisterErrorHandler = (error) => {
     console.error(error.message);
