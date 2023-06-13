@@ -3,37 +3,34 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>React Fundamentals</title>
     <link rel="stylesheet" href="./src/styles/style.css">
     <!-- Libraries -->
     <script crossorigin="" src="https://unpkg.com/react@18.2.0/umd/react.development.js"></script>
     <script crossorigin="" src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.development.js"></script>
-    <script crossorigin="" src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
     <!-- Components -->
-    <script src="./src/components/PlayerComponent/PlayerComponent.js"></script>
+    <!-- <script src="./src/components/PlayerComponent/PlayerComponent.js"></script> -->
 </head>
 
 <body>
     <div id="root">App not rendered</div>
-    <script type="text/babel">
+    <script type="module">
+        import PlayerComponent from "./src/components/PlayerComponent/PlayerComponent.js";
         const { React, ReactDOM } = window;
-        
+  
         const App = () => {
-            return (
-                <div className="AppComponent">
-                    <h1 className="text-center">Choose Your Character</h1>
-                    <PlayerComponent name="Luke Skywalker" alignment="Jedi" force="Force Push" />
-                    <PlayerComponent name="Darth Vader" alignment="Sith" force="Force Grip" />
-                    <PlayerComponent name="Obi Wan" alignment="Jedi" force="Mind Trick" />
-                </div>
+            return React.createElement("div", { className: "AppComponent"},
+                React.createElement("h1", { className: "text-center" }, "Choose Your Character"),
+                React.createElement(PlayerComponent, { name: "Luke Skywalker", alignment: "Jedi", force: "Force Push" }),
+                React.createElement(PlayerComponent, { name: "Darth Vader", alignment: "Sith", force: "Force Grip" }),
+                React.createElement(PlayerComponent, { name: "Obi Wan", alignment: "Jedi", force: "Mind Trick" })
             );
         };
 
         const rootNode = document.getElementById("root");
         const root = ReactDOM.createRoot(rootNode);
-        root.render(<App />);
+        root.render(React.createElement(App));
     </script>
 </body>
 
