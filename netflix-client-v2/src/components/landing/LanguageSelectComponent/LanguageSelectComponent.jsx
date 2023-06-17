@@ -2,8 +2,12 @@ import { useState } from "react";
 import { LANGUAGES_MOCK_DATA } from "./LanguageSelectComponentData";
 import "./LanguageSelectComponent.css";
 
-const LanguageSelectComponent = ({ languages = LANGUAGES_MOCK_DATA }) => {
-    const [selectedLanguage, setSelectedLanguage] = useState(languages.DEFAULT);
+const LanguageSelectComponent = ({
+    languages = LANGUAGES_MOCK_DATA,
+    selectedLanguageKey,
+    cbLanguageChange
+}) => {
+    const [selectedLanguage, setSelectedLanguage] = useState(languages[selectedLanguageKey]);
 
     const handleChange = (e) => {
         const selectedOption = e.currentTarget.options[e.currentTarget.selectedIndex];
@@ -17,21 +21,11 @@ const LanguageSelectComponent = ({ languages = LANGUAGES_MOCK_DATA }) => {
             label: LANGUAGES_MOCK_DATA[selectedKey].label,
             code: LANGUAGES_MOCK_DATA[selectedKey].code
         });
-    }
 
-    const optionEls = Object.entries(languages).map(([key, value]) => {
-        if (key === "DEFAULT") {
-            return null;
+        if (typeof cbLanguageChange !== "undefined") {
+            cbLanguageChange(selectedKey);
         }
-        return (
-            <option
-                key={key}
-                value={value.code}
-            >
-                {value.label}
-            </option>
-        )
-    }).filter(Boolean);
+    }
 
     return (
         <div className="LanguageSelectComponent">
@@ -42,7 +36,14 @@ const LanguageSelectComponent = ({ languages = LANGUAGES_MOCK_DATA }) => {
                 className="LanguageSelectComponent__select"
                 value={selectedLanguage.code}
             >
-                {optionEls}
+                {Object.entries(languages).map(([key, value]) => (
+                    <option
+                        key={key}
+                        value={value.code}
+                    >
+                        {value.label}
+                    </option>
+                ))}
             </select>
         </div>
     )

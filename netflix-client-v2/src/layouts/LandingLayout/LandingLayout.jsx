@@ -1,18 +1,25 @@
 // Libs
+import { useDispatch } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+
+// State Management
+import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../db/i18nSlice/i18nSlice";
 
 // Assets
 import LogoImg from "../../assets/netflix_logo_transparent.png";
 
 // Components
 import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
+import LanguageSelectComponent from "$components/landing/LanguageSelectComponent/LanguageSelectComponent";
 
 // Local Imports
 import "./LandingLayout.css";
-import LanguageSelectComponent from "../../components/landing/LanguageSelectComponent/LanguageSelectComponent";
 
 const LandingLayout = () => {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { LANDING_LAYOUT_TEXT } = useSelectText();
+    const selectedLanguage = useSelectLanguage();
 
     const handleClick = () => {
         navigate("/auth/login");
@@ -37,7 +44,12 @@ const LandingLayout = () => {
                         <img className="LandingLayout__logo-img" src={LogoImg} alt="logo" />
                     </Link>
                     <div className="LandingLayout__nav-item2">
-                        <LanguageSelectComponent />
+                        <LanguageSelectComponent 
+                            selectedLanguageKey={selectedLanguage}
+                            cbLanguageChange={(key) => { 
+                                dispatch(languageChangedByKey({ key: key })); 
+                            }}
+                        />
                         <button
                             className="LandingLayout__login-btn"
                             onClick={handleClick}
@@ -49,7 +61,7 @@ const LandingLayout = () => {
                 <div className="LandingLayout__hero">
                     <div className="LandingLayout__hero-gradient"></div>
                     <div className="LandingLayout__hero-content">
-                        <h1>Unlimited movies, TV shows, and more.</h1>
+                        <h1>{LANDING_LAYOUT_TEXT.H1}</h1>
                         <h2>Plans now start at EUR4.99/month.</h2>
                         <CTAComponent
                             label="Ready to watch? Enter your email to create or restart your membership."
