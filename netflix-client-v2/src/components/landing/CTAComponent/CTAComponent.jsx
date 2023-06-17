@@ -13,19 +13,19 @@ const CTAComponent = ({
         "CTAComponent__form-input": ["CTAComponent__form-input"]
     });
     const [email, setEmail] = useState("");
-    const [isTouched, setIsTouched] = useState(false);
-    const [isValidEmail, setIsValidEmail] = useState(false);
+    const [isEmailDirty, setIsEmailDirty] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
 
     const handleChangeEmail = (event) => {
+        if (!isEmailDirty) {
+            setIsEmailDirty(true);
+        }
         const newEmail = event.target.value;
         setEmail(newEmail);
-        if (!isTouched) {
-            setIsTouched(true);
-        }
     };
 
     useEffect(() => {
-        if (!isTouched) {
+        if (!isEmailDirty) {
             return;
         }
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -36,11 +36,11 @@ const CTAComponent = ({
                     "CTAComponent__form-input": ["CTAComponent__form-input", "error"]
                 };
             });
-            setIsValidEmail(false);
+            setIsEmailValid(false);
             return;
         }
 
-        setIsValidEmail(true);
+        setIsEmailValid(true);
         setClassNames((prevClassNames) => {
             return {
                 ...prevClassNames,
@@ -84,7 +84,7 @@ const CTAComponent = ({
 
                 <button
                     className="CTAComponent-btn"
-                    disabled={!isValidEmail}
+                    disabled={!isEmailValid}
                 >
                     Get Started
                     <i className="CTAComponent__btn-icon bi bi-chevron-right"></i>

@@ -62,4 +62,5 @@ Must be one of the following:
 
 - **fs**: File system changes for when I do CRUD operations on files and folders. For example `fs: renames files & folders at root directory`
 - **implements**: Adding new functionality to the netflix project.
-- **materials**: Materials changes for when I prepare lectures, labs, exercises or do CRUD operations on the materials. For example `materials: creates new lecture for ESLint`
+- **refactors**: Improving codebase without altering code behaviour.
+- **docs**: Documentation and materials changes, for when I prepare lectures, labs, exercises or do CRUD operations on the docs. For example `docs: creates new lecture for ESLint`

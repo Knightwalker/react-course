@@ -1,8 +1,7 @@
 .CTAComponent p {
-    font-size: 20px;
-    margin-bottom: 18px;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 400;
+    margin-bottom: 16px;
     text-align: center;
 }
 
@@ -18,8 +17,8 @@
 }
 
 .CTAComponent__form-input {
-    background-color: rgb(22 22 22 / 70%);
-    border-color: rgb(128 128 128 / 70%);
+    background-color: rgba(22, 22, 22, 0.7);
+    border-color: rgba(128, 128, 128, 0.7);
     border-width: 1px;
     border-style: solid;
     border-radius: 4px;
@@ -58,7 +57,7 @@
 }
 
 .CTAComponent-btn {
-    border: 0;
+    border-width: 0;
     border-radius: 0.25rem;
     color: white;
     cursor: pointer;
@@ -66,7 +65,7 @@
     padding: 0px 30px;
     user-select: none;
     font-size: 19px;
-    background-image: linear-gradient(to bottom, var(--netflix-color-red), #DB0510);
+    background-image: linear-gradient(180deg, var(--netflix-color-red), #DB0510);
 }
 
 .CTAComponent-btn:disabled {
