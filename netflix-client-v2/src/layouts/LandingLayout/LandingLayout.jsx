@@ -9,6 +9,7 @@ import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
 
 // Local Imports
 import "./LandingLayout.css";
+import LanguageSelectComponent from "../../components/landing/LanguageSelectComponent/LanguageSelectComponent";
 
 const LandingLayout = () => {
     const navigate = useNavigate();
@@ -35,12 +36,15 @@ const LandingLayout = () => {
                     >
                         <img className="LandingLayout__logo-img" src={LogoImg} alt="logo" />
                     </Link>
-                    <button
-                        className="LandingLayout__login-btn"
-                        onClick={handleClick}
-                    >
-                        Sign In
-                    </button>
+                    <div className="LandingLayout__nav-item2">
+                        <LanguageSelectComponent />
+                        <button
+                            className="LandingLayout__login-btn"
+                            onClick={handleClick}
+                        >
+                            Sign In
+                        </button>
+                    </div>
                 </nav>
                 <div className="LandingLayout__hero">
                     <div className="LandingLayout__hero-gradient"></div>

@@ -22,6 +22,11 @@
     z-index: 1;
 }
 
+.LandingLayout__nav-item2 {
+    display: flex;
+    gap: 20px;
+}
+
 .LandingLayout__logo-a {
     display: block;
     width: 100px;
