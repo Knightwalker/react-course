@@ -23,16 +23,16 @@
   - Fetch API, custom hooks
   - Redux Toolkit (thunks)
 - Topic 7: Workshop: Netflix Clone, Login System
-  - Auth strategies (JWT auth strategy) 
+  - Auth strategies (JWT auth strategy)
 - Topic 8: Workshop: Netflix Clone, CRUD Operations
 
 ## :gear: Technology Stack
 
-**Front-End**: HTML, CSS, JS, TS, React.js
-**Front-End Libraries**: @reduxjs/toolkit, react-redux
-**Back-End**: Node.js, Express.js
-**Databases**: MongoDB
-**ORM/ODM**: Mongoose
+- **Front-End**: HTML, CSS, JavaScript, TypeScript, React.js
+- **Front-End Libraries**: Redux.js, Bootstrap
+- **Back-End**: Node.js, Express.js
+- **Databases**: MongoDB
+- **ORM/ODM**: Mongoose
 
 ## II. Contributing
 
@@ -60,7 +60,7 @@ The `<type>` and `<summary>` fields are mandatory.
 
 Must be one of the following:
 
-- **fs**: File system changes for when I do CRUD operations on files and folders. For example `fs: renames files & folders at root directory`
 - **implements**: Adding new functionality to the netflix project.
 - **refactors**: Improving codebase without altering code behaviour.
 - **docs**: Documentation and materials changes, for when I prepare lectures, labs, exercises or do CRUD operations on the docs. For example `docs: creates new lecture for ESLint`
+- **fs**: File system changes for when I do CRUD operations on files and folders. For example `fs: renames files & folders at root directory`
