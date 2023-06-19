@@ -83,7 +83,7 @@ const CTAComponent = ({
                 </div>
 
                 <button
-                    className="CTAComponent-btn"
+                    className="CTAComponent__btn"
                     disabled={!isEmailValid}
                 >
                     Get Started
