@@ -44,10 +44,10 @@ const LandingLayout = () => {
                         <img className="LandingLayout__logo-img" src={LogoImg} alt="logo" />
                     </Link>
                     <div className="LandingLayout__nav-item2">
-                        <LanguageSelectComponent 
+                        <LanguageSelectComponent
                             selectedLanguageKey={selectedLanguage}
-                            cbLanguageChange={(key) => { 
-                                dispatch(languageChangedByKey({ key: key })); 
+                            cbLanguageChange={(key) => {
+                                dispatch(languageChangedByKey({ key: key }));
                             }}
                         />
                         <button
@@ -65,6 +65,8 @@ const LandingLayout = () => {
                         <h2>{LANDING_LAYOUT_TEXT.H2}</h2>
                         <CTAComponent
                             label={LANDING_LAYOUT_TEXT.H3}
+                            emailLabel={LANDING_LAYOUT_TEXT.CTAComponentEmailLabel}
+                            btnLabel={LANDING_LAYOUT_TEXT.CTAComponentBtnLabel}
                             cbHandleSubmit={handleSubmit}
                         />
                     </div>
@@ -77,6 +79,8 @@ const LandingLayout = () => {
                 <div className="LandingLayout__footer-CTA-wrapper">
                     <CTAComponent
                         label={LANDING_LAYOUT_TEXT.H3}
+                        emailLabel={LANDING_LAYOUT_TEXT.CTAComponentEmailLabel}
+                        btnLabel={LANDING_LAYOUT_TEXT.CTAComponentBtnLabel}
                         cbHandleSubmit={handleSubmit}
                     />
                 </div>

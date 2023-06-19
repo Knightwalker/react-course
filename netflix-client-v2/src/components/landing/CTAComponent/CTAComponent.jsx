@@ -5,7 +5,9 @@ import { useEffect, useState, useId } from "react";
 import "./CTAComponent.css";
 
 const CTAComponent = ({
-    label = "label placeholder",
+    label = "heading 3 placeholder",
+    emailLabel = "Email address",
+    btnLabel = "Get Started",
     cbHandleSubmit
 }) => {
     const uid = useId();
@@ -56,7 +58,7 @@ const CTAComponent = ({
 
     return (
         <div className="CTAComponent">
-            <p>{label}</p>
+            <h3>{label}</h3>
             <form
                 className="CTAComponent__form"
                 onSubmit={handleSubmit}
@@ -78,7 +80,7 @@ const CTAComponent = ({
                         htmlFor={`${uid}-email`}
                         className="CTAComponent__form-label"
                     >
-                        Email address
+                        {emailLabel}
                     </label>
                 </div>
 
@@ -86,7 +88,7 @@ const CTAComponent = ({
                     className="CTAComponent__btn"
                     disabled={!isEmailValid}
                 >
-                    Get Started
+                    {btnLabel}
                     <i className="CTAComponent__btn-icon bi bi-chevron-right"></i>
                 </button>
             </form>
