@@ -39,7 +39,7 @@
 .CTAComponent__form-label {
     position: absolute;
     top: 18px;
-    left: 10;
+    left: 10px;
     font-size: 1em;
     cursor: text;
     transition: .2s ease-in-out;
@@ -53,7 +53,7 @@
     top: 6px;
 }
 
-.CTAComponent-btn {
+.CTAComponent__btn {
     border-width: 0;
     border-radius: 0.25rem;
     color: white;
@@ -65,7 +65,7 @@
     background-image: linear-gradient(180deg, var(--netflix-color-red), #DB0510);
 }
 
-.CTAComponent-btn:disabled {
+.CTAComponent__btn:disabled {
     cursor: not-allowed;
 }
 
