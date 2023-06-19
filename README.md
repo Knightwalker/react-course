@@ -60,7 +60,8 @@ The `<type>` and `<summary>` fields are mandatory.
 
 Must be one of the following:
 
-- **implements**: Adding new functionality to the netflix project.
-- **refactors**: Improving codebase without altering code behaviour.
+- **feat**: Adding new functionality to the project.
+- **fix**: Bugfix existing functionality in the project.
+- **refactor**: Improving codebase without altering code behaviour.
 - **docs**: Documentation and materials changes, for when I prepare lectures, labs, exercises or do CRUD operations on the docs. For example `docs: creates new lecture for ESLint`
 - **fs**: File system changes for when I do CRUD operations on files and folders. For example `fs: renames files & folders at root directory`
