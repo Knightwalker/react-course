@@ -54,7 +54,7 @@ const LandingLayout = () => {
                             className="LandingLayout__login-btn"
                             onClick={handleClick}
                         >
-                            Sign In
+                            {LANDING_LAYOUT_TEXT.SignInBtnLabel}
                         </button>
                     </div>
                 </nav>
@@ -62,9 +62,9 @@ const LandingLayout = () => {
                     <div className="LandingLayout__hero-gradient"></div>
                     <div className="LandingLayout__hero-content">
                         <h1>{LANDING_LAYOUT_TEXT.H1}</h1>
-                        <h2>Plans now start at EUR4.99/month.</h2>
+                        <h2>{LANDING_LAYOUT_TEXT.H2}</h2>
                         <CTAComponent
-                            label="Ready to watch? Enter your email to create or restart your membership."
+                            label={LANDING_LAYOUT_TEXT.H3}
                             cbHandleSubmit={handleSubmit}
                         />
                     </div>
@@ -76,7 +76,7 @@ const LandingLayout = () => {
             <footer className="LandingLayout__footer">
                 <div className="LandingLayout__footer-CTA-wrapper">
                     <CTAComponent
-                        label="Ready to watch? Enter your email to create or restart your membership."
+                        label={LANDING_LAYOUT_TEXT.H3}
                         cbHandleSubmit={handleSubmit}
                     />
                 </div>
