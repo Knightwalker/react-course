@@ -33,8 +33,8 @@ const LandingPage = () => {
                 {longCardComponentData.map((item, idx) => (
                     <LongCardComponent
                         key={item.id}
+                        cardType={item.cardType}
                         rowIsEven={idx % 2 === 0}
-                        className={item.className}
                         title={item.title}
                         subTitle={item.subTitle}
                         imagePath={item.imagePath}
