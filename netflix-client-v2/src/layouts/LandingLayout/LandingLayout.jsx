@@ -14,6 +14,7 @@ import LanguageSelectComponent from "$components/landing/LanguageSelectComponent
 
 // Local Imports
 import "./LandingLayout.css";
+import BasicButton from "../../components/shared/BasicButton/BasicButton";
 
 const LandingLayout = () => {
     const dispatch = useDispatch();
@@ -50,12 +51,10 @@ const LandingLayout = () => {
                                 dispatch(languageChangedByKey({ key: key }));
                             }}
                         />
-                        <button
-                            className="LandingLayout__login-btn"
+                        <BasicButton 
+                            label={LANDING_LAYOUT_TEXT.SignInBtnLabel}
                             onClick={handleClick}
-                        >
-                            {LANDING_LAYOUT_TEXT.SignInBtnLabel}
-                        </button>
+                        />
                     </div>
                 </nav>
                 <div className="LandingLayout__hero">

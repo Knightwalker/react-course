@@ -33,7 +33,7 @@ const LandingPage = () => {
                 {longCardComponentData.map((item, idx) => (
                     <LongCardComponent
                         key={item.id}
-                        rowIsOdd={idx % 2 === 0}
+                        rowIsEven={idx % 2 === 0}
                         className={item.className}
                         title={item.title}
                         subTitle={item.subTitle}
@@ -44,7 +44,7 @@ const LandingPage = () => {
                 ))}
             </div>
 
-            <div className="LandingPage__FAQ-wrapper">
+            <div className="LandingPage__AccordionComponent-wrapper">
                 <p className="LandingPage__FAQ">Frequently Asked Questions</p>
                 <AccordionComponent data={accordionComponentData} />
             </div>

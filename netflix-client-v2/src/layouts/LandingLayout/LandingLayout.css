@@ -37,21 +37,6 @@
     object-fit: contain;
 }
 
-.LandingLayout__login-btn {
-    align-items: center;
-    background-color: #E50914;
-    border: 0;
-    border-radius: 0.25rem;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    font-size: 0.875rem;
-    font-weight: 500;
-    height: 32px;
-    padding: 0.25rem 1rem;
-    user-select: none;
-}
-
 .LandingLayout__hero {
     background: url("../../assets/hero.jpg") 50% no-repeat;
     background-size: cover;
