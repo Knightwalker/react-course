@@ -6,17 +6,19 @@ function LongCardComponent(props) {
 
     return (
         <div className="LongCardComponent_wrapper">
-            <div className={`LongCardComponent ${rowIsOdd === true ? "LongCardComponent__row" : "LongCardComponent__row-reverse"}`}>
-                <div className={`LongCardComponent__text-container ${rowIsOdd === true ? "ps-5" : "pe-5"}`}>
+            <div className={`LongCardComponent ${rowIsOdd === true ? "row-is-odd" : ""}`}>
+                <div className={`LongCardComponent__text-container`}>
                     <h1 className="LongCardComponent__title">{title}</h1>
                     <h2 className="LongCardComponent__subtitle">{subTitle}</h2>
                 </div>
                 <div className="LongCardComponent__img-container">
-                    <img className={`LongCardComponent__image${className ? " " + className : ""}`} src={import.meta.env.BASE_URL + imagePath} alt={alt} />
-
+                    <img 
+                        className={`LongCardComponent__image${className ? " " + className : ""}`} 
+                        src={import.meta.env.BASE_URL + imagePath} 
+                        alt={alt} 
+                    />
                     {className === "watchOnTv" ? (LongCardComponent_watchOnTvEl(props)) : null}
                     {className === "watchOnDevice" ? (LongCardComponent_watchOnTvEl(props)) : null}
-
                 </div>
             </div>
         </div>
