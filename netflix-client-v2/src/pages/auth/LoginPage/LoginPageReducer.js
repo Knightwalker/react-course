@@ -1,4 +1,4 @@
-import { ENUM_LOGIN_ACTION_TYPES } from "../../enums/auth";
+import { ENUM_LOGIN_ACTION_TYPES } from "./LoginPageEnums";
 
 const loginInitialState = {
     form: {

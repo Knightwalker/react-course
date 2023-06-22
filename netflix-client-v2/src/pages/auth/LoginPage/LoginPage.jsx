@@ -3,14 +3,8 @@ import { useContext, useReducer, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 
-// State Management, Context
+// DB, State Management
 import { AuthContext } from "../../../db/AuthContextProvider";
-
-// Reducers
-import { loginReducer, loginInitialState } from "../../../reducers/auth/loginReducer";
-
-// Enums
-import { ENUM_LOGIN_ACTION_TYPES } from "../../../enums/auth";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
@@ -20,6 +14,8 @@ import { wait } from "../../../utils/shared";
 import { postLogin, postLoginErrorHandler } from "../../../services/AuthService";
 
 // Local Imports
+import { loginReducer, loginInitialState } from "./LoginPageReducer";
+import { ENUM_LOGIN_ACTION_TYPES } from "./LoginPageEnums";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -165,12 +161,15 @@ const LoginPage = () => {
                                 }
                             }}
                             onBlur={(e) => {
-                                loginDispatch({
-                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                    payload: {
-                                        field: e.currentTarget.name,
-                                    }
-                                });
+                                const { name } = e.currentTarget;
+                                if (!loginState.form.fields[name].isTouched) {
+                                    loginDispatch({
+                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                        payload: {
+                                            field: e.currentTarget.name,
+                                        }
+                                    });
+                                }
                             }}
                             autoComplete="username"
                         />
@@ -206,12 +205,15 @@ const LoginPage = () => {
                                 }
                             }}
                             onBlur={(e) => {
-                                loginDispatch({
-                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                    payload: {
-                                        field: e.currentTarget.name,
-                                    }
-                                });
+                                const { name } = e.currentTarget;
+                                if (!loginState.form.fields[name].isTouched) {
+                                    loginDispatch({
+                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
+                                        payload: {
+                                            field: e.currentTarget.name,
+                                        }
+                                    });
+                                }
                             }}
                             autoComplete="current-password"
                         />

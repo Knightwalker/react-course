@@ -1,4 +1,4 @@
-import { ENUM_REGISTER_ACTION_TYPES } from "../../enums/auth";
+import { ENUM_REGISTER_ACTION_TYPES } from "./RegisterPageEnums";
 
 const registerInitialState = {
     form: {

@@ -3,11 +3,7 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-// Reducers
-import { registerReducer, registerInitialState } from "../../../reducers/auth/registerReducer";
-
 // Enums
-import { ENUM_REGISTER_ACTION_TYPES } from "../../../enums/auth";
 import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
 // Utils
@@ -18,6 +14,8 @@ import { wait } from "../../../utils/shared";
 import { postRegister, postRegisterErrorHandler } from "../../../services/AuthService";
 
 // Local imports
+import { registerReducer, registerInitialState } from "./RegisterPageReducer";
+import { ENUM_REGISTER_ACTION_TYPES } from "./RegisterPageEnums";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
