@@ -3,21 +3,21 @@ import { useDispatch } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // Database
-import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../db/i18nSlice/i18nSlice";
+import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/i18nSlice/i18nSlice";
 
 // Data
-import footerComponentData from "../../data/landing/footerComponentData.json";
+import footerComponentData from "../../../data/landing/footerComponentData.json";
 
 // Assets
-import LogoImg from "../../assets/netflix_logo_transparent.png";
+import LogoImg from "../../../assets/netflix_logo_transparent.png";
 
 // Components
 import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
 import LanguageSelectComponent from "$components/landing/LanguageSelectComponent/LanguageSelectComponent";
+import BasicButton from "../../../components/shared/BasicButton/BasicButton";
 
 // Local Imports
 import "./LandingLayout.css";
-import BasicButton from "../../components/shared/BasicButton/BasicButton";
 
 const LandingLayout = () => {
     const dispatch = useDispatch();
@@ -94,7 +94,7 @@ const LandingLayout = () => {
                         {footerComponentData.map((item, idx) => (
                             <li
                                 key={idx}
-                                className="LandingLayout__footer-link col-lg-3 col-md-4 col-sm-6 col-6"
+                                className="LandingLayout__footer-link col-6 col-sm-6 col-md-4 col-lg-3"
                             >
                                 <Link to={item.link}>
                                     {item.label}

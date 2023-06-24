@@ -38,7 +38,7 @@
 }
 
 .LandingLayout__hero {
-    background: url("../../assets/hero.jpg") 50% no-repeat;
+    background: url("../../../assets/hero.jpg") 50% no-repeat;
     background-size: cover;
     border-bottom: 8px solid #222;
     height: 750px;

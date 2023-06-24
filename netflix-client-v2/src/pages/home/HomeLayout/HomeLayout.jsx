@@ -2,7 +2,7 @@
 import { Outlet } from "react-router-dom";
 
 // Components
-import NavComponent from "../../components/home/NavComponent/NavComponent";
+import NavComponent from "../../../components/home/NavComponent/NavComponent";
 
 // Local imports
 import "./HomeLayout.css";

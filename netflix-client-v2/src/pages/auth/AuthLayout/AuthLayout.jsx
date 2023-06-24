@@ -1,5 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
-import LogoImg from "../../assets/netflix_logo_transparent.png";
+import LogoImg from "../../../assets/netflix_logo_transparent.png";
 import "./AuthLayout.css";
 
 const AuthLayout = () => {

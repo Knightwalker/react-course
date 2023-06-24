@@ -2,9 +2,9 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // Layouts
-import LandingLayout from "../layouts/LandingLayout/LandingLayout";
-import AuthLayout from "../layouts/AuthLayout/AuthLayout";
-import HomeLayout from "../layouts/HomeLayout/HomeLayout";
+import LandingLayout from "../pages/landing/LandingLayout/LandingLayout";
+import AuthLayout from "../pages/auth/AuthLayout/AuthLayout";
+import HomeLayout from "../pages/home/HomeLayout/HomeLayout";
 
 // Pages
 import LandingPage from "../pages/landing/LandingPage/LandingPage";
