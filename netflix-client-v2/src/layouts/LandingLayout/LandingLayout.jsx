@@ -2,8 +2,11 @@
 import { useDispatch } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
-// State Management
+// Database
 import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../db/i18nSlice/i18nSlice";
+
+// Data
+import footerComponentData from "../../data/landing/footerComponentData.json";
 
 // Assets
 import LogoImg from "../../assets/netflix_logo_transparent.png";
@@ -51,7 +54,7 @@ const LandingLayout = () => {
                                 dispatch(languageChangedByKey({ key: key }));
                             }}
                         />
-                        <BasicButton 
+                        <BasicButton
                             label={LANDING_LAYOUT_TEXT.SignInBtnLabel}
                             onClick={handleClick}
                         />
@@ -83,26 +86,31 @@ const LandingLayout = () => {
                         cbHandleSubmit={handleSubmit}
                     />
                 </div>
-                <div className="LandingLayout__footer-body">
-                    <p className="LandingLayout__footer-head"><a href="/">Questions? Contact us.</a></p>
-                    <ul className="LandingLayout__footer-links">
-                        <li className="LandingLayout__footer-link-item"><a href="/">FAQ</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Help Center</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Account</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Media Center</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Investor Relations</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Jobs</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Ways to Watch</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Terms of Use</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Privacy</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Cookie Preferences</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Corporate Information</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Contact Us</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Speed Test</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Legal Notices</a></li>
-                        <li className="LandingLayout__footer-link-item"><a href="/">Netflix Originals</a></li>
+                <div className="LandingLayout__footer-links-wrapper container">
+                    <p className="LandingLayout__footer-phone">
+                        <Link to="/">Questions? Call 1-844-505-2993</Link>
+                    </p>
+                    <ul className="LandingLayout__footer-links row">
+                        {footerComponentData.map((item, idx) => (
+                            <li
+                                key={idx}
+                                className="LandingLayout__footer-link col-lg-3 col-md-4 col-sm-6 col-6"
+                            >
+                                <Link to={item.link}>
+                                    {item.label}
+                                </Link>
+                            </li>
+                        ))}
                     </ul>
-                    <p className="LandingLayout__footer-foot">Netflix Bulgaria</p>
+                    <div className="LandingLayout__footer-language-select-component-wrapper">
+                        <LanguageSelectComponent
+                            selectedLanguageKey={selectedLanguage}
+                            cbLanguageChange={(key) => {
+                                dispatch(languageChangedByKey({ key: key }));
+                            }}
+                        />
+                    </div>
+                    <p className="LandingLayout__footer-country">Netflix Bulgaria</p>
                 </div>
             </footer>
         </div>

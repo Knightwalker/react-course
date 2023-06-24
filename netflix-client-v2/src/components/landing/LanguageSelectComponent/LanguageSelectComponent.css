@@ -1,6 +1,7 @@
 .LanguageSelectComponent {
+    display: inline-block;
     position: relative;
-    display: block;
+    color: white;
 }
 
 .LanguageSelectComponent__globe-icon {
