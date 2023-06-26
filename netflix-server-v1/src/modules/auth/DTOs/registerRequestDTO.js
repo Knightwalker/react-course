@@ -1,17 +1,18 @@
 "use strict";
 
 import mongoose from "mongoose";
+import { emailRegex, passwordRegex } from "../../../shared/constants.js";
 
 const RegisterRequestSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        match: [/^[^\s@]+@[^\s@]+\.[^\s@]+$/gm, "Email must be a valid email address"]
+        match: [emailRegex, "Email must be a valid email address"]
     },
     password: {
         type: String,
         required: true,
-        match: [/^[^~]{6,60}$/, "Password must be between 6 and 60 characters and may not contain a tilde (~)"]
+        match: [passwordRegex, "Password must be between 6 and 60 characters and may not contain a tilde (~)"]
     },
     confirmPassword: {
         type: String,
@@ -26,6 +27,14 @@ const RegisterRequestSchema = new mongoose.Schema({
     }
 });
 
-const RegisterRequestModel = mongoose.model("RegisterRequestModel", RegisterRequestSchema);
+const RegisterRequestDTO = ({ email, password, confirmPassword }) => {
+    const RegisterRequestDTO = new mongoose.Document({
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword
+    }, RegisterRequestSchema);
 
-export default RegisterRequestModel;
+    return RegisterRequestDTO;
+};
+
+export default RegisterRequestDTO;

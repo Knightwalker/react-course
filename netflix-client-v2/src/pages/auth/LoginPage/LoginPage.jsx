@@ -1,7 +1,10 @@
 // Libs
-import { useContext, useReducer, useEffect } from "react";
+import { useContext, useReducer, useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+
+// Enums
+import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
 // DB, State Management
 import { AuthContext } from "../../../db/AuthContextProvider";
@@ -19,28 +22,38 @@ import { ENUM_LOGIN_ACTION_TYPES } from "./LoginPageEnums";
 import "./LoginPage.css";
 
 const LoginPage = () => {
-    const { handleSetUser } = useContext(AuthContext);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { handleSetUser } = useContext(AuthContext);
     const [loginState, loginDispatch] = useReducer(loginReducer, loginInitialState);
-
-    const loginMutationInstance = useMutation({
-        mutationFn: postLogin
-    });
+    const [postLoginStatus, setPostLoginStatus] = useState(ENUM_SERVICE_STATUS.INIT);
+    const [postLoginErrorMessage, setPostLoginErrorMessage] = useState(null);
+    const postLoginRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         // Step 1. Prepare data
         const payload = {
             email: loginState.form.fields.email.value,
             password: loginState.form.fields.password.value,
         };
-
+        
         // Step 2. Send POST request to BE
         let data = null;
+        setPostLoginStatus(ENUM_SERVICE_STATUS.LOADING);
         try {
-            data = await loginMutationInstance.mutateAsync(payload);
+            const actionResult = dispatch(postLogin(payload));
+            postLoginRef.current = actionResult;
+            data = await actionResult.unwrap();
+            setPostLoginStatus(ENUM_SERVICE_STATUS.SUCCESS);
+            debugger;
         } catch (error) {
+            if (error.name === "AbortError") {
+                // Don't proceed any further. We have unmounted this component!
+                return;
+            }
+            setPostLoginStatus(ENUM_SERVICE_STATUS.ERROR);
+            setPostLoginErrorMessage(error.message);
             postLoginErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         }
@@ -129,9 +142,9 @@ const LoginPage = () => {
         <div className="LoginPage">
             <div className="LoginPage__form-wrapper">
                 <h1>Sign In</h1>
-                {loginMutationInstance.status === "error" && (
+                {postLoginStatus === ENUM_SERVICE_STATUS.ERROR && (
                     <div className="LoginPage__form-error-container">
-                        {loginMutationInstance.error.message}
+                        {postLoginErrorMessage}
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>
@@ -244,15 +257,15 @@ const LoginPage = () => {
                 </form>
 
                 <div className="LoginPage__form-state">
-                    {loginMutationInstance.status === "loading" && (
+                    {postLoginStatus === ENUM_SERVICE_STATUS.LOADING && (
                         <div className="spinner-border text-primary" role="status">
                             <span className="sr-only"></span>
                         </div>
                     )}
-                    {loginMutationInstance.status === "success" && (
+                    {postLoginStatus === ENUM_SERVICE_STATUS.SUCCESS && (
                         <i className="LoginPage__form-state-success bi bi-check-circle"></i>
                     )}
-                    {loginMutationInstance.status === "error" && (
+                    {postLoginStatus === ENUM_SERVICE_STATUS.ERROR && (
                         <i className="LoginPage__form-state-error bi bi-exclamation-triangle"></i>
                     )}
                 </div>

@@ -24,21 +24,21 @@ const RegisterPage = () => {
     const location = useLocation();
     const [registerState, registerDispatch] = useReducer(registerReducer, registerInitialState);
     const [postRegisterStatus, setPostRegisterStatus] = useState(ENUM_SERVICE_STATUS.INIT);
-    const [postRegisterError, setPostRegisterError] = useState(null);
+    const [postRegisterErrorMessage, setPostRegisterErrorMessage] = useState(null);
     const postRegisterRef = useRef(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setPostRegisterStatus(ENUM_SERVICE_STATUS.LOADING);
-
+        
         // Step 1. Prepare data
         const payload = {
             email: registerState.form.fields.email.value,
             password: registerState.form.fields.password.value,
             confirmPassword: registerState.form.fields.confirmPassword.value
         };
-
+        
         // Step 2. Send POST request to BE
+        setPostRegisterStatus(ENUM_SERVICE_STATUS.LOADING);
         try {
             await wait(600); // Give humans time to process the loading.
             const actionResult = dispatch(postRegister(payload));
@@ -52,7 +52,7 @@ const RegisterPage = () => {
                 return;
             }
             setPostRegisterStatus(ENUM_SERVICE_STATUS.ERROR);
-            setPostRegisterError(error);
+            setPostRegisterErrorMessage(error.message);
             postRegisterErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         } finally {
@@ -178,7 +178,7 @@ const RegisterPage = () => {
                 <h1>Sign Up</h1>
                 {postRegisterStatus === ENUM_SERVICE_STATUS.ERROR && (
                     <div className="RegisterPage__form-error-container">
-                        {postRegisterError.message}
+                        {postRegisterErrorMessage}
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>
