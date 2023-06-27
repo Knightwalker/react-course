@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "email": "admin@gmail.com",
+      "salt": "816e0afe7db966177a229015f2c19883",
+      "hash": "12123d95efdfb7bdb5d7eea241e95e2bd05bc765888e1b1290e4b3dd8250ba7c81060392eeb6fdee6bd713f297af76f493a10a40ebc10c9a14f3a3a1dbe26f22"
+    }
+  ],
+  "movies": [
+    {
+      "id": "4aa3356f-d38f-4372-8ba6-3c6effa26357",
+      "title": "Interstellar"
+    },
+    {
+      "id": "951ea0ae-035f-43cd-b87e-674455900c70",
+      "title": "Inception"
+    },
+    {
+      "id": "57e8a05d-1ee9-424c-b898-b28ce19d3c77",
+      "title": "Love and Monsters"
+    }
+  ]
+}

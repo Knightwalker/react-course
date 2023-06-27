@@ -5,35 +5,33 @@ import crypto from "node:crypto";
 import jwt from "jsonwebtoken";
 
 // DTO
-import LoginRequestDTO from "./DTOs/loginRequestDTO.js";
-import RegisterRequestDTO from "./DTOs/registerRequestDTO.js";
+import LoginRequestDTO from "./DTOs/loginRequestDTO.js"; // TODO: refactor to class
+import RegisterRequestDTO from "./DTOs/registerRequestDTO.js"; // TODO: refactor to class
 
 // Models
-import UserModel from "./models/userModel.js";
+import UserModel from "./models/userModel.js"; // TODO: refactor to class
+
+// Data
+import db from "../../configs/lowdb.config.js";
 
 // Services
 import {
     findUserByEmail,
     getUserByEmail
-} from "./userService.js";
+} from "./services/userService.js";
 
 const loginUser = async (req, res) => {
+    // Step 1. Model Binding & Schema Validations
     const data = {
         email: req.body.email,
         password: req.body.password
     };
 
-    // Step 1. Schema Validations
-    const loginRequestDTO = LoginRequestDTO({ ...data });
-    try {
-        await loginRequestDTO.validate();
-    } catch (error) {
-        const errorMessagesArr = []
-        for (const key in error.errors) {
-            const message = error.errors[key].message;
-            errorMessagesArr.push(message);
-        }
-        console.error(errorMessagesArr); // TODO: log this to logfile
+    if (data.email.length <= 0) {
+        return res.status(400).json({ message: "We couldn't process your input data." });
+    }
+
+    if (data.password.length <= 0) {
         return res.status(400).json({ message: "We couldn't process your input data." });
     }
 
@@ -44,24 +42,27 @@ const loginUser = async (req, res) => {
         if (!isUserFound) {
             return res.status(401).send({ message: "We couldn't verify your account with that information." });
         };
-        user = await getUserByEmail(data.email);
+        user = getUserByEmail(data.email);
+        if (user === null) {
+            throw new Error();
+        }
     } catch (error) {
         return res.status(500).send({ message: "We encountered a server error." });
     }
 
     // Step 2. Check if the hash matches the stored hash
     // Hash the provided password with the stored salt, retrieved from the database.
-    const hash = crypto.pbkdf2Sync(data.password, user.salt, 1000, 64, "sha512").toString("hex");
+    const hash = crypto.pbkdf2Sync(loginRequestDTO.password, user.salt, 1000, 64, "sha512").toString("hex");
     if (!hash === user.hash) {
         return res.status(401).send({ message: "We couldn't verify your account with that information." });
     }
 
     // Step 3. Create JWT
-    const loginResponseDTO = {
+    const payload = {
         id: user._id
     }
-    
-    const token = jwt.sign({ loginResponseDTO: loginResponseDTO }, process.env.JWT_SECRET, {
+
+    const token = jwt.sign({ payload: payload }, process.env.SERVER_JWT_SECRET, {
         expiresIn: 3 * 24 * 60 * 60 // 3 days
     });
 
@@ -69,29 +70,24 @@ const loginUser = async (req, res) => {
 }
 
 const registerUser = async (req, res) => {
+    // Step 1. Model Binding & Schema Validations
     const data = {
         email: req.body.email,
         password: req.body.password,
         confirmPassword: req.body.confirmPassword
     };
 
-    // Step 1. Schema Validations
-    const registerRequestDTO = RegisterRequestDTO({ ...data });
-    try {
-        await registerRequestDTO.validate();
-    } catch (error) {
-        const errorMessagesArr = []
-        for (const key in error.errors) {
-            const message = error.errors[key].message;
-            errorMessagesArr.push(message);
-        }
-        console.error(errorMessagesArr); // TODO: log this to logfile
+    if (data.email.length <= 0) {
+        return res.status(400).json({ message: "We couldn't process your input data." });
+    }
+
+    if (data.password.length <= 0) {
         return res.status(400).json({ message: "We couldn't process your input data." });
     }
 
     // Step 2. Database Validations
     try {
-        const isUserFound = await findUserByEmail(data.email);
+        const isUserFound = findUserByEmail(data.email);
         if (isUserFound) {
             return res.status(409).send({ message: "We couldn't create your account with that information." });
         };
@@ -101,19 +97,17 @@ const registerUser = async (req, res) => {
 
     // Step 2. Generate a salt and hash
     const salt = crypto.randomBytes(16).toString("hex");
-    const hash = crypto.pbkdf2Sync(data.password, salt, 1000, 64, "sha512").toString("hex");
+    const hash = crypto.pbkdf2Sync(registerRequestDTO.password, salt, 1000, 64, "sha512").toString("hex");
 
     // Step 3. Create user and save to db
-    try {
-        await UserModel.create({
-            email: req.body.email,
-            salt: salt,
-            hash: hash
-        });
-    } catch (error) {
-        console.error("Error creating user:", error.message);
-        return res.status(500).send({ message: "We encountered a server error." });
+    const user = {
+        email: req.body.email,
+        salt: salt,
+        hash: hash
     }
+
+    db.data.users.push(user);
+    await db.write();
 
     res.status(201).send({ message: "Account has been successfully created!" });
 };
