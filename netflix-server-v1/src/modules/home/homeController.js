@@ -1,48 +1,22 @@
-import MovieModel from "./models/movieModel.js";
+import db from "../../configs/db.json";
 
-const getMovies = async (req, res) => {
-    let movies = [];
-    try {
-        movies = await MovieModel.find({});
-    } catch (error) {
-        console.error("Error getting movies:", error.message);
-        return res.status(500).send({ message: "We encountered a server error", movies: movies });
-    }
-
-    // Check if there are any movies in the database
-    if (movies.length === 0) {
-        return res.status(404).send({ message: "No movies found" });
-    }
-
+const getMovies = (req, res) => {
+    const movies = db.data.movies;
     return res.status(200).send({ movies: movies });
 }
 
-const getMovieById = async (req, res) => {
-    const movieId = req.query.id;
-    let movie = null;
-    try {
-        movie = await MovieModel.findById(movieId);
-    } catch (error) {
-        console.error("Error getting movie by ID:", error.message);
-        return res.status(500).json({ message: "Internal Server Error" });
-    }
+const getMovieById = (req, res) => {
+    const id = req.query.id;
+    const movie = db.data.movies.filter(movie => movie.id === id);
 
-    // Check if there is such movie in the database
-    if (!movie) {
+    if (movie.length <= 0) {
         return res.status(404).json({ message: "Movie not found" });
     }
-
-    res.status(200).send({ movie: movie });
+    return res.status(200).send({ movie: movie[0] });
 }
 
 const getRandomMovie = async (req, res) => {
-    let movies = [];
-    try {
-        movies = await MovieModel.find({});
-    } catch (error) {
-        console.error("Error getting movies:", error.message);
-        return res.status(500).send({ message: "We encountered a server error", movies: movies });
-    }
+    const movies = db.data.movies;
 
     // Check if there are any movies in the database
     if (movies.length === 0) {

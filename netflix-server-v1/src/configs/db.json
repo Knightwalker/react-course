@@ -1,23 +1,46 @@
 {
-  "users": [
-    {
-      "email": "admin@gmail.com",
-      "salt": "816e0afe7db966177a229015f2c19883",
-      "hash": "12123d95efdfb7bdb5d7eea241e95e2bd05bc765888e1b1290e4b3dd8250ba7c81060392eeb6fdee6bd713f297af76f493a10a40ebc10c9a14f3a3a1dbe26f22"
-    }
-  ],
-  "movies": [
-    {
-      "id": "4aa3356f-d38f-4372-8ba6-3c6effa26357",
-      "title": "Interstellar"
-    },
-    {
-      "id": "951ea0ae-035f-43cd-b87e-674455900c70",
-      "title": "Inception"
-    },
-    {
-      "id": "57e8a05d-1ee9-424c-b898-b28ce19d3c77",
-      "title": "Love and Monsters"
-    }
-  ]
+    "users": [
+        {
+            "email": "admin@gmail.com",
+            "salt": "816e0afe7db966177a229015f2c19883",
+            "hash": "12123d95efdfb7bdb5d7eea241e95e2bd05bc765888e1b1290e4b3dd8250ba7c81060392eeb6fdee6bd713f297af76f493a10a40ebc10c9a14f3a3a1dbe26f22"
+        }
+    ],
+    "movies": [
+        {
+            "id": "2f32ba9a-316c-4d26-81fd-bac4caf5c09c",
+            "title": "The Super Mario Bros. Movie",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//9n2tJBplPbgR2ca05hS5CKXwP2c.jpg"
+        },
+        {
+            "id": "dae4ad73-47c3-4244-ad27-071140556196",
+            "title": "Creed III",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//5i6SjyDbDWqyun8klUuCxrlFbyw.jpg"
+        },
+        {
+            "id": "75b482ba-5f97-42af-9585-9bc90a61fdff",
+            "title": "Avatar: The Way of Water",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//ovM06PdF3M8wvKb06i4sjW3xoww.jpg"
+        },
+        {
+            "id": "2db25a08-55d0-4916-a405-f229d4d73a64",
+            "title": "Murder Mustery 2",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg"
+        },
+        {
+            "id": "d9665c82-35de-4340-ad29-11652f08e5a7",
+            "title": "Shazam! Fury of the Gods",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//wybmSmviUXxlBmX44gtpow5Y9TB.jpg"
+        },
+        {
+            "id": "472ca4e3-8499-4ded-92d5-5640b6d20290",
+            "title": "Mummies",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//vSUls0b7dNhC7tJoExF1MBYWWyh.jpg"
+        },
+        {
+            "id": "3053862a-6935-47b7-940a-952c1c7e514e",
+            "title": "Jhon Wick: Chapter 4",
+            "poster": "https://www.themoviedb.org/t/p/w710_and_h400_multi_faces//i8dshLvq4LE3s0v8PrkDdUyb1ae.jpg"
+        }
+    ]
 }
