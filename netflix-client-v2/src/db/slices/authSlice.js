@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
 // Services
-import { postRegister, postLogin } from "../services/AuthService";
+import { postRegister, postLogin } from "../../services/AuthService";
 
 const initialState = {
     user: {
@@ -18,24 +18,20 @@ const authSlice = createSlice({
     initialState: initialState,
     reducers: {
         userLoggedIn: (state, action) => {
+            debugger;
             const { email, token } = action.payload;
             state.user.email = email;
             state.user.token = token;
             state.user.isLoggedIn = true;
         },
         userLoggedOut: (state) => {
-            state.user.email = initialState.user.email;
-            state.user.token = initialState.user.token;
-            state.user.isLoggedIn = initialState.user.isLoggedIn;
+            state.user = initialState.user;
+            localStorage.clear("NetflixClone");
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(postRegister.fulfilled, (state, action) => {
-            return action.payload;
-        });
-        builder.addCase(postLogin.fulfilled, (state, action) => {
-            return action.payload;
-        });
+        builder.addCase(postRegister.fulfilled, (state, action) => {});
+        builder.addCase(postLogin.fulfilled, (state, action) => {});
     }
 });
 

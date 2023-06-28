@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // Database
-import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/i18nSlice/i18nSlice";
+import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/slices/i18nSlice/i18nSlice";
 
 // Data
 import footerComponentData from "../../../data/landing/footerComponentData.json";

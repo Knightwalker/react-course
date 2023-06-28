@@ -25,6 +25,7 @@ const i18nSlice = createSlice({
     initialState: initialState,
     reducers: {
         languageChangedByKey: (state, action) => {
+            debugger;
             const { key } = action.payload;
             state.selectedLanguage = key;
             state.text = text[key];

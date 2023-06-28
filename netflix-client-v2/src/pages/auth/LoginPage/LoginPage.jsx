@@ -1,5 +1,5 @@
 // Libs
-import { useContext, useReducer, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
 // DB, State Management
-import { AuthContext } from "../../../db/AuthContextProvider";
+import { userLoggedIn } from "../../../db/slices/authSlice";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
@@ -24,7 +24,6 @@ import "./LoginPage.css";
 const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { handleSetUser } = useContext(AuthContext);
     const [loginState, loginDispatch] = useReducer(loginReducer, loginInitialState);
     const [postLoginStatus, setPostLoginStatus] = useState(ENUM_SERVICE_STATUS.INIT);
     const [postLoginErrorMessage, setPostLoginErrorMessage] = useState(null);
@@ -46,7 +45,6 @@ const LoginPage = () => {
             postLoginRef.current = actionResult;
             data = await actionResult.unwrap();
             setPostLoginStatus(ENUM_SERVICE_STATUS.SUCCESS);
-            debugger;
         } catch (error) {
             if (error.name === "AbortError") {
                 // Don't proceed any further. We have unmounted this component!
@@ -59,7 +57,10 @@ const LoginPage = () => {
         }
 
         // Step 3. Save user in client
-        handleSetUser(payload.email, data.token);
+        dispatch(userLoggedIn({
+            email: payload.email,
+            token: data.token
+        }));
 
         // Step 4. Navigate to home module
         await wait(500);
