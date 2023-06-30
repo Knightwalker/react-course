@@ -1,9 +1,8 @@
+import "./configs/env.config.js";
 import express from "express";
 import cors from "cors";
 import routerInstance from "./routes.js";
 import connectDB from "./configs/mongoose.config.js";
-import * as dotenv from "dotenv";
-dotenv.config();
 
 const PORT = process.env.PORT;
 
@@ -18,9 +17,16 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(routerInstance);
 
-// Connect to MongoDB
-connectDB();
+const startServer = async () => {
+    try {
+        await connectDB(); // Connect to MongoDB
+        app.listen(PORT, () => {
+            console.log(`App listening on http://localhost:${PORT}`)
+        });
+    } catch (err) {
+        console.error("Failed to start server:", err.message);
+        process.exit(1);
+    }
+}
+startServer();
 
-app.listen(PORT, () => {
-    console.log(`App listening on http://localhost:${PORT}`)
-});
