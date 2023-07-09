@@ -17,7 +17,17 @@ import {
     getUserByEmail
 } from "./services/userService.js";
 
-const loginUser = async (req, res) => {
+// Local fields
+const JWT_COOKIE_NAME = process.env.JWT_COOKIE_NAME;
+const JWT_SECRET = process.env.JWT_SECRET
+
+/**
+ * Login user
+ * @route POST /api/users/register
+ * @access Public
+ * @returns {void}
+ */
+const login = async (req, res) => {
     // Step 1. Model Binding & Schema Validations
     const loginRequestDTO = LoginRequestDTO({
         email: req.body.email,
@@ -60,14 +70,27 @@ const loginUser = async (req, res) => {
         id: user._id
     }
 
-    const token = jwt.sign({ loginResponseDTO: loginResponseDTO }, process.env.SERVER_JWT_SECRET, {
-        expiresIn: 3 * 24 * 60 * 60 // 3 days
+    const token = jwt.sign(loginResponseDTO, JWT_SECRET, {
+        algorithm: "HS512",
+        expiresIn: 1 * 24 * 60 * 60 // 1 day in secodns
+    });
+
+    // Step 4. Set JWT as HTTP-Only cookie
+    res.cookie(JWT_COOKIE_NAME, token, {
+        httpOnly: true,
+        maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day in milliseconds
     });
 
     return res.status(200).send({ token: token, message: "You were verified successfully!" });
 }
 
-const registerUser = async (req, res) => {
+/**
+ * Register user
+ * @route POST /api/users/register
+ * @access Public
+ * @returns {void}
+ */
+const register = async (req, res) => {
     // Step 1. Model Binding & Schema Validations
     const registerRequestDTO = RegisterRequestDTO({
         email: req.body.email,
@@ -116,7 +139,23 @@ const registerUser = async (req, res) => {
     res.status(201).send({ message: "Account has been successfully created!" });
 };
 
+/**
+ * Logout user
+ * @route POST /api/users/logout
+ * @access Private
+ * @returns {void}
+ */
+const logout = (req, res) => {
+    res.cookie(JWT_COOKIE_NAME, "", {
+        httpOnly: true,
+        expires: 0
+    });
+
+    res.status(200).json({ message: "Logged out successfully" });
+};
+
 export {
-    loginUser,
-    registerUser
+    login,
+    register,
+    logout
 }

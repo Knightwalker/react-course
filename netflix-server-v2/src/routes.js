@@ -1,12 +1,24 @@
+"use strict";
+
+// Libs
 import express from "express";
-import { loginUser, registerUser } from "./modules/auth/authController.js"
+
+// Controllers
+import { login, logout, register } from "./modules/auth/authController.js"
 import { getMovies, getMovieById, getRandomMovie } from "./modules/home/homeController.js";
 
-const routerInstance = express.Router();
+// Middlewares
+import AuthenticationMiddleware from "./modules/auth/middleware/authenticationMiddleware.js";
 
+const routerInstance = express.Router();
 // Define routes
-routerInstance.post("/api/auth/login", loginUser);
-routerInstance.post("/api/auth/register", registerUser);
+routerInstance.use("/api", express.json());
+routerInstance.use("/api/auth", express.urlencoded({ extended: true }));
+
+routerInstance.post("/api/auth/login", login);
+routerInstance.post("/api/auth/register", register);
+routerInstance.post("/api/auth/logout", AuthenticationMiddleware, logout);
+
 routerInstance.get("/api/home/movies", getMovies);
 routerInstance.get("/api/home/movie", getMovieById);
 routerInstance.get("/api/home/random-movie", getRandomMovie);

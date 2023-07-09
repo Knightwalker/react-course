@@ -1,6 +1,9 @@
+"use strict";
+
 import "./configs/env.config.js";
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import routerInstance from "./routes.js";
 import connectDB from "./configs/mongoose.config.js";
 
@@ -14,7 +17,7 @@ app.use(cors({
     allowedHeaders: ["Content-Type"]
 }));
 app.use(express.static("public"));
-app.use(express.json());
+app.use(cookieParser());
 app.use(routerInstance);
 
 const startServer = async () => {

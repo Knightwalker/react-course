@@ -1,3 +1,6 @@
+"use strict";
+
+// Libs
 import mongoose from "mongoose";
 
 const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
