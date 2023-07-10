@@ -4,14 +4,14 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // State Management, Context
-import { userLoggedOut } from "../../../db/slices/authSlice";
+import { userLoggedOutAction } from "../../../db/slices/authSlice";
 
 const LogoutPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(userLoggedOut());
+        dispatch(userLoggedOutAction());
         
         const id = setTimeout(() => {
             navigate("/");

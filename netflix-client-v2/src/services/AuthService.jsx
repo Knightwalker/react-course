@@ -23,10 +23,11 @@ const postLogin = createAsyncThunk("auth/postLogin", async(payload, { signal }) 
         response = await fetch(`${VITE_SERVER_BASE_URL}/api/auth/login`, {
             signal: signal,
             method: "POST",
+            credentials: "include", // If the server response sets cookies, we need to set this to `include` so that we enable both sending cookies to the server and saving cookies by a browser.
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(payload)
+            body: JSON.stringify(payload),
         });
     } catch (error) {
         console.error("Network Error:", error.message);

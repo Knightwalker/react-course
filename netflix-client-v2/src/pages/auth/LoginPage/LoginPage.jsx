@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
 // DB, State Management
-import { userLoggedIn } from "../../../db/slices/authSlice";
+import { userLoggedInAction } from "../../../db/slices/authSlice";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
@@ -55,13 +55,12 @@ const LoginPage = () => {
             postLoginErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         }
-
+        
         // Step 3. Save user in client
-        dispatch(userLoggedIn({
+        dispatch(userLoggedInAction({
             email: payload.email,
-            token: data.token
         }));
-
+        
         // Step 4. Navigate to home module
         await wait(500);
         navigate("/browse");

@@ -8,13 +8,15 @@ import routerInstance from "./routes.js";
 import connectDB from "./configs/mongoose.config.js";
 
 const PORT = process.env.PORT;
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN;
 
 // Configure the server
 const app = express();
 app.use(cors({
-    origin: "*",
+    origin: [CLIENT_ORIGIN],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type"]
+    allowedHeaders: ["Content-Type"],
+    credentials: true
 }));
 app.use(express.static("public"));
 app.use(cookieParser());

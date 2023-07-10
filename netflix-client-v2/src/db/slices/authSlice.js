@@ -8,7 +8,6 @@ import { postRegister, postLogin } from "../../services/AuthService";
 const initialState = {
     user: {
         email: "",
-        token: null,
         isLoggedIn: false
     }
 }
@@ -17,14 +16,12 @@ const authSlice = createSlice({
     name: "auth",
     initialState: initialState,
     reducers: {
-        userLoggedIn: (state, action) => {
-            debugger;
-            const { email, token } = action.payload;
+        userLoggedInAction: (state, action) => {
+            const { email } = action.payload;
             state.user.email = email;
-            state.user.token = token;
             state.user.isLoggedIn = true;
         },
-        userLoggedOut: (state) => {
+        userLoggedOutAction: (state) => {
             state.user = initialState.user;
             localStorage.clear("NetflixClone");
         }
@@ -35,7 +32,7 @@ const authSlice = createSlice({
     }
 });
 
-const { userLoggedIn, userLoggedOut } = authSlice.actions;
+const { userLoggedInAction, userLoggedOutAction } = authSlice.actions;
 
 const useSelectAuth = () => {
     const auth = useSelector(state => state.auth);
@@ -49,8 +46,8 @@ const useSelectUser = () => {
 
 export default authSlice;
 export { 
-    userLoggedIn,
-    userLoggedOut,
+    userLoggedInAction,
+    userLoggedOutAction,
     useSelectAuth,
     useSelectUser
 };
