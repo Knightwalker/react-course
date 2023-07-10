@@ -1,5 +1,9 @@
 "use strict";
 
+// Libs
+import crypto from "node:crypto";
+
+// Models
 import UserModel from "../models/userModel.js";
 
 const findUserByEmail = async (email) => {
@@ -25,7 +29,21 @@ const getUserByEmail = async (email) => {
     }
 };
 
+const createUser = async (email, password) => {
+    // Step 1. Generate a salt and hash
+    const salt = crypto.randomBytes(16).toString("hex");
+    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, "sha512").toString("hex");
+
+    // Step 2. Create user and save to db
+    await UserModel.create({
+        email: email,
+        salt: salt,
+        hash: hash
+    });
+}
+
 export {
     findUserByEmail,
-    getUserByEmail
+    getUserByEmail,
+    createUser
 }
