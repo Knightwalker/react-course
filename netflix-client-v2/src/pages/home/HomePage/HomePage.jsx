@@ -1,6 +1,5 @@
 // Libs
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 // Components
 import BillboardComponent from "../../../components/home/BillboardComponent/BillboardComponent";
@@ -8,9 +7,9 @@ import Carousel from "../../../components/home/Carousel/Carousel";
 
 // Services
 import {
-    getMovies,
-    getMoviesById,
-    getRandomMovie
+    useGetMoviesQuery,
+    useGetMoviesByIdQuery,
+    useGetRandomMovieQuery
 } from "../../../services/HomeService";
 
 const HomePage = () => {
@@ -18,43 +17,38 @@ const HomePage = () => {
         movieId: null
     });
 
-    const handleGetMovieById = async(movieId) => {
+    const handleGetMovieById = async (movieId) => {
         setState({
             movieId: movieId
         });
     };
 
-    const { data: moviesData, status: moviesStatus } = useQuery({
-        queryKey: ["movies"],
-        queryFn: ({ signal }) => getMovies(signal)
+    const { data: moviesData, isSuccess: isMoviesSuccess } = useGetMoviesQuery(null, {
+        refetchOnMountOrArgChange: true
     });
-
-    const { data: movieData, status: movieStatus } = useQuery({
-        queryKey: ["movie", state.movieId],
-        queryFn: ({ signal }) => getMoviesById(state.movieId, signal),
-        enabled: !!state.movieId // Enable the query only if movieId is available
+    const { data: movieData, isSuccess: isMovieSuccess } = useGetMoviesByIdQuery(state.movieId, {
+        skip: !state.movieId, // Enable the query only if movieId is available
+        refetchOnMountOrArgChange: true
     });
-
-    const { data: randomMovieData, status: randomMovieStatus } = useQuery({
-        queryKey: ["random-movie"],
-        queryFn: ({ signal }) => getRandomMovie(signal)
+    const { data: randomMovieData, isSuccess: isRandomMovieSuccess } = useGetRandomMovieQuery(null, {
+        refetchOnMountOrArgChange: true
     });
 
     return (
         <div className="HomePage">
-            {randomMovieStatus === "success" && (
+            {(isRandomMovieSuccess) && (
                 <BillboardComponent data={randomMovieData} />
             )}
 
-            {movieStatus === "success" ? (
+            {isMovieSuccess ? (
                 <div className="text-center">Currently Watching: {movieData.title}</div>
             ) : (
                 <div>&nbsp;</div>
             )}
 
-            {moviesStatus === "success" && (
+            {isMoviesSuccess && (
                 <div className="HomePage__carousel-wrapper">
-                    <Carousel 
+                    <Carousel
                         movies={moviesData}
                         cbGetMovieById={handleGetMovieById}
                     />

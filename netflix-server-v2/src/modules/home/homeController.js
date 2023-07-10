@@ -14,7 +14,7 @@ const getMovies = async (req, res) => {
         return res.status(404).send({ message: "No movies found" });
     }
 
-    return res.status(200).send({ movies: movies });
+    return res.status(200).send(movies);
 }
 
 const getMovieById = async (req, res) => {
@@ -32,7 +32,7 @@ const getMovieById = async (req, res) => {
         return res.status(404).json({ message: "Movie not found" });
     }
 
-    res.status(200).send({ movie: movie });
+    res.status(200).send(movie);
 }
 
 const getRandomMovie = async (req, res) => {
@@ -54,7 +54,7 @@ const getRandomMovie = async (req, res) => {
     const randomMovie = movies[randomIndex];
 
     // Send the random movie in the response
-    return res.status(200).send({ movie: randomMovie });
+    return res.status(200).send(randomMovie);
 }
 
 export {
