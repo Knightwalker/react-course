@@ -16,16 +16,14 @@ import { postRegister, postRegisterErrorHandler } from "../../../services/AuthSe
 // Local imports
 import {
     reducerState,
-    initialState
-} from "./RegisterPageReducer";
-import { 
+    initialState,
     setFieldValueAction, 
     setFieldIsTouchedAction, 
     setFieldErrorAction, 
     clearFieldErrorAction,
     setOptionsIsFormValidAction,
     resetStateAction
-} from "./RegisterPageActions";
+} from "./RegisterPageState";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {

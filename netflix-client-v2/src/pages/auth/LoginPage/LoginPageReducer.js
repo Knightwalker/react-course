@@ -1,6 +1,6 @@
 import { ENUM_LOGIN_ACTION_TYPES } from "./LoginPageEnums";
 
-const loginInitialState = {
+const initialState = {
     form: {
         fields: {
             email: {
@@ -28,7 +28,7 @@ const loginInitialState = {
     }
 };
 
-const loginReducer = (oldState, action) => {
+const reducerState = (oldState, action) => {
     if (action.type === ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE) {
         const { field, value } = action.payload;
         const newState = JSON.parse(JSON.stringify(oldState)); // deep-copy
@@ -73,13 +73,13 @@ const loginReducer = (oldState, action) => {
         newState.form.options.isFormValid = isFormValid;
         return newState;
     } else if (action.type === ENUM_LOGIN_ACTION_TYPES.RESET_STATE) {
-        return JSON.parse(JSON.stringify(loginInitialState));
+        return JSON.parse(JSON.stringify(initialState)); // deep-copy
     } else {
         return oldState;
     }
 };
 
 export {
-    loginReducer,
-    loginInitialState
+    reducerState,
+    initialState
 };

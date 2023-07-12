@@ -8,8 +8,8 @@ import HomeLayout from "../pages/home/HomeLayout/HomeLayout";
 
 // Pages
 import LandingPage from "../pages/landing/LandingPage/LandingPage";
-import LoginPage from "../pages/auth/LoginPage/LoginPage";
-import RegisterPage from "../pages/auth/RegisterPage/RegisterPage";
+import LoginPage from "../pages/auth/LoginPageV2/LoginPage";
+import RegisterPage from "../pages/auth/RegisterPageV2/RegisterPage";
 import LogoutPage from "../pages/auth/LogoutPage/LogoutPage";
 import HomePage from "../pages/home/HomePage/HomePage";
 

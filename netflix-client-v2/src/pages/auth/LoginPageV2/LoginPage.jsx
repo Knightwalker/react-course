@@ -19,16 +19,14 @@ import { postLogin, postLoginErrorHandler } from "../../../services/AuthService"
 // Local Imports
 import {
     reducerState,
-    initialState
-} from "./LoginPageReducer";
-import {
+    initialState,
     setFieldValueAction,
     setFieldIsTouchedAction,
     setFieldErrorAction,
     clearFieldErrorAction,
     setOptionsIsFormValidAction,
     resetStateAction
-} from "./LoginPageActions";
+} from "./LoginPageState";
 import "./LoginPage.css";
 
 const LoginPage = () => {

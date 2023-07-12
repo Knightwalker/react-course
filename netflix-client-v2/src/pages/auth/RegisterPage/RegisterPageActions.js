@@ -14,7 +14,7 @@ const setFieldIsTouchedAction = (field) => {
     return {
         type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
         payload: {
-            field: field,
+            field: field
         }
     }
 }

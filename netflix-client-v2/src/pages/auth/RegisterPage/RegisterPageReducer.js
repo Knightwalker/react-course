@@ -1,6 +1,6 @@
 import { ENUM_REGISTER_ACTION_TYPES } from "./RegisterPageEnums";
 
-const registerInitialState = {
+const initialState = {
     form: {
         fields: {
             email: {
@@ -28,7 +28,7 @@ const registerInitialState = {
     }
 };
 
-const registerReducer = (oldState, action) => {
+const reducerState = (oldState, action) => {
     if (action.type === ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE) {
         const { field, value } = action.payload;
         const newState = JSON.parse(JSON.stringify(oldState)); // deep-copy
@@ -73,13 +73,13 @@ const registerReducer = (oldState, action) => {
         newState.form.options.isFormValid = isFormValid;
         return newState;
     } else if (action.type === ENUM_REGISTER_ACTION_TYPES.RESET_STATE) {
-        return JSON.parse(JSON.stringify(registerInitialState));
+        return JSON.parse(JSON.stringify(initialState)); // deep-copy
     } else {
         return oldState;
     }
 };
 
 export {
-    registerReducer,
-    registerInitialState
+    reducerState,
+    initialState
 };
