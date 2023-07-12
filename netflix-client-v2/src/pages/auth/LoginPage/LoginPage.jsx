@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 // Enums
 import { ENUM_SERVICE_STATUS } from "../../../services/enums";
 
-// DB, State Management
+// State Management (Global)
 import { userLoggedInAction } from "../../../db/slices/authSlice";
 
 // Utils
@@ -17,8 +17,18 @@ import { wait } from "../../../utils/shared";
 import { postLogin, postLoginErrorHandler } from "../../../services/AuthService";
 
 // Local Imports
-import { loginReducer, loginInitialState } from "./LoginPageReducer";
-import { ENUM_LOGIN_ACTION_TYPES } from "./LoginPageEnums";
+import {
+    loginReducer,
+    loginInitialState
+} from "./LoginPageReducer";
+import {
+    setFieldValueAction,
+    setFieldIsTouchedAction,
+    setFieldErrorAction,
+    clearFieldErrorAction,
+    setOptionsIsFormValidAction,
+    resetStateAction
+} from "./LoginPageActions";
 import "./LoginPage.css";
 
 const LoginPage = () => {
@@ -36,7 +46,7 @@ const LoginPage = () => {
             email: loginState.form.fields.email.value,
             password: loginState.form.fields.password.value,
         };
-        
+
         // Step 2. Send POST request to BE
         let data = null;
         setPostLoginStatus(ENUM_SERVICE_STATUS.LOADING);
@@ -55,14 +65,15 @@ const LoginPage = () => {
             postLoginErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         }
-        
+
         // Step 3. Save user in client
         dispatch(userLoggedInAction({
             email: payload.email,
         }));
-        
+
         // Step 4. Navigate to home module
         await wait(500);
+        loginDispatch(resetStateAction());
         navigate("/browse");
     };
 
@@ -81,37 +92,14 @@ const LoginPage = () => {
             const value = loginState.form.fields[field].value;
 
             if (value.length <= 0) {
-                loginDispatch({
-                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Field cannot be empty."
-                    }
-                });
+                loginDispatch(setFieldErrorAction(field, "Field cannot be empty"));
             } else if (field === "email" && !isEmailValid(value)) {
-                loginDispatch({
-                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Email address is not valid"
-                    }
-                });
+                loginDispatch(setFieldErrorAction(field, "Email address is not valid"));
             } else if (field === "password" && !isPasswordValid(value)) {
-                loginDispatch({
-                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Password must be between 6 and 60 characters and may not contain a tilde (~)"
-                    }
-                });
+                loginDispatch(setFieldErrorAction(field, "Password must be between 6 and 60 characters and may not contain a tilde (~)"));
             } else {
                 fields[field].isValid = true;
-                loginDispatch({
-                    type: ENUM_LOGIN_ACTION_TYPES.CLEAR_FIELD_ERROR,
-                    payload: {
-                        field: field
-                    }
-                });
+                loginDispatch(clearFieldErrorAction(field));
             }
         }
 
@@ -122,12 +110,7 @@ const LoginPage = () => {
             isFormValid = true;
         }
 
-        loginDispatch({
-            type: ENUM_LOGIN_ACTION_TYPES.VALIDATE_FORM,
-            payload: {
-                isFormValid: isFormValid
-            }
-        });
+        loginDispatch(setOptionsIsFormValidAction(isFormValid));
     };
 
     useEffect(() => {
@@ -157,31 +140,17 @@ const LoginPage = () => {
                             value={loginState.form.fields.email.value}
                             onChange={(e) => {
                                 const { name, value } = e.currentTarget;
-                                loginDispatch({
-                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE,
-                                    payload: {
-                                        field: name,
-                                        value: value
-                                    }
-                                });
+                                loginDispatch(setFieldValueAction(name, value));
+
                                 if (!loginState.form.fields[name].isTouched) {
-                                    loginDispatch({
-                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: name,
-                                        }
-                                    });
+                                    loginDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             onBlur={(e) => {
                                 const { name } = e.currentTarget;
+
                                 if (!loginState.form.fields[name].isTouched) {
-                                    loginDispatch({
-                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: e.currentTarget.name,
-                                        }
-                                    });
+                                    loginDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             autoComplete="username"
@@ -201,31 +170,17 @@ const LoginPage = () => {
                             value={loginState.form.fields.password.value}
                             onChange={(e) => {
                                 const { name, value } = e.currentTarget;
-                                loginDispatch({
-                                    type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE,
-                                    payload: {
-                                        field: name,
-                                        value: value
-                                    }
-                                });
+                                loginDispatch(setFieldValueAction(name, value));
+
                                 if (!loginState.form.fields[name].isTouched) {
-                                    loginDispatch({
-                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: name,
-                                        }
-                                    });
+                                    loginDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             onBlur={(e) => {
                                 const { name } = e.currentTarget;
+
                                 if (!loginState.form.fields[name].isTouched) {
-                                    loginDispatch({
-                                        type: ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: e.currentTarget.name,
-                                        }
-                                    });
+                                    loginDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             autoComplete="current-password"

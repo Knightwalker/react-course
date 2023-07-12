@@ -30,9 +30,9 @@ const registerInitialState = {
 
 const registerReducer = (oldState, action) => {
     if (action.type === ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE) {
-        const { name, value } = action.payload;
+        const { field, value } = action.payload;
         const newState = JSON.parse(JSON.stringify(oldState)); // deep-copy
-        newState.form.fields[name].value = value;
+        newState.form.fields[field].value = value;
         return newState;
     } else if (action.type === ENUM_REGISTER_ACTION_TYPES.SET_FIELD_ERROR) {
         const { field, error } = action.payload;
@@ -67,7 +67,7 @@ const registerReducer = (oldState, action) => {
         );
 
         return newState;
-    } else if (action.type === ENUM_REGISTER_ACTION_TYPES.VALIDATE_FORM) {
+    } else if (action.type === ENUM_REGISTER_ACTION_TYPES.SET_OPTIONS_IS_FORM_VALID) {
         const { isFormValid } = action.payload;
         const newState = { ...oldState }; // shallow-copy
         newState.form.options.isFormValid = isFormValid;

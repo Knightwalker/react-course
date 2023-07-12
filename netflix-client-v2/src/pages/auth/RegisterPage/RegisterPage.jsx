@@ -14,8 +14,18 @@ import { wait } from "../../../utils/shared";
 import { postRegister, postRegisterErrorHandler } from "../../../services/AuthService";
 
 // Local imports
-import { registerReducer, registerInitialState } from "./RegisterPageReducer";
-import { ENUM_REGISTER_ACTION_TYPES } from "./RegisterPageEnums";
+import {
+    registerReducer,
+    registerInitialState
+} from "./RegisterPageReducer";
+import { 
+    setFieldValueAction, 
+    setFieldIsTouchedAction, 
+    setFieldErrorAction, 
+    clearFieldErrorAction,
+    setOptionsIsFormValidAction,
+    resetStateAction
+} from "./RegisterPageActions";
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
@@ -29,14 +39,14 @@ const RegisterPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         // Step 1. Prepare data
         const payload = {
             email: registerState.form.fields.email.value,
             password: registerState.form.fields.password.value,
             confirmPassword: registerState.form.fields.confirmPassword.value
         };
-        
+
         // Step 2. Send POST request to BE
         setPostRegisterStatus(ENUM_SERVICE_STATUS.LOADING);
         try {
@@ -60,7 +70,7 @@ const RegisterPage = () => {
         }
 
         // Step 4. Navigate to login
-        registerDispatch({ type: ENUM_REGISTER_ACTION_TYPES.RESET_STATE });
+        registerDispatch(resetStateAction());
         navigate("/auth/login");
     };
 
@@ -82,45 +92,16 @@ const RegisterPage = () => {
             const value = registerState.form.fields[field].value;
 
             if (value.length <= 0) {
-                registerDispatch({
-                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Field cannot be empty."
-                    }
-                });
+                registerDispatch(setFieldErrorAction(field, "Field cannot be empty"));
             } else if (field === "email" && !isEmailValid(value)) {
-                registerDispatch({
-                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Email address is not valid"
-                    }
-                });
+                registerDispatch(setFieldErrorAction(field, "Email address is not valid"));
             } else if (field === "password" && !isPasswordValid(value)) {
-                registerDispatch({
-                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Password must be between 6 and 60 characters and may not contain a tilde (~)"
-                    }
-                });
+                registerDispatch(setFieldErrorAction(field, "Password must be between 6 and 60 characters and may not contain a tilde (~)"));  
             } else if (field === "confirmPassword" && value !== registerState.form.fields.password.value) {
-                registerDispatch({
-                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_ERROR,
-                    payload: {
-                        field: field,
-                        error: "Passwords do not match"
-                    }
-                });
+                registerDispatch(setFieldErrorAction(field, "Passwords do not match"));
             } else {
                 fields[field].isValid = true;
-                registerDispatch({
-                    type: ENUM_REGISTER_ACTION_TYPES.CLEAR_FIELD_ERROR,
-                    payload: {
-                        field: field
-                    }
-                });
+                registerDispatch(clearFieldErrorAction(field));
             }
         }
 
@@ -132,12 +113,7 @@ const RegisterPage = () => {
             isFormValid = true;
         }
 
-        registerDispatch({
-            type: ENUM_REGISTER_ACTION_TYPES.VALIDATE_FORM,
-            payload: {
-                isFormValid: isFormValid
-            }
-        });
+        registerDispatch(setOptionsIsFormValidAction(isFormValid));
     };
 
     useEffect(() => {
@@ -155,13 +131,8 @@ const RegisterPage = () => {
             return;
         }
         const { email } = location.state;
-        registerDispatch({
-            type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE,
-            payload: {
-                name: "email",
-                value: email
-            }
-        });
+        debugger;
+        registerDispatch(setFieldValueAction("email", email));
     }, [location]);
 
     useEffect(() => {
@@ -191,29 +162,18 @@ const RegisterPage = () => {
                             value={registerState.form.fields.email.value}
                             onChange={(e) => {
                                 const { name, value } = e.currentTarget;
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE,
-                                    payload: {
-                                        name: name,
-                                        value: value
-                                    }
-                                });
+                                registerDispatch(setFieldValueAction(name, value));
+
                                 if (!registerState.form.fields[name].isTouched) {
-                                    registerDispatch({
-                                        type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: name,
-                                        }
-                                    });
+                                    registerDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             onBlur={(e) => {
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                    payload: {
-                                        field: e.currentTarget.name,
-                                    }
-                                });
+                                const { name } = e.currentTarget;
+
+                                if (!registerState.form.fields[name].isTouched) {
+                                    registerDispatch(setFieldIsTouchedAction(name));
+                                }
                             }}
                             autoComplete="username"
                         />
@@ -232,29 +192,18 @@ const RegisterPage = () => {
                             value={registerState.form.fields.password.value}
                             onChange={(e) => {
                                 const { name, value } = e.currentTarget;
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE,
-                                    payload: {
-                                        name: name,
-                                        value: value
-                                    }
-                                });
+                                registerDispatch(setFieldValueAction(name, value));
+
                                 if (!registerState.form.fields[name].isTouched) {
-                                    registerDispatch({
-                                        type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: name,
-                                        }
-                                    });
+                                    registerDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             onBlur={(e) => {
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                    payload: {
-                                        field: e.currentTarget.name,
-                                    }
-                                });
+                                const { name } = e.currentTarget;
+
+                                if (!registerState.form.fields[name].isTouched) {
+                                    registerDispatch(setFieldIsTouchedAction(name));
+                                }
                             }}
                             autoComplete="new-password"
                         />
@@ -273,29 +222,18 @@ const RegisterPage = () => {
                             value={registerState.form.fields.confirmPassword.value}
                             onChange={(e) => {
                                 const { name, value } = e.currentTarget;
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_VALUE,
-                                    payload: {
-                                        name: name,
-                                        value: value
-                                    }
-                                });
+                                registerDispatch(setFieldValueAction(name, value));
+
                                 if (!registerState.form.fields[name].isTouched) {
-                                    registerDispatch({
-                                        type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                        payload: {
-                                            field: name,
-                                        }
-                                    });
+                                    registerDispatch(setFieldIsTouchedAction(name));
                                 }
                             }}
                             onBlur={(e) => {
-                                registerDispatch({
-                                    type: ENUM_REGISTER_ACTION_TYPES.SET_FIELD_IS_TOUCHED,
-                                    payload: {
-                                        field: e.currentTarget.name,
-                                    }
-                                });
+                                const { name } = e.currentTarget;
+
+                                if (!registerState.form.fields[name].isTouched) {
+                                    registerDispatch(setFieldIsTouchedAction(name));
+                                }
                             }}
                             autoComplete="new-password"
                         />

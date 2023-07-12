@@ -67,7 +67,7 @@ const loginReducer = (oldState, action) => {
         );
 
         return newState;
-    } else if (action.type === ENUM_LOGIN_ACTION_TYPES.VALIDATE_FORM) {
+    } else if (action.type === ENUM_LOGIN_ACTION_TYPES.SET_OPTIONS_IS_FORM_VALID) {
         const { isFormValid } = action.payload;
         const newState = { ...oldState }; // shallow-copy
         newState.form.options.isFormValid = isFormValid;
