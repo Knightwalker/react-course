@@ -126,7 +126,7 @@ const action = {
 ```
 
 **Reducer**
-[Reducer_Diagram](https://github.com/Knightwalker/react-course/blob/main/020.Redux/reducer_(800x450).png)
+![Reducer_Diagram](./assets/reducer_(800x450).png)
 
 Let's imagine that we own a small family store in a town and that occasionally we learn news about things that happend. (We either read newspapers or watch TV news) either way we get "news report" and if we can call that an action, then a reducer is the person reading the report and choosing if they want to change anything in the store they own, according to the news they learned.
 
