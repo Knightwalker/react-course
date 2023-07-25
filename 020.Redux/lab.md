@@ -126,6 +126,8 @@ const action = {
 ```
 
 **Reducer**
+[Reducer_Diagram](https://github.com/Knightwalker/react-course/blob/main/020.Redux/reducer_(800x450).png)
+
 Let's imagine that we own a small family store in a town and that occasionally we learn news about things that happend. (We either read newspapers or watch TV news) either way we get "news report" and if we can call that an action, then a reducer is the person reading the report and choosing if they want to change anything in the store they own, according to the news they learned.
 
 So what is a reducer in Redux terms? It's just a plain old function you write that takes 2 things (the current state and the action to be processed) and returns the new state. For example, let's say an action comes in, saying that a used logged in, we would then like to update our state to reflect that the user did log in.
