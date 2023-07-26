@@ -5,6 +5,7 @@ Next we will be covering the following top-level methods from the **Redux API**:
 - applyMiddleware(...middlewares)
 - bindActionCreators(actionCreators, dispatch)
 - combineReducers(reducers)
+- compose(...functions)
 
 ##### Action Creators
 There is a better way to `dispatch` action objects and that is by using `action creators`. Action creator is just another way to define an action, so simply said, it's just a JavaScript function that returns an `action object`. The general idea is that instead of dispatching an actual `action object`, we would like to dispatch a simple function, which function will simply return an `action object`, the same object as before, but will also allow us to encapsulate the action type and other custom logic if we want.
@@ -33,9 +34,9 @@ store.dispatch(loginAction("Gosho"));
 
 This is just a plain old JavaScript function, but the approach in general is considered **Good Practice**, because in our business logic, from our controller, we would like to fire `dispatch` calls, with specific actions, hiding away the implementation details. Plus, if we refactor down the road, this thin layer of abstraction means we have fewer changes to make.
 
-Q: Can we take this a step further? What do you think can be further improved? Can we abstract more?
-A1: Arguably the `store.dispatch()` part is another unnecessary coupling.
-A2: Maybe it's a good idea to group common functionality, inside a single package, like `userActions`
+**Q:** Can we take this a step further? What do you think can be further improved? Can we abstract more?
+**A1:** Arguably the `store.dispatch()` part is another unnecessary coupling.
+**A2:** Maybe it's a good idea to group common functionality, inside a single package, like `userActions`
 
 As it turns out, there is a common pattern in Redux, to do just those things and that is why the library includes a method for this, called: `bindActionCreators()`. 
 
@@ -314,21 +315,53 @@ console.log("anotherStore dispatch: movieActions.deletedMovie()", anotherStore.g
 
 This is a common pattern in Redux and the general idea is that each state with domain-specific data is called a **slice**, therefore each **slice reducer** is responsible for managing all updates to that specific slice of state. It is important to also mention that Redux calls all reducers, when you dispatch an action, meaning that multiple slice reducers can respond to the same action, independently update their own slice as needed, and the updated slices are combined into the new state object.
 
-Q: Now that we know how `combineReducers` works, are we able to answer why is this a good practice? What is the idea, what benefits do we get?
-A1: The purpose of using combineReducers is to simplify the management of state in Redux applications. It promotes a modular approach to state management and helps organize the state by breaking it down into smaller, independent slice reducers, each responsible for a specific slice of the overall state.
+**Q:** Now that we know how `combineReducers` works, are we able to answer why is this a good practice? What is the idea, what benefits do we get?
+**A:** The purpose of using `combineReducers` is to simplify the management of state in Redux applications. It promotes a modular approach to state management and helps organize the state by breaking it down into smaller, independent slice reducers, each responsible for a specific slice of the overall state.
+
+##### Compose
+This is a functional programming utility that combines functions from right to left into one function.
+
+Let's see a basic example
+```js
+import { compose } from "Redux";
+
+const html = `
+    <script>alert("Hack Attempt")</script>
+    [b]Hello World[/b]
+`;
+
+const sanitize = (str) => {
+    return str.replace(/<[^>]*>?/gm, "");
+}
+
+const nl2br = (str) => {
+    return str.replace(/\n/g, "<br>");
+}
+
+const bbcodeToHtml = (str) => {
+    return str.replace(/\[b\](.*?)\[\/b\]/g, "<strong>$1</strong>");
+}
+
+const preparePage = compose(bbcodeToHtml, nl2br, sanitize);
+preparePage(html);
+```
+Combining functions is a common pattern in Redux and allows us to for example combine multiple middlewares.
 
 **Congratulations!**
 You now know the whole surface area of the **Redux API**.
 
 **Section Summary**
 Recap on what we learned
-- Theory: action creators, state slices and slice reducers.
-- Redux API: `bindActionCreators(), combineReducers(), applyMiddleware()`
+- Theory: action creators, root reducer and slices.
+- Redux API: 
+    - `bindActionCreators()`
+    - `combineReducers()`
+    - `applyMiddleware()`
 
 Recap on rules:
-- Redux calls all reducers, when you dispatch an action. That is by design and allows multiple slice reducers to respond to the same action, independently update their own slice of the state, as needed.
+- Redux calls all reducers, when you dispatch an action. That is by design and allows multiple **slice reducers** to respond to the same action, independently update their own slice of the state, as needed.
 
 Recap on conventions:
 - An `action creator` is merely a JavaScript function that returns an `action object`.
-- Grouping common `actions creators` into a package and decoupling the `dispatch` is a common pattern in Redux. Therefore the library includes a utility function called `bindActionCreators` for binding one or more action creators to the store's `dispatch` function and grouping multiple actions into an object.
-- A good practice is to use `combineReducers`, in order to promote a modular approach to managing state, where each **slice reducer** handles a specific **slice** of the state.
+- Using `bindActionCreators` to group common `actions creators` into a package and bind it to the store's `dispatch` function is a common pattern in Redux.
+- Using `combineReducers` in order to create a rootReducer, is a good practice, which promotes a modular approach to managing state, where each **slice reducer** handles a specific **slice** of the state.
