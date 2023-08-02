@@ -25,8 +25,8 @@ const App = () => {
     }
 
     const loadEdit = (id, title) => {
-        const idEl = document.getElementById("edit_movie_id").value = id;
-        const titleEl = document.getElementById("edit_movie_title").value = title;
+        document.getElementById("edit_movie_id").value = id;
+        document.getElementById("edit_movie_title").value = title;
     }
 
     return (
@@ -58,7 +58,7 @@ const App = () => {
                     <label htmlFor="edit_movie_title">Movie Title </label>
                     <input id="edit_movie_title" name="edit_movie_title" type="text" required={true}></input>
                 </div>
-                <button type="submit">Add Movie</button>
+                <button type="submit">Edit Movie</button>
             </form>
         </div>
     );
