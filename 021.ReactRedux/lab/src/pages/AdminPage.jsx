@@ -7,7 +7,7 @@ import {
 } from "../state/actions";
 
 // Services
-import { getUsers } from "../services/AdminService";
+import { getUsers } from "../services/UserService";
 
 const AdminPage = () => {
     const dispatch = useDispatch();

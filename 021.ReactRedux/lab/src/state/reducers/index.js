@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 import userReducer from "./userReducer";
 import moviesReducer from "./movieReducer";
-import apiReducer from "./apiReducer";
+import userServiceReducer from "./userServiceReducer";
 
 const rootReducer = combineReducers({
     user: userReducer,
     movies: moviesReducer,
-    api: apiReducer
+    userService: userServiceReducer
 });
 
 export default rootReducer;

@@ -3,8 +3,10 @@ const responseUsersMockData = [
     { id: "160888bd-4142-468b-8931-73ae703b88ab", name: "User" }
 ]
 
+// Thunk action creator
 const getUsers = () => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
+        console.log("FROM getUsers: ", getState());
         // return a promise which is resolved with mocked data after 2 seconds
         return new Promise((resolve) => {
             setTimeout(() => {
