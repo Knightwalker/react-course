@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     addedMovieAction,
@@ -5,9 +6,13 @@ import {
     deletedMovieAction
 } from "../state/actions";
 
+// Services
+import { getUsers } from "../services/AdminService";
+
 const AdminPage = () => {
     const dispatch = useDispatch();
     const movies = useSelector((state) => state.movies);
+    const [users, setUsers] = useState([]);
 
     const handleCreate = (e) => {
         e.preventDefault();
@@ -33,9 +38,22 @@ const AdminPage = () => {
         document.getElementById("edit_movie_title").value = title;
     }
 
+    useEffect(() => {
+        console.log("FROM useEffect: dispatch(getUsers())");
+        dispatch(getUsers())
+            .then(data => {
+                console.log("FROM useEffect: ", data);
+                setUsers(data);
+            });
+    }, []);
+
     return (
         <div className="App">
             <h1>The Admin Panel</h1>
+            <h2>The Users</h2>
+            {users.map((user) => (
+                <div key={user.id}>{user.name}</div>
+            ))}
             <h2>The Movies</h2>
             {movies.map((movie) => (
                 <div key={movie.id} className="movie-item">
