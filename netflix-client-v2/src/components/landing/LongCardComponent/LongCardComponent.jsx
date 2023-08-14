@@ -30,7 +30,7 @@ const LongCardComponent = ({
             </div>
         </div>
     );
-}
+};
 
 function LongCardComponentVideoEl({ cardType, videoPath }) {
     if (cardType !== "watch-on-tv" && cardType !== "watch-on-device") {

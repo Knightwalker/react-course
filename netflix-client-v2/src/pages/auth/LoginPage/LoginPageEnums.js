@@ -9,4 +9,4 @@ const ENUM_LOGIN_ACTION_TYPES = {
 
 export {
     ENUM_LOGIN_ACTION_TYPES
-}
+};

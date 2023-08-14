@@ -20,7 +20,7 @@ const LogoutPage = () => {
         return () => {
             window.clearTimeout(id);
         };
-    }, []);
+    }, [dispatch, navigate]);
     
     return (
         <div>

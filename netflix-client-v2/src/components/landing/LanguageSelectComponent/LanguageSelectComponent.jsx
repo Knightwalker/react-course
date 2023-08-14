@@ -25,7 +25,7 @@ const LanguageSelectComponent = ({
         if (typeof cbLanguageChange !== "undefined") {
             cbLanguageChange(selectedKey);
         }
-    }
+    };
 
     return (
         <div className="LanguageSelectComponent">
@@ -46,8 +46,8 @@ const LanguageSelectComponent = ({
                 ))}
             </select>
         </div>
-    )
+    );
 
-}
+};
 
 export default LanguageSelectComponent;

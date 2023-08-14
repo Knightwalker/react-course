@@ -37,7 +37,7 @@ const LoginPage = () => {
     const [postLoginErrorMessage, setPostLoginErrorMessage] = useState(null);
     const postLoginRef = useRef(null);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         // Step 1. Prepare data
         const payload = {

@@ -7,8 +7,8 @@ const setFieldValueAction = (field, value) => {
             field: field,
             value: value
         }
-    }
-}
+    };
+};
 
 const setFieldIsTouchedAction = (field) => {
     return {
@@ -16,8 +16,8 @@ const setFieldIsTouchedAction = (field) => {
         payload: {
             field: field
         }
-    }
-}
+    };
+};
 
 const setFieldErrorAction = (field, error) => {
     return {
@@ -26,8 +26,8 @@ const setFieldErrorAction = (field, error) => {
             field: field,
             error: error
         }
-    }
-}
+    };
+};
 
 const clearFieldErrorAction = (field) => {
     return {
@@ -35,8 +35,8 @@ const clearFieldErrorAction = (field) => {
         payload: {
             field: field
         }
-    }
-}
+    };
+};
 
 const setOptionsIsFormValidAction = (isFormValid) => {
     return {
@@ -44,14 +44,14 @@ const setOptionsIsFormValidAction = (isFormValid) => {
         payload: {
             isFormValid: isFormValid
         }
-    }
-}
+    };
+};
 
 const resetStateAction = () => {
     return {
         type: ENUM_REGISTER_ACTION_TYPES.RESET_STATE,
-    }
-}
+    };
+};
 
 export {
     setFieldValueAction,
@@ -60,4 +60,4 @@ export {
     clearFieldErrorAction,
     setOptionsIsFormValidAction,
     resetStateAction
-}
+};
