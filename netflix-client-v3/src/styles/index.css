@@ -1,0 +1,8 @@
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+:root {
+    --netflix-color-red: #e50914;
+    --netflix-color-green: #2bb871;
+    --netflix-color-orange: #e87c03;
+}

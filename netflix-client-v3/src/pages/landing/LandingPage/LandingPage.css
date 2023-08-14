@@ -1,0 +1,21 @@
+.LandingPage__LongCardComponent-wrapper {
+    margin-bottom: 72px;
+}
+
+.LandingPage__AccordionComponent-wrapper {
+    max-width: calc(100% - 4rem);
+    margin: 0px auto;
+    text-align: center;
+}
+
+.LandingPage__FAQ {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+/* Netflix M Breakpoint (tablets, 640px and up) */
+@media (min-width: 640px) {
+    .LandingPage__AccordionComponent-wrapper {
+        max-width: 80%;
+    }
+}
