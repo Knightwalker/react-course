@@ -43,7 +43,7 @@ const setFieldValueAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_FIELD_VALUE
             field: field,
             value: value
         }
-    }
+    };
 });
 
 const setFieldIsTouchedAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_FIELD_IS_TOUCHED, (field) => {
@@ -51,7 +51,7 @@ const setFieldIsTouchedAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_FIELD_I
         payload: {
             field: field
         }
-    }
+    };
 });
 
 const setFieldErrorAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR, (field, error) => {
@@ -60,7 +60,7 @@ const setFieldErrorAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_FIELD_ERROR
             field: field,
             error: error
         }
-    }
+    };
 });
 
 const clearFieldErrorAction = createAction(ENUM_LOGIN_ACTION_TYPES.CLEAR_FIELD_ERROR, (field) => {
@@ -68,7 +68,7 @@ const clearFieldErrorAction = createAction(ENUM_LOGIN_ACTION_TYPES.CLEAR_FIELD_E
         payload: {
             field: field
         }
-    }
+    };
 });
 
 const setOptionsIsFormValidAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_OPTIONS_IS_FORM_VALID, (isFormValid) => {
@@ -76,7 +76,7 @@ const setOptionsIsFormValidAction = createAction(ENUM_LOGIN_ACTION_TYPES.SET_OPT
         payload: {
             isFormValid: isFormValid
         }
-    }
+    };
 });
 
 const resetStateAction = createAction(ENUM_LOGIN_ACTION_TYPES.RESET_STATE);

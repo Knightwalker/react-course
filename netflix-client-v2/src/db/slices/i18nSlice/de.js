@@ -5,8 +5,8 @@ const LANDING_LAYOUT_TEXT = {
     SignInBtnLabel: "Anmelden",
     CTAComponentEmailLabel: "E-Mail-Addresse",
     CTAComponentBtnLabel: "Loslegen",
-}
+};
 
 export { 
     LANDING_LAYOUT_TEXT
-}
+};

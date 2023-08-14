@@ -13,12 +13,12 @@ const text = {
     IT: { ...itText },
     DE: { ...deText },
     FR: { ...frText }
-}
+};
 
 const initialState = {
     selectedLanguage: "EN",
     text: text["EN"]
-}
+};
 
 const i18nSlice = createSlice({
     name: "i18n",
@@ -37,12 +37,12 @@ const { languageChangedByKey } = i18nSlice.actions;
 const useSelectLanguage = () => {
     const selectedLanguage = useSelector(state => state.i18n.selectedLanguage);
     return selectedLanguage;
-}
+};
 
 const useSelectText = () => {
     const text = useSelector(state => state.i18n.text);
     return text;
-}
+};
 
 export default i18nSlice;
 export { 

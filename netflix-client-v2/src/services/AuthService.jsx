@@ -55,7 +55,7 @@ const postLogin = createAsyncThunk("auth/postLogin", async(payload, { signal }) 
     return responseData;
 });
 
-const postRegister = createAsyncThunk("auth/postRegister", async (payload, { signal }) => {
+const postRegister = createAsyncThunk("auth/postRegister", async(payload, { signal }) => {
     let response = null;
     let responseData = null;
 

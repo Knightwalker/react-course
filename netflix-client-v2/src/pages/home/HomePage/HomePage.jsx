@@ -17,7 +17,7 @@ const HomePage = () => {
         movieId: null
     });
 
-    const handleGetMovieById = async (movieId) => {
+    const handleGetMovieById = async(movieId) => {
         setState({
             movieId: movieId
         });

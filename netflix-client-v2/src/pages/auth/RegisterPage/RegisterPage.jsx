@@ -37,7 +37,7 @@ const RegisterPage = () => {
     const [postRegisterErrorMessage, setPostRegisterErrorMessage] = useState(null);
     const postRegisterRef = useRef(null);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
 
         // Step 1. Prepare data
@@ -131,7 +131,7 @@ const RegisterPage = () => {
             return;
         }
         const { email } = location.state;
-        debugger;
+
         dispatchState(setFieldValueAction("email", email));
     }, [location]);
 
@@ -140,7 +140,7 @@ const RegisterPage = () => {
             if (postRegisterRef.current) {
                 postRegisterRef.current.abort();
             }
-        }
+        };
     }, []);
 
     return (

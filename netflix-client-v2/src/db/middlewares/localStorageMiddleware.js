@@ -10,7 +10,7 @@ const loadState = () => {
 
 const saveState = (state) => {
     localStorage.setItem("NetflixClone", JSON.stringify(state));
-}
+};
 
 const localStorageMiddleware = (store) => {
     return (next) => {
@@ -20,7 +20,7 @@ const localStorageMiddleware = (store) => {
             return result;
         };
     };
-}
+};
 
 export default localStorageMiddleware;
-export { loadState }
+export { loadState };

@@ -10,7 +10,7 @@ const initialState = {
         email: "",
         isLoggedIn: false
     }
-}
+};
 
 const authSlice = createSlice({
     name: "auth",
@@ -37,12 +37,12 @@ const { userLoggedInAction, userLoggedOutAction } = authSlice.actions;
 const useSelectAuth = () => {
     const auth = useSelector(state => state.auth);
     return auth;
-}
+};
 
 const useSelectUser = () => {
     const user = useSelector(state => state.auth.user);
     return user;
-}
+};
 
 export default authSlice;
 export { 
