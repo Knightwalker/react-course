@@ -2,9 +2,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
-// Services
-import { postRegister, postLogin } from "../../services/AuthService";
-
 const initialState = {
     user: {
         email: "",
@@ -25,10 +22,6 @@ const authSlice = createSlice({
             state.user = initialState.user;
             localStorage.clear("NetflixClone");
         }
-    },
-    extraReducers: (builder) => {
-        builder.addCase(postRegister.fulfilled, (state, action) => {});
-        builder.addCase(postLogin.fulfilled, (state, action) => {});
     }
 });
 

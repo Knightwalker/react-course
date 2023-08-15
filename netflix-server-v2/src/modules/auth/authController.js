@@ -59,7 +59,7 @@ const login = async (req, res) => {
     // Step 3. Check if the hash matches the stored hash
     // Hash the provided password with the stored salt, retrieved from the database.
     const hash = crypto.pbkdf2Sync(loginRequestDTO.password, user.salt, 1000, 64, "sha512").toString("hex");
-    if (!hash === user.hash) {
+    if (hash !== user.hash) {
         return res.status(401).send({ message: "We couldn't verify your account with that information." });
     }
 

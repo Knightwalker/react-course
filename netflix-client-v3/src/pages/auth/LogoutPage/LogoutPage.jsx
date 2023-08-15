@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // State Management, Context
-import { userLoggedOutAction } from "../../../db/slices/authSlice";
+import { userLoggedOutAction } from "../../../db/slices/authSlice/authSlice";
 
 const LogoutPage = () => {
     const dispatch = useDispatch();

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authSlice from "./slices/authSlice";
+import authSlice from "./slices/authSlice/authSlice";
 import i18nSlice from "./slices/i18nSlice/i18nSlice";
 import localStorageMiddleware, { loadState } from "./middlewares/localStorageMiddleware";
 import coreApi from "../services/api/coreApi";

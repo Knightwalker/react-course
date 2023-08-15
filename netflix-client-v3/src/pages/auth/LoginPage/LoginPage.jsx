@@ -3,18 +3,15 @@ import { useEffect, useRef, useState, useReducer } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
-// Enums
-import { ENUM_SERVICE_STATUS } from "../../../services/enums";
-
 // State Management (Global)
-import { userLoggedInAction } from "../../../db/slices/authSlice";
+import { userLoggedInAction } from "../../../db/slices/authSlice/authSlice";
+
+// Services
+import { usePostLoginMutation } from "../../../services/AuthService";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import { wait } from "../../../utils/shared";
-
-// Services
-import { postLogin, postLoginErrorHandler } from "../../../services/AuthService";
 
 // Local Imports
 import {
@@ -33,11 +30,12 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [state, dispatchState] = useReducer(reducerState, initialState);
-    const [postLoginStatus, setPostLoginStatus] = useState(ENUM_SERVICE_STATUS.INIT);
+
+    const [postLoginDispatch, postLoginInstance] = usePostLoginMutation();
     const [postLoginErrorMessage, setPostLoginErrorMessage] = useState(null);
     const postLoginRef = useRef(null);
 
-    const handleSubmit = async(e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Step 1. Prepare data
         const payload = {
@@ -47,21 +45,32 @@ const LoginPage = () => {
 
         // Step 2. Send POST request to BE
         let data = null;
-        setPostLoginStatus(ENUM_SERVICE_STATUS.LOADING);
         try {
-            const actionResult = dispatch(postLogin(payload));
-            postLoginRef.current = actionResult;
-            data = await actionResult.unwrap();
-            setPostLoginStatus(ENUM_SERVICE_STATUS.SUCCESS);
+            await wait(600); // Give humans time to process the loading.
+            postLoginRef.current = postLoginDispatch(payload);
+            data = await postLoginRef.current.unwrap();
+            await wait(600); // Give humans time to process the success.
         } catch (error) {
             if (error.name === "AbortError") {
-                // Don't proceed any further. We have unmounted this component!
+                // CLIENT_ERROR(Specific SPA Error): Don't proceed any further. We have unmounted this component!
                 return;
+            } else if (error.status === "FETCH_ERROR") {
+                // NETWORK_ERROR(Networking Layer): Send the request. If it fails, handle network errors.
+                setPostLoginErrorMessage("We have encountered a network error. Please check your internet connection!");
+            } else if (error.status === "PARSING_ERROR") {
+                // PARSE_ERROR(Application Layer): Parse the request. If it fails, handle parsing errors.
+                setPostLoginErrorMessage("We were unable to parse your response data. If this persists, please contact support.");
+            } else if (typeof error.data !== "undefined") {
+                // UNSUCCESSFUL_RESPONSE(Application Layer): Handle unsuccessful response status codes. E.g., error 400, error 500 (including all other errors, not in the range of 200-299).
+                setPostLoginErrorMessage("Your attempt was unsuccessful, please verify your data!");
+                // setPostLoginErrorMessage(error.data.message);
+            } else {
+                // Handle other unknown errors. (I'm not sure if we can ever hit such a case, since we handle all the possible errors above at micro level, but we should finish the control flow logic with this guard)
+                setPostLoginErrorMessage("We have encountered an unknown error. If this persists, please contact support.");
             }
-            setPostLoginStatus(ENUM_SERVICE_STATUS.ERROR);
-            setPostLoginErrorMessage(error.message);
-            postLoginErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
+        } finally {
+            postLoginRef.current = null;
         }
 
         // Step 3. Save user in client
@@ -70,7 +79,6 @@ const LoginPage = () => {
         }));
 
         // Step 4. Navigate to home module
-        await wait(500);
         dispatchState(resetStateAction());
         navigate("/browse");
     };
@@ -119,11 +127,20 @@ const LoginPage = () => {
         state.form.fields.confirmPassword.value
     ]);
 
+    // Unsubscribe from services
+    useEffect(() => {
+        return () => {
+            if (postLoginRef.current) {
+                postLoginRef.current.abort();
+            }
+        }
+    }, []);
+
     return (
         <div className="LoginPage">
             <div className="LoginPage__form-wrapper">
                 <h1>Sign In</h1>
-                {postLoginStatus === ENUM_SERVICE_STATUS.ERROR && (
+                {(postLoginInstance.isError) && (
                     <div className="LoginPage__form-error-container">
                         {postLoginErrorMessage}
                     </div>
@@ -210,15 +227,15 @@ const LoginPage = () => {
                 </form>
 
                 <div className="LoginPage__form-state">
-                    {postLoginStatus === ENUM_SERVICE_STATUS.LOADING && (
+                    {(postLoginInstance.isLoading) && (
                         <div className="spinner-border text-primary" role="status">
                             <span className="sr-only"></span>
                         </div>
                     )}
-                    {postLoginStatus === ENUM_SERVICE_STATUS.SUCCESS && (
+                    {(postLoginInstance.isSuccess) && (
                         <i className="LoginPage__form-state-success bi bi-check-circle"></i>
                     )}
-                    {postLoginStatus === ENUM_SERVICE_STATUS.ERROR && (
+                    {(postLoginInstance.isError) && (
                         <i className="LoginPage__form-state-error bi bi-exclamation-triangle"></i>
                     )}
                 </div>

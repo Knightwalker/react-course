@@ -1,17 +1,13 @@
 // Libs
 import { useEffect, useReducer, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
-// Enums
-import { ENUM_SERVICE_STATUS } from "../../../services/enums";
+// Services
+import { usePostRegisterMutation } from "../../../services/AuthService";
 
 // Utils
 import { isEmailValid, isPasswordValid } from "../../../utils/auth";
 import { wait } from "../../../utils/shared";
-
-// Services
-import { postRegister, postRegisterErrorHandler } from "../../../services/AuthService";
 
 // Local imports
 import {
@@ -27,11 +23,11 @@ import {
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const [state, dispatchState] = useReducer(reducerState, initialState);
-    const [postRegisterStatus, setPostRegisterStatus] = useState(ENUM_SERVICE_STATUS.INIT);
+
+    const [postRegisterDispatch, postRegisterInstance] = usePostRegisterMutation();
     const [postRegisterErrorMessage, setPostRegisterErrorMessage] = useState(null);
     const postRegisterRef = useRef(null);
 
@@ -46,22 +42,31 @@ const RegisterPage = () => {
         };
 
         // Step 2. Send POST request to BE
-        setPostRegisterStatus(ENUM_SERVICE_STATUS.LOADING);
         try {
+            debugger;
             await wait(600); // Give humans time to process the loading.
-            const actionResult = dispatch(postRegister(payload));
-            postRegisterRef.current = actionResult;
-            const promiseResult = await actionResult.unwrap();
-            setPostRegisterStatus(ENUM_SERVICE_STATUS.SUCCESS);
-            await wait(600); // Give humans time to process that the account was created.
+            postRegisterRef.current = postRegisterDispatch(payload);
+            const data = await postRegisterRef.current.unwrap();
+            await wait(600); // Give humans time to process the success.
         } catch (error) {
+            debugger;
             if (error.name === "AbortError") {
-                // Don't proceed any further. We have unmounted this component!
+                // CLIENT_ERROR(Specific SPA Error): Don't proceed any further. We have unmounted this component!
                 return;
+            } else if (error.status === "FETCH_ERROR") {
+                // NETWORK_ERROR(Networking Layer): Send the request. If it fails, handle network errors.
+                setPostRegisterErrorMessage("We have encountered a network error. Please check your internet connection!");
+            } else if (error.status === "PARSING_ERROR") {
+                // PARSE_ERROR(Application Layer): Parse the request. If it fails, handle parsing errors.
+                setPostRegisterErrorMessage("We were unable to parse your response data. If this persists, please contact support.");
+            } else if (typeof error.data !== "undefined") {
+                // UNSUCCESSFUL_RESPONSE(Application Layer): Handle unsuccessful response status codes. E.g., error 400, error 500 (including all other errors, not in the range of 200-299).
+                setPostRegisterErrorMessage("Your attempt was unsuccessful, please verify your data!");
+                // setPostRegisterErrorMessage(error.data.message);
+            } else {
+                // Handle other unknown errors. (I'm not sure if we can ever hit such a case, since we handle all the possible errors above at micro level, but we should finish the control flow logic with this guard.)
+                setPostRegisterErrorMessage("We have encountered an unknown error. If this persists, please contact support.");
             }
-            setPostRegisterStatus(ENUM_SERVICE_STATUS.ERROR);
-            setPostRegisterErrorMessage(error.message);
-            postRegisterErrorHandler(error);
             return; // If we have any errors, we would like to stop the execution flow of this function.
         } finally {
             postRegisterRef.current = null;
@@ -133,6 +138,7 @@ const RegisterPage = () => {
         dispatchState(setFieldValueAction("email", email));
     }, [location]);
 
+    // Unsubscribe from services
     useEffect(() => {
         return () => {
             if (postRegisterRef.current) {
@@ -145,7 +151,7 @@ const RegisterPage = () => {
         <div className="RegisterPage">
             <div className="RegisterPage__form-wrapper">
                 <h1>Sign Up</h1>
-                {postRegisterStatus === ENUM_SERVICE_STATUS.ERROR && (
+                {(postRegisterInstance.isError) && (
                     <div className="RegisterPage__form-error-container">
                         {postRegisterErrorMessage}
                     </div>
@@ -264,15 +270,15 @@ const RegisterPage = () => {
                 </form>
 
                 <div className="RegisterPage__form-state">
-                    {postRegisterStatus === ENUM_SERVICE_STATUS.LOADING && (
+                    {(postRegisterInstance.isLoading) && (
                         <div className="spinner-border text-primary" role="status">
                             <span className="sr-only"></span>
                         </div>
                     )}
-                    {postRegisterStatus === ENUM_SERVICE_STATUS.SUCCESS && (
+                    {(postRegisterInstance.isSuccess) && (
                         <i className="RegisterPage__form-state-success bi bi-check-circle"></i>
                     )}
-                    {postRegisterStatus === ENUM_SERVICE_STATUS.ERROR && (
+                    {(postRegisterInstance.isError) && (
                         <i className="RegisterPage__form-state-error bi bi-exclamation-triangle"></i>
                     )}
                 </div>
