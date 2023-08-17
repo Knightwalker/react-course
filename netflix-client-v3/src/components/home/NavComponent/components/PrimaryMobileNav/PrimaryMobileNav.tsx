@@ -13,34 +13,72 @@ import styles from "./PrimaryMobileNav.module.css";
 
 const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.Element => {
     const [classNames, setClassNames] = useState({
-        hamburger_menu: [styles.hamburger_menu],
-        nav_backdrop: [styles.nav_backdrop]
+        nav: [styles.nav],
+        nav_backdrop: [styles.nav_backdrop],
+        hamburger_menu: [styles.hamburger_menu]
     });
 
+    const [isNavBackgroundActive, setIsNavBackgroundActive] = useState(false);
     const [isHamburgerMenuToggled, setIsHamburgerMenuToggled] = useState(false);
+
+    useEffect(() => {
+        if (isNavBackgroundActive) {
+            setClassNames((state) => {
+                return {
+                    ...state,
+                    nav: [styles.nav, styles.show_background]
+                }
+            });
+        } else {
+            setClassNames((state) => {
+                return {
+                    ...state,
+                    nav: [styles.nav]
+                }
+            });
+        }
+    }, [isNavBackgroundActive]);
 
     useEffect(() => {
         if (isHamburgerMenuToggled) {
             setClassNames((oldState) => {
                 return {
                     ...oldState,
-                    hamburger_menu: [styles.hamburger_menu, styles["hamburger_menu--active"]],
-                    nav_backdrop: [styles.nav_backdrop, styles["nav_backdrop--active"]]
+                    nav_backdrop: [styles.nav_backdrop, styles.active],
+                    hamburger_menu: [styles.hamburger_menu, styles.active]
                 }
             });
+            setIsNavBackgroundActive(true);
         } else {
             setClassNames((oldState) => {
                 return {
                     ...oldState,
-                    hamburger_menu: [styles.hamburger_menu],
-                    nav_backdrop: [styles.nav_backdrop]
+                    nav_backdrop: [styles.nav_backdrop],
+                    hamburger_menu: [styles.hamburger_menu]
                 }
             });
         }
+    }, [
+        isHamburgerMenuToggled,
+    ]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY >= 70) {
+                setIsNavBackgroundActive(true);
+            } else if (!isHamburgerMenuToggled) {
+                setIsNavBackgroundActive(false);
+            }
+        };
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
     }, [isHamburgerMenuToggled]);
 
     return (
-        <div className={styles.nav}>
+        <div className={classNames.nav.join(" ")}>
             <div className={styles.nav_header}>
                 <button
                     className={styles.hamburger_button}
