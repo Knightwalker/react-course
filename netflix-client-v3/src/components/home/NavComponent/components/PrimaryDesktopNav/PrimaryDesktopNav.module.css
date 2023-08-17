@@ -1,0 +1,46 @@
+.primary_desktop_nav {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.primary_desktop_nav_ul {
+    display: flex;
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+    gap: 20px;
+}
+
+.primary_desktop_nav_ul li {
+    display: flex;
+    align-items: center;
+}
+
+.primary_desktop_nav_ul li a {
+    transition: color 150ms ease-in-out;
+    color: #e5e5e5;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.primary_desktop_nav_ul li a:not(:global(.active)):hover {
+    color: #b3b3b3;
+}
+
+.primary_desktop_nav_ul :global(.active) {
+    color: #ffffff;
+    font-weight: 500;
+    cursor: default;
+}
+
+/* Netflix M Breakpoint (tablets, 640px and up) */
+@media (min-width: 640px) {}
+
+/* Netflix L Breakpoint (desktops, 960px and up) */
+@media (min-width: 960px) {
+    .primary_desktop_nav_ul li a {
+        font-size: 14px;
+    }
+}

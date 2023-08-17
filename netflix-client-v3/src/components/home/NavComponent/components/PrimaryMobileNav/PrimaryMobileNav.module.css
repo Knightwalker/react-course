@@ -1,0 +1,96 @@
+.nav {
+    position: relative;
+    height: 100%;
+}
+
+.nav_header {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    max-width: calc(100% - 3rem);
+    height: 100%;
+}
+
+.nav_body {
+    position: absolute;
+    left: 0;
+    top: 100%; /* positions the top of the menu at the bottom of the button */
+}
+
+.nav_backdrop {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    height: calc(100vh - 100%);
+    width: 100%;
+    background-color: rgba(0,0,0,.4);
+}
+
+.nav_backdrop--active {
+    display: block;
+}
+
+.hamburger_button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    color: inherit;
+    text-align: inherit;
+    display: inline;
+    cursor: pointer;
+    outline: inherit;
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.hamburger_menu {
+    width: 250px;
+    background-color: black;
+    transform: translateX(-250px);
+    transition: transform .15s cubic-bezier(.5, 0, .1, 1);
+}
+
+.hamburger_menu--active {
+    transform: translateX(0px);
+}
+
+.nav_ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin-bottom: 0px;
+    padding-left: 0px;
+}
+
+.nav_ul li a {
+    display: block;
+    transition: color 150ms ease-in-out;
+    color: grey;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 16px;
+    padding-left: calc((100vw - (100vw - 3rem)) /2 );
+    font-weight: bold;
+}
+
+.nav_ul li a:not(:global(.active)):hover {
+    color: #b3b3b3;
+}
+
+.nav_ul :global(.active) {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Netflix M Breakpoint (tablets, 640px and up) */
+@media (min-width: 640px) {}
+
+/* Netflix L Breakpoint (desktops, 960px and up) */
+@media (min-width: 960px) {
+    .nav_ul li a {
+        font-size: 14px;
+    }
+}

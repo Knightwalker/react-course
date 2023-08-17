@@ -13,7 +13,7 @@ const CarouselProgressBar = ({ progress, setProgress, progressBarsCount }) => {
             {progressBarsArray.map((_, i) => (
                 <div
                     key={i}
-                    className={`bar ${progress === i && "active"}`}
+                    className={`bar ${progress === i && "Carousel__progress-active"}`}
                     onClick={() => setProgress(i)}
                 />
             ))}

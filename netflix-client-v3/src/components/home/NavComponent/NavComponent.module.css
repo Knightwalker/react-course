@@ -9,51 +9,22 @@
     transition: background-color 300ms ease-in-out;
 }
 
-.nav.show_bg {
-    background-color: black;
-}
-
-.nav_flex {
+.nav_desktop_mode {
+    display: none;
     align-items: center;
-    display: flex;
     justify-content: space-between;
     margin: auto;
     max-width: calc(100% - 3rem);
     height: 100%;
 }
 
-.nav_primary {
-    display: flex;
-    height: 100%;
-    align-items: center;
-}
-
-.logo_a {
+.nav_mobile_mode {
     display: block;
-    width: 100px;
-    margin-right: 25px;
+    height: 100%;
 }
 
-.logo_img {
-    width: 100%;
-    object-fit: contain;
-}
-
-.nav_primary_ul {
-    display: flex;
-    list-style: none;
-    margin-bottom: 0px;
-    padding-left: 0px;
-    gap: 20px;
-}
-
-.nav_primary_ul li {
-    cursor: pointer;
-    transition: color 150ms ease-in-out;
-}
-
-.nav_primary_ul li:hover {
-    color: rgb(209 213 219);
+.nav.show_background {
+    background-color: black;
 }
 
 .nav_secondary {
@@ -121,4 +92,15 @@
 .account_menu_logout a:hover {
     color: white;
     text-decoration: underline;
+}
+
+/* Netflix M Breakpoint (tablets, 640px and up) */
+@media (min-width: 640px) {
+    .nav_desktop_mode {
+        display: flex;
+    }
+    
+    .nav_mobile_mode {
+        display: none;
+    }
 }
