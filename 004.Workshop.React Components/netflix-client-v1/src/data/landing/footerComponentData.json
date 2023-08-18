@@ -1,0 +1,75 @@
+[
+    {
+        "label": "FAQ",
+        "link": "/"
+    },
+    {
+        "label": "Help Center",
+        "link": "/"
+    },
+    {
+        "label": "Account",
+        "link": "/"
+    },
+    {
+        "label": "Media Center",
+        "link": "/"
+    },
+    {
+        "id": 5,
+        "label": "Investor Relations",
+        "link": "/"
+    },
+    {
+        "label": "Jobs",
+        "link": "/"
+    },
+    {
+        "label": "Netflix Shop",
+        "link": "/"
+    },
+    {
+        "label": "Redeem Gift Cards",
+        "link": "/"
+    },
+    {
+        "label": "Buy Gift Cards",
+        "link": "/"
+    },
+    {
+        "label": "Ways to Watch",
+        "link": "/"
+    },
+    {
+        "label": "Terms of Use",
+        "link": "/"
+    },
+    {
+        "label": "Privacy",
+        "link": "/"
+    },
+    {
+        "label": "Cookie Preferences",
+        "link": "/"
+    },
+    {
+        "label": "Corporate Information",
+        "link": "/"
+    },
+    {
+        "label": "Contact Us",
+        "link": "/"
+    },
+    {
+        "label": "Speed Test",
+        "link": "/"
+    },
+    {
+        "label": "Legal Notices",
+        "link": "/"
+    },
+    {
+        "label": "Only on Netflix",
+        "link": "/"
+    }
+]
