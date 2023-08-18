@@ -1,0 +1,77 @@
+
+.account {
+    position: relative;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.account_button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.account_img_wrapper {
+    width: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.account_img {
+    width: 100%;
+    object-fit: contain;
+}
+
+.account_button_icon {
+    font-size: 12px;
+    transition: transform 250ms ease-in-out;
+    transform: translateY(1px); /* Apply "Optical Centering" design pattern */
+}
+
+.account_button_icon.active {
+    transform: rotate(180deg);
+}
+
+.account_menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0px;
+    width: 220px;
+    user-select: none;
+    background-color: rgba(0, 0, 0, .9);
+    border: 1px solid hsla(0, 0%, 100%, .15);
+}
+
+.account_menu.active {
+    display: block;
+}
+
+.account_menu_icon {
+    position: absolute;
+    font-size: 14px;
+    top: -16px;
+    right: 27px;
+}
+
+.account_menu_profiles {
+    padding: 10px 8px;
+}
+
+.account_menu_logout {
+    border-top: 1px solid hsla(0, 0%, 100%, .25);
+    padding: 10px 0px;
+    text-align: center;
+}
+
+.account_menu_logout a {
+    color: white;
+    text-decoration: none;
+}
+
+.account_menu_logout a:hover {
+    color: white;
+    text-decoration: underline;
+}
