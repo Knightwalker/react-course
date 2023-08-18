@@ -5,6 +5,9 @@ import { NavLink } from "react-router-dom";
 // Local components
 import Logo from "../shared/Logo/Logo";
 
+// Local context
+import { useNavContext } from "../../NavComponentContext";
+
 // Local types
 import { PrimaryMobileNavProps } from "../../NavComponentTypes";
 
@@ -12,70 +15,60 @@ import { PrimaryMobileNavProps } from "../../NavComponentTypes";
 import styles from "./PrimaryMobileNav.module.css";
 
 const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.Element => {
+    const { 
+        isNavBackgroundActive, 
+        isHamburgerMenuToggled, 
+        setIsHamburgerMenuToggled 
+    } = useNavContext();
+    
     const [classNames, setClassNames] = useState({
         nav: [styles.nav],
         nav_backdrop: [styles.nav_backdrop],
         hamburger_menu: [styles.hamburger_menu]
     });
 
-    const [isNavBackgroundActive, setIsNavBackgroundActive] = useState(false);
-    const [isHamburgerMenuToggled, setIsHamburgerMenuToggled] = useState(false);
-
     useEffect(() => {
-        if (isNavBackgroundActive) {
+        if (isNavBackgroundActive && isHamburgerMenuToggled) {
             setClassNames((state) => {
                 return {
                     ...state,
-                    nav: [styles.nav, styles.show_background]
-                }
-            });
-        } else {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav]
-                }
-            });
-        }
-    }, [isNavBackgroundActive]);
-
-    useEffect(() => {
-        if (isHamburgerMenuToggled) {
-            setClassNames((oldState) => {
-                return {
-                    ...oldState,
+                    nav: [styles.nav, styles.show_background],
                     nav_backdrop: [styles.nav_backdrop, styles.active],
                     hamburger_menu: [styles.hamburger_menu, styles.active]
                 }
             });
-            setIsNavBackgroundActive(true);
-        } else {
-            setClassNames((oldState) => {
+        } else if (isNavBackgroundActive && !isHamburgerMenuToggled) {
+            setClassNames((state) => {
                 return {
-                    ...oldState,
+                    ...state,
+                    nav: [styles.nav, styles.show_background],
+                    nav_backdrop: [styles.nav_backdrop],
+                    hamburger_menu: [styles.hamburger_menu]
+                }
+            });
+        } else if (!isNavBackgroundActive && isHamburgerMenuToggled) {
+            setClassNames((state) => {
+                return {
+                    ...state,
+                    nav: [styles.nav, styles.show_background],
+                    nav_backdrop: [styles.nav_backdrop, styles.active],
+                    hamburger_menu: [styles.hamburger_menu, styles.active]
+                }
+            });
+        } else {
+            setClassNames((state) => {
+                return {
+                    ...state,
+                    nav: [styles.nav],
                     nav_backdrop: [styles.nav_backdrop],
                     hamburger_menu: [styles.hamburger_menu]
                 }
             });
         }
     }, [
-        isHamburgerMenuToggled,
+        isNavBackgroundActive,
+        isHamburgerMenuToggled
     ]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY >= 70) {
-                setIsNavBackgroundActive(true);
-            } else if (!isHamburgerMenuToggled) {
-                setIsNavBackgroundActive(false);
-            }
-        };
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [isHamburgerMenuToggled]);
 
     return (
         <div className={classNames.nav.join(" ")}>

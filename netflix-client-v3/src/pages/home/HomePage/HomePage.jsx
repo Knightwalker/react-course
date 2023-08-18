@@ -37,8 +37,8 @@ const HomePage = () => {
     return (
         <div className="HomePage">
             {(isRandomMovieSuccess) && (
-                <BillboardComponent data={randomMovieData} />
-                // <div style={{height: "600px", backgroundColor: "beige"}}>Bilboard</div>
+                // <BillboardComponent data={randomMovieData} />
+                <div style={{height: "600px", backgroundColor: "beige"}}>Bilboard</div>
             )}
 
             {isMovieSuccess ? (

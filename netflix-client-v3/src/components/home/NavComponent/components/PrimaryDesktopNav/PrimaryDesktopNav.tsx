@@ -1,9 +1,12 @@
 // Libs
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 
 // Assets
 import AccountImg from "../../../../../assets/default-blue.png";
+
+// Local context
+import { useNavContext } from "../../NavComponentContext";
 
 // Local components
 import Logo from "../shared/Logo/Logo";
@@ -15,11 +18,14 @@ import { PrimaryDesktopNavProps } from "../../NavComponentTypes";
 import styles from "./PrimaryDesktopNav.module.css";
 
 const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.Element => {
+    const { 
+        isNavBackgroundActive, 
+        setIsNavBackgroundActive 
+    } = useNavContext();
+    
     const [classNames, setClassNames] = useState({
         nav: [styles.nav]
     });
-
-    const [isNavBackgroundActive, setIsNavBackgroundActive] = useState(false);
 
     useEffect(() => {
         if (isNavBackgroundActive) {
@@ -52,7 +58,7 @@ const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [setIsNavBackgroundActive]);
 
     return (
         <div className={classNames.nav.join(" ")}>
