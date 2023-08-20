@@ -1,6 +1,7 @@
 // Libs
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+// import { produce } from "immer"; TODO: check how to use immer
 
 // Local context
 import { useNavContext } from "../../NavComponentContext";
@@ -16,47 +17,32 @@ import { PrimaryDesktopNavProps } from "../../NavComponentTypes";
 import styles from "./PrimaryDesktopNav.module.css";
 
 const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.Element => {
-    const {
-        isNavBackgroundActive,
-        setIsNavBackgroundActive
-    } = useNavContext();
+    const { isNavBackgroundActive } = useNavContext();
 
     const [classNames, setClassNames] = useState({
         nav: [styles.nav]
     });
 
     useEffect(() => {
-        if (isNavBackgroundActive) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav, styles.show_background]
+        setClassNames((state) => {
+            if (isNavBackgroundActive) {
+                if (!state.nav.includes(styles.show_background)) {
+                    return {
+                        ...state,
+                        nav: [styles.nav, styles.show_background]
+                    };
                 }
-            });
-        } else {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav]
-                }
-            });
-        }
-    }, [isNavBackgroundActive]);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY >= 70) {
-                setIsNavBackgroundActive(true);
             } else {
-                setIsNavBackgroundActive(false);
+                if (state.nav.includes(styles.show_background)) {
+                    return {
+                        ...state,
+                        nav: state.nav.filter(x => x !== styles.show_background)
+                    };
+                }
             }
-        };
-        window.addEventListener("scroll", handleScroll);
-
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, [setIsNavBackgroundActive]);
+            return state; // No change needed
+        });
+    }, [isNavBackgroundActive]);
 
     return (
         <div className={classNames.nav.join(" ")}>

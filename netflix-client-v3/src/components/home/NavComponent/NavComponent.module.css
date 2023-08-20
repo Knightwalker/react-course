@@ -6,23 +6,23 @@
     height: 70px;
 }
 
-.nav_desktop_mode {
+.primary_desktop_nav_wrapper {
     display: none;
     height: 100%;
 }
 
-.nav_mobile_mode {
+.primary_mobile_nav_wrapper {
     display: block;
     height: 100%;
 }
 
 /* Netflix M Breakpoint (tablets, 640px and up) */
 @media (min-width: 640px) {
-    .nav_desktop_mode {
+    .primary_desktop_nav_wrapper {
         display: block;
     }
     
-    .nav_mobile_mode {
+    .primary_mobile_nav_wrapper {
         display: none;
     }
 }

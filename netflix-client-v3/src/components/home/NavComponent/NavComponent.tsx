@@ -19,8 +19,8 @@ const NavComponentWithContext = (props: TNavComponentProps): JSX.Element => {
         <NavComponentContextProvider>
             <NavComponent {...props} />
         </NavComponentContextProvider>
-    )
-}
+    );
+};
 
 const NavComponent = ({ logoLink, navLinks }: TNavComponentProps): JSX.Element => {
     const { setIsNavBackgroundActive } = useNavContext();
@@ -41,22 +41,20 @@ const NavComponent = ({ logoLink, navLinks }: TNavComponentProps): JSX.Element =
     }, [setIsNavBackgroundActive]);
 
     return (
-        <NavComponentContextProvider>
-            <nav className={styles.nav}>
-                <div className={styles.nav_mobile_mode}>
-                    <PrimaryMobileNav
-                        logoLink={logoLink}
-                        navLinks={navLinks}
-                    />
-                </div>
-                <div className={styles.nav_desktop_mode}>
-                    <PrimaryDesktopNav
-                        logoLink={logoLink}
-                        navLinks={navLinks}
-                    />
-                </div>
-            </nav>
-        </NavComponentContextProvider>
+        <nav className={styles.nav}>
+            <div className={styles.primary_mobile_nav_wrapper}>
+                <PrimaryMobileNav
+                    logoLink={logoLink}
+                    navLinks={navLinks}
+                />
+            </div>
+            <div className={styles.primary_desktop_nav_wrapper}>
+                <PrimaryDesktopNav
+                    logoLink={logoLink}
+                    navLinks={navLinks}
+                />
+            </div>
+        </nav>
     );
 };
 
