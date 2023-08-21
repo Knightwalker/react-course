@@ -1,0 +1,10 @@
+.img_wrapper {
+    width: 32px;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.img {
+    width: 100%;
+    object-fit: contain;
+}

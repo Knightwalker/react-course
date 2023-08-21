@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 // Assets
-import LogoImg from "../../../../../../assets/netflix_logo_transparent.png";
+import LogoImg from "../../../assets/netflix_logo_transparent.png";
 
 // Local types
 import { TLogoProps } from "../../../NavComponentTypes";

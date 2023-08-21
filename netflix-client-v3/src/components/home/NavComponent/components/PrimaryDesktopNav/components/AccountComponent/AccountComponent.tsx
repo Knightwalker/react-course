@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-// Assets
-import AccountImg from "../../../../../assets/default-blue.png";
+// Local components
+import ProfileIcon from "../../../shared/ProfileIcon/ProfileIcon";
 
 // Local imports
 import styles from "./AccountComponent.module.css";
@@ -93,13 +93,7 @@ const AccountComponent = (): JSX.Element => {
                 onMouseEnter={() => handleIsAccountMenuActive(true)}
                 onMouseLeave={() => handleIsAccountMenuActive(false)}
             >
-                <div className={styles.account_img_wrapper}>
-                    <img
-                        className={styles.account_img}
-                        src={AccountImg}
-                        alt="Account"
-                    />
-                </div>
+                <ProfileIcon />
                 <i className={`${classNames.account_button_icon.join(" ")} bi bi-caret-down-fill`}></i>
             </div>
             <div
@@ -108,9 +102,26 @@ const AccountComponent = (): JSX.Element => {
                 onMouseLeave={() => handleIsAcountMenuEntered(false)}
             >
                 <i className={`${styles.account_menu_icon} bi bi-caret-up-fill`}></i>
-                <div className={styles.account_menu_profiles}>
-                    Account Menu
-                </div>
+                <ul className={styles.account_menu_items}>
+                    <li>
+                        <Link to={"/switch-profile"}>
+                            <ProfileIcon />
+                            <span>Account 1</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/switch-profile"}>
+                            <ProfileIcon />
+                            <span>Account 2</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to={"/switch-profile"}>
+                            <ProfileIcon />
+                            <span>Account 3</span>
+                        </Link>
+                    </li>
+                </ul>
                 <div className={styles.account_menu_logout}>
                     <Link
                         to={"/auth/logout"}

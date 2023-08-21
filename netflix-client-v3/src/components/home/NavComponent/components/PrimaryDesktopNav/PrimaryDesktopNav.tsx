@@ -1,13 +1,13 @@
 // Libs
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-// import { produce } from "immer"; TODO: check how to use immer
+import { produce } from "immer";
 
 // Local context
 import { useNavContext } from "../../NavComponentContext";
 
 // Local components
-import AccountComponent from "../AccountComponent/AccountComponent";
+import AccountComponent from "./components/AccountComponent/AccountComponent";
 import Logo from "../shared/Logo/Logo";
 
 // Local types
@@ -24,24 +24,18 @@ const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.
     });
 
     useEffect(() => {
-        setClassNames((state) => {
+        setClassNames(produce(state => {
             if (isNavBackgroundActive) {
                 if (!state.nav.includes(styles.show_background)) {
-                    return {
-                        ...state,
-                        nav: [styles.nav, styles.show_background]
-                    };
+                    state.nav.push(styles.show_background);
                 }
             } else {
-                if (state.nav.includes(styles.show_background)) {
-                    return {
-                        ...state,
-                        nav: state.nav.filter(x => x !== styles.show_background)
-                    };
+                const index = state.nav.indexOf(styles.show_background);
+                if (index !== -1) {
+                    state.nav.splice(index, 1);
                 }
             }
-            return state; // No change needed
-        });
+        }));
     }, [isNavBackgroundActive]);
 
     return (

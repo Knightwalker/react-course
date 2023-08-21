@@ -8,16 +8,16 @@ import NavComponent from "../../../components/home/NavComponent/NavComponent";
 import "./HomeLayout.css";
 
 const logoLink = {
-    path: "/"
+    path: "/browse"
 };
 
 const navLinks = [
     { label: "Home", path: "/browse" },
-    { label: "TV Shows", path: "/" },
-    { label: "Movies", path: "/" },
-    { label: "New & Popular", path: "/" },
-    { label: "My List", path: "/" },
-    { label: "Browse by Languages", path: "/" }
+    { label: "TV Shows", path: "/browse/tv-shows" },
+    { label: "Movies", path: "/browse/movies" },
+    { label: "New & Popular", path: "/browse/latest" },
+    { label: "My List", path: "/browse/my-list" },
+    { label: "Browse by Languages", path: "/browse/languages" }
 ];
 
 const HomeLayout = () => {
