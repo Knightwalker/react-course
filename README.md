@@ -13,26 +13,32 @@
 - Topic 3: Modern React
   - components, props, state, lifecycle
   - react@18.2.0 hooks (useState, useEffect, useRef)
-- Topic 4: Workshop. Netflix Clone (Components)
-  - Create netflix-client-v1
+- Topic 4: Workshop. Components
+  - Project Netflix Clone
+  - Create `netflix-client-v1`
 - Topic 5: Linters and Formatters
   - ESLint
   - Prettier
 - Topic 6: State Management
   - Context
   - Redux
-- Topic 7: Workshop: Netflix Clone (Architectural patterns)
+  - React Redux
+  - Redux Toolkit
+- Topic 7: Workshop: Architectural patterns
+  - Project Netflix Clone
   - MVC
-  - create netflix-client-v2
-  - create netflix-server-v1
+  - create `netflix-client-v2` and `netflix-server-v2`
 - Topic 8: Services Layer
   - Fetch API
   - custom hooks (useQuery, useMutate)
   - Redux Toolkit (thunks)
   - RTK Query
-- Topic 9: Workshop: Netflix Clone (Authentication System)
+- Topic 9: Workshop: Authentication System
+  - Project Netflix Clone
   - Authentication strategies (JWT)
-- Topic 10: Workshop: Netflix Clone (CRUD Operations)
+- Topic 10: Workshop: CRUD Operations
+  - Project Netflix Clone
+  - create `netflix-client-v3` and `netflix-server-v3`
 
 ## :gear: Technology Stack
 
