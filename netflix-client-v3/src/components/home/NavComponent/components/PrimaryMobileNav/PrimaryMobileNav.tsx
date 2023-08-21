@@ -1,6 +1,7 @@
 // Libs
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { produce } from "immer";
 
 // Local components
 import Logo from "../shared/Logo/Logo";
@@ -15,12 +16,12 @@ import { PrimaryMobileNavProps } from "../../NavComponentTypes";
 import styles from "./PrimaryMobileNav.module.css";
 
 const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.Element => {
-    const { 
-        isNavBackgroundActive, 
-        isHamburgerMenuToggled, 
-        setIsHamburgerMenuToggled 
+    const {
+        isNavBackgroundActive,
+        isHamburgerMenuActive,
+        setIsHamburgerMenuActive
     } = useNavContext();
-    
+
     const [classNames, setClassNames] = useState({
         nav: [styles.nav],
         nav_backdrop: [styles.nav_backdrop],
@@ -28,46 +29,42 @@ const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.El
     });
 
     useEffect(() => {
-        if (isNavBackgroundActive && isHamburgerMenuToggled) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav, styles.show_background],
-                    nav_backdrop: [styles.nav_backdrop, styles.active],
-                    hamburger_menu: [styles.hamburger_menu, styles.active]
+        setClassNames(produce((state) => {
+            if (isNavBackgroundActive) {
+                if (!state.nav.includes(styles.active)) {
+                    state.nav.push(styles.active);
                 }
-            });
-        } else if (isNavBackgroundActive && !isHamburgerMenuToggled) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav, styles.show_background],
-                    nav_backdrop: [styles.nav_backdrop],
-                    hamburger_menu: [styles.hamburger_menu]
+            } else {
+                const index = state.nav.indexOf(styles.active);
+                if (index !== -1) {
+                    state.nav.splice(index, 1);
                 }
-            });
-        } else if (!isNavBackgroundActive && isHamburgerMenuToggled) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav, styles.show_background],
-                    nav_backdrop: [styles.nav_backdrop, styles.active],
-                    hamburger_menu: [styles.hamburger_menu, styles.active]
+            }
+
+            if (isHamburgerMenuActive) {
+                if (!state.nav.includes(styles.active)) {
+                    state.nav.push(styles.active);
                 }
-            });
-        } else {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    nav: [styles.nav],
-                    nav_backdrop: [styles.nav_backdrop],
-                    hamburger_menu: [styles.hamburger_menu]
+                if (!state.nav_backdrop.includes(styles.active)) {
+                    state.nav_backdrop.push(styles.active);
                 }
-            });
-        }
+                if (!state.hamburger_menu.includes(styles.active)) {
+                    state.hamburger_menu.push(styles.active);
+                }
+            } else {
+                const index1 = state.nav_backdrop.indexOf(styles.active);
+                const index2 = state.hamburger_menu.indexOf(styles.active);
+                if (index1 !== -1) {
+                    state.nav_backdrop.splice(index1, 1);
+                }
+                if (index2 !== -1) {
+                    state.hamburger_menu.splice(index2, 1);
+                }
+            }
+        }));
     }, [
         isNavBackgroundActive,
-        isHamburgerMenuToggled
+        isHamburgerMenuActive
     ]);
 
     return (
@@ -75,7 +72,7 @@ const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.El
             <div className={styles.nav_header}>
                 <button
                     className={styles.hamburger_button}
-                    onClick={() => setIsHamburgerMenuToggled(!isHamburgerMenuToggled)}
+                    onClick={() => setIsHamburgerMenuActive(!isHamburgerMenuActive)}
                 >
                     <i className="bi bi-list"></i>
                 </button>

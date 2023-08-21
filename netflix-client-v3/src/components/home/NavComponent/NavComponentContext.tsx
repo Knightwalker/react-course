@@ -2,23 +2,23 @@ import { createContext, useContext, useState } from "react";
 
 export type TNavContext = {
     isNavBackgroundActive: boolean;
-    isHamburgerMenuToggled: boolean;
+    isHamburgerMenuActive: boolean;
     setIsNavBackgroundActive: React.Dispatch<React.SetStateAction<boolean>>
-    setIsHamburgerMenuToggled: React.Dispatch<React.SetStateAction<boolean>>
+    setIsHamburgerMenuActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const NavComponentContext = createContext<TNavContext | null>(null);
 
 const NavComponentContextProvider = ({ children }) => {
     const [isNavBackgroundActive, setIsNavBackgroundActive] = useState<boolean>(false);
-    const [isHamburgerMenuToggled, setIsHamburgerMenuToggled] = useState<boolean>(false);
+    const [isHamburgerMenuActive, setIsHamburgerMenuActive] = useState<boolean>(false);
 
     return (
         <NavComponentContext.Provider value={{
             isNavBackgroundActive: isNavBackgroundActive,
-            isHamburgerMenuToggled: isHamburgerMenuToggled,
+            isHamburgerMenuActive: isHamburgerMenuActive,
             setIsNavBackgroundActive: setIsNavBackgroundActive,
-            setIsHamburgerMenuToggled: setIsHamburgerMenuToggled
+            setIsHamburgerMenuActive: setIsHamburgerMenuActive
         }}>
             {children}
         </NavComponentContext.Provider>

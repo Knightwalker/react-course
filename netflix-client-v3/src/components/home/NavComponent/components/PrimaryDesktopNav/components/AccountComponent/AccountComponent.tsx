@@ -1,6 +1,7 @@
 // Libs
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { produce } from "immer";
 
 // Local components
 import ProfileIcon from "../../../shared/ProfileIcon/ProfileIcon";
@@ -48,39 +49,27 @@ const AccountComponent = (): JSX.Element => {
     }
 
     useEffect(() => {
-        if (isAcountMenuActive && !isAcountMenuEntered) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    account_menu: [styles.account_menu, styles.active],
-                    account_button_icon: [styles.account_button_icon, styles.active]
+        setClassNames(produce((state) => {
+            if ((isAcountMenuActive && !isAcountMenuEntered) ||
+                (isAcountMenuActive && isAcountMenuEntered) ||
+                (!isAcountMenuActive && isAcountMenuEntered)) {
+                if (!state.account_menu.includes(styles.active)) {
+                    state.account_menu.push(styles.active);
                 }
-            });
-        } else if (isAcountMenuActive && isAcountMenuEntered) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    account_menu: [styles.account_menu, styles.active],
-                    account_button_icon: [styles.account_button_icon, styles.active]
+                if (!state.account_button_icon.includes(styles.active)) {
+                    state.account_button_icon.push(styles.active)
                 }
-            });
-        } else if (!isAcountMenuActive && isAcountMenuEntered) {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    account_menu: [styles.account_menu, styles.active],
-                    account_button_icon: [styles.account_button_icon, styles.active]
+            } else {
+                const index1 = state.account_menu.indexOf(styles.active);
+                const index2 = state.account_button_icon.indexOf(styles.active);
+                if (index1 !== -1) {
+                    state.account_menu.splice(index1, 1);
                 }
-            });
-        } else {
-            setClassNames((state) => {
-                return {
-                    ...state,
-                    account_menu: [styles.account_menu],
-                    account_button_icon: [styles.account_button_icon]
+                if (index2 !== -1) {
+                    state.account_button_icon.splice(index2, 1);
                 }
-            });
-        }
+            }
+        }));
     }, [
         isAcountMenuActive,
         isAcountMenuEntered

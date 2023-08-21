@@ -1,5 +1,5 @@
 // Assets
-import ProfileIconDefaultImg from "../../../assets/default-blue.png";
+import ProfileIconDefaultImg from "$assets/home/account_icon1.png";
 
 // Local styles
 import styles from "./ProfileIcon.module.css";

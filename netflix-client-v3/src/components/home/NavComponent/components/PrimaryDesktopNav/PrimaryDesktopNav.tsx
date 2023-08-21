@@ -26,11 +26,11 @@ const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.
     useEffect(() => {
         setClassNames(produce(state => {
             if (isNavBackgroundActive) {
-                if (!state.nav.includes(styles.show_background)) {
-                    state.nav.push(styles.show_background);
+                if (!state.nav.includes(styles.active)) {
+                    state.nav.push(styles.active);
                 }
             } else {
-                const index = state.nav.indexOf(styles.show_background);
+                const index = state.nav.indexOf(styles.active);
                 if (index !== -1) {
                     state.nav.splice(index, 1);
                 }
