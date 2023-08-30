@@ -5,17 +5,33 @@ import { useState } from "react";
 // Local imports
 import "./AccordionComponent.css";
 
-function AccordionComponent({ data }) {
-    const [bItemsAreToggled, setItemsAreToggled] = useState(() => {
-        let obj = {};
-        for (let i = 0; i < data.length; i++) {
-            let key = data[i].id;
-            obj[key] = false;
+// Local types
+type TAccordionComponentData = {
+    id: number;
+    question: string;
+    answer: string;
+}
+
+type TAccordionComponentProps = {
+    data: TAccordionComponentData[]
+}
+
+type TItemsAreToggled = {
+    [id:string]: boolean
+}
+
+const AccordionComponent = ({ data }: TAccordionComponentProps): JSX.Element => {
+    const [bItemsAreToggled, setItemsAreToggled] = useState<TItemsAreToggled>(() => {
+        const obj: TItemsAreToggled = {};
+        const dataLength = data.length;
+        for (let i = 0; i < dataLength; ++i) {
+            const id = data[i].id.toString();
+            obj[id] = false;
         }
         return obj;
     });
 
-    const toggleItem = (id) => {
+    const toggleItem = (id: number): void => {
         setItemsAreToggled((prevState) => {
             let currentChange = !prevState[id];
             let newState = { ...prevState };
@@ -28,7 +44,10 @@ function AccordionComponent({ data }) {
     return (
         <ul className="AccordionComponent">
             {data.map((item) => (
-                <li className="AccordionComponent__item" key={item.id}>
+                <li
+                    key={item.id}
+                    className="AccordionComponent__item"
+                >
                     <button
                         className="AccordionComponent__btn"
                         onClick={() => toggleItem(item.id)}

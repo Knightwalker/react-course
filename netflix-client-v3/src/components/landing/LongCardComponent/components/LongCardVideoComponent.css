@@ -1,0 +1,26 @@
+.LongCardVideoComponent.watch-on-tv {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 73%;
+    max-height: 55%;
+    top: 48%;
+    left: 49.6%;
+    transform: translate(-50%, -50%);
+}
+
+.LongCardVideoComponent.watch-on-device {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    max-width: 63%;
+    max-height: 47%;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.LongCardVideoComponent__video {
+    width: 100%;
+    height: 100%;
+}

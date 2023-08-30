@@ -16,7 +16,7 @@ import accordionComponentData from "../../../data/landing/accordionComponentData
 // Local imports
 import "./LandingPage.css";
 
-const LandingPage = () => {
+const LandingPage = (): JSX.Element => {
     const user = useSelectUser();
     const navigate = useNavigate();
 

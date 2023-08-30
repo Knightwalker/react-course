@@ -8,9 +8,14 @@
         /* Bundler mode */
         "jsx": "react-jsx",
         
-        /* Linting */
-        "strict": false, // put to true, once we migrate to TS
+        /* Type Checking */
+        "strict": true, // put to true, once we migrate to TS
         "strictNullChecks": true, // remove, once strict is enabled
         "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": false,
+
+        /* Modules */
+        "esModuleInterop": true,
+        "resolveJsonModule": true
     }
 }
