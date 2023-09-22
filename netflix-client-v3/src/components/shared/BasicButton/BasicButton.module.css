@@ -1,4 +1,4 @@
-.BasicButton {
+.root {
     /* Reset Default Styles */
     margin: 0; /* Reset default margin */
     padding: 0; /* Reset default padding */
@@ -17,16 +17,16 @@
     border-radius: 4px;
 }
 
-.BasicButton.solid:hover {
+.root.solid:hover {
     filter: brightness(85%);
 }
 
-.BasicButton.crimson {
+.root.crimson {
     background-color: #e50914;
     color: white;
 }
 
-.BasicButton span {
+.root span {
     display: block;
     font-size: 14px;
     font-weight: 500;

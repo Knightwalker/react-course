@@ -1,17 +1,17 @@
 // Libs
 import { useEffect } from "react";
 
-// Local components
+// Components
 import PrimaryDesktopNav from "./components/PrimaryDesktopNav/PrimaryDesktopNav";
 import PrimaryMobileNav from "./components/PrimaryMobileNav/PrimaryMobileNav";
 
-// Local context
+// State
 import NavComponentContextProvider, { useNavContext } from "./NavComponentContext";
 
-// Local types
+// Types
 import { TNavComponentProps } from "./NavComponentTypes";
 
-// Local styles
+// Styles
 import styles from "./NavComponent.module.css";
 
 const NavComponentWithContext = (props: TNavComponentProps): JSX.Element => {

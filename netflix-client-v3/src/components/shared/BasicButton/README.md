@@ -10,7 +10,7 @@ This document provides information about the `BasicButton` component.
 
 ## Example Usage
 
-```jsx
+```tsx
 import BasicButton from "./BasicButton";
 
 function MyComponent() {

@@ -12,9 +12,13 @@ const BillboardComponent = ({ data }) => {
     const posterSrc = `${VITE_SERVER_BASE_URL}${data.posterPath}`;
 
     useEffect(() => {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             videoRef.current.play();
         }, 2000);
+        
+        return () => {
+            clearTimeout(timeoutId);
+        }
     }, []);
 
     return (
