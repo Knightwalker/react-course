@@ -26,7 +26,7 @@ const NavComponentContextProvider = ({ children }) => {
 };
 
 const useNavContext = (): TNavContext => {
-    const context = useContext(NavComponentContext) as TNavContext;
+    const context = useContext(NavComponentContext);
     if (context === null) {
         throw new Error("useNavContext must be used within a NavComponentContextProvider");
     }
