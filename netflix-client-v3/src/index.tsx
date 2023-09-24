@@ -5,7 +5,7 @@ import { routerInstance } from "./routes";
 import store from "./db/store";
 import "./styles/index.css";
 
-const root = createRoot(document.getElementById("root"));
+const root = createRoot(document.getElementById("root") as HTMLElement);
 root.render(
     // <React.StrictMode>
     <StateProvider store={store}>

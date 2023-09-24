@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // State Management
-import { useSelectUser } from "../../../db/slices/authSlice/authSlice";
+import { useSelectUser } from "../../../db/slices/authSlice";
 
 // Components
 import AccordionComponent from "../../../components/landing/AccordionComponent/AccordionComponent";

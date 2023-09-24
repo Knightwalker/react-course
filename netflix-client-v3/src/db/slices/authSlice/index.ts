@@ -2,6 +2,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
 
+// State
+import { TRootState } from "../../store";
+
 const initialState = {
     user: {
         email: "",
@@ -20,7 +23,7 @@ const authSlice = createSlice({
         },
         userLoggedOutAction: (state) => {
             state.user = initialState.user;
-            localStorage.clear("NetflixClone");
+            localStorage.clear();
         }
     }
 });
@@ -28,12 +31,12 @@ const authSlice = createSlice({
 const { userLoggedInAction, userLoggedOutAction } = authSlice.actions;
 
 const useSelectAuth = () => {
-    const auth = useSelector(state => state.auth);
+    const auth = useSelector((state: TRootState) => state.auth);
     return auth;
 };
 
 const useSelectUser = () => {
-    const user = useSelector(state => state.auth.user);
+    const user = useSelector((state: TRootState) => state.auth.user);
     return user;
 };
 

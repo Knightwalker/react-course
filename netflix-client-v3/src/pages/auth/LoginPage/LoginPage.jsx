@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 // State Management (Global)
-import { userLoggedInAction } from "../../../db/slices/authSlice/authSlice";
+import { userLoggedInAction } from "../../../db/slices/authSlice";
 
 // Services
 import { usePostLoginMutation } from "../../../services/AuthService";

@@ -14,7 +14,7 @@ import BasicButton from "../../../components/shared/BasicButton/BasicButton";
 import footerComponentData from "../../../data/landing/footerComponentData.json";
 
 // Database
-import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/slices/i18nSlice/i18nSlice";
+import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/slices/i18nSlice";
 
 // Local Imports
 import "./LandingLayout.css";

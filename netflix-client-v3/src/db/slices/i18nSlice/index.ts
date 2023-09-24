@@ -1,12 +1,19 @@
 // Libs
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { useSelector } from "react-redux";
+
+// Types
+import { TRootState } from "../../store";
 
 // Local imports
 import * as enText from "./en";
 import * as itText from "./it";
 import * as deText from "./de";
 import * as frText from "./fr";
+
+type TLanguageChangedByKeyAction = PayloadAction<{
+    key: "EN" | "IT" | "DE" | "FR"
+}>
 
 const text = {
     EN: { ...enText },
@@ -24,7 +31,7 @@ const i18nSlice = createSlice({
     name: "i18n",
     initialState: initialState,
     reducers: {
-        languageChangedByKey: (state, action) => {
+        languageChangedByKey: (state, action: TLanguageChangedByKeyAction) => {
             const { key } = action.payload;
             state.selectedLanguage = key;
             state.text = text[key];
@@ -35,12 +42,12 @@ const i18nSlice = createSlice({
 const { languageChangedByKey } = i18nSlice.actions;
 
 const useSelectLanguage = () => {
-    const selectedLanguage = useSelector(state => state.i18n.selectedLanguage);
+    const selectedLanguage = useSelector((state: TRootState) => state.i18n.selectedLanguage);
     return selectedLanguage;
 };
 
 const useSelectText = () => {
-    const text = useSelector(state => state.i18n.text);
+    const text = useSelector((state: TRootState) => state.i18n.text);
     return text;
 };
 
