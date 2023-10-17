@@ -1,12 +1,16 @@
 {
+    "exclude": ["node_modules/*"],
     "compilerOptions": {
         "target": "ES2022",
         "module": "ES2022",
-        "moduleResolution": "node",
-        "skipLibCheck": true,
-        
+        "moduleResolution": "Bundler",
+
         /* Bundler mode */
+        "skipLibCheck": true,
+        "noEmit": true,
         "jsx": "react-jsx",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
         
         /* Type Checking */
         "strict": true, // put to true, once we migrate to TS
@@ -14,8 +18,8 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": false,
 
-        /* Modules */
-        "esModuleInterop": true,
-        "resolveJsonModule": true
+        "paths": {
+            "@components": ["./src/components/*"]
+        }
     }
 }

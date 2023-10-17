@@ -11,9 +11,9 @@ import styles from "./AccountComponent.module.css";
 
 const AccountComponent = (): JSX.Element => {
     const [isAcountMenuActive, setIsAccountMenuActive] = useState(false);
-    const [isAcountMenuActiveTimeout, setIsAccountMenuActiveTimeout] = useState<number | undefined>();
+    const [isAcountMenuActiveTimeout, setIsAccountMenuActiveTimeout] = useState<NodeJS.Timeout | undefined>();
     const [isAcountMenuEntered, setIsAcountMenuEntered] = useState(false);
-    const [isAcountMenuEnteredTimeout, setIsAcountMenuEnteredTimeout] = useState<number | undefined>();
+    const [isAcountMenuEnteredTimeout, setIsAcountMenuEnteredTimeout] = useState<NodeJS.Timeout | undefined>();
 
     const [classNames, setClassNames] = useState({
         account_menu: [styles.account_menu],
