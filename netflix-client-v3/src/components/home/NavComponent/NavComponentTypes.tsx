@@ -28,4 +28,4 @@ export {
     TNavComponentProps,
     PrimaryDesktopNavProps,
     PrimaryMobileNavProps
-}
+};

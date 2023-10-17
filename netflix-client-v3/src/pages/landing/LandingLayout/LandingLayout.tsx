@@ -1,7 +1,6 @@
 // Libs
 import { useDispatch } from "react-redux";
-import { Link, Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 // Assets
 import LogoImg from "@assets/netflix_logo_transparent.png";

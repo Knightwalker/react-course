@@ -66,6 +66,6 @@ const AccordionComponent = ({ data }: TAccordionComponentProps): JSX.Element => 
             ))}
         </ul>
     );
-}
+};
 
 export default AccordionComponent;

@@ -34,4 +34,4 @@ const useNavContext = (): TNavContext => {
 };
 
 export default NavComponentContextProvider;
-export { useNavContext }
+export { useNavContext };

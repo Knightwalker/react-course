@@ -22,6 +22,6 @@ const LongCardVideoComponent = ({ cardType, videoPath }: TLongCardVideoComponent
             </video>
         </div>
     );
-}
+};
 
-export default LongCardVideoComponent
+export default LongCardVideoComponent;

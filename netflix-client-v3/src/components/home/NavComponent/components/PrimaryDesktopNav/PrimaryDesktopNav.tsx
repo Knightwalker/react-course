@@ -52,7 +52,7 @@ const PrimaryDesktopNav = ({ logoLink, navLinks }: PrimaryDesktopNavProps): JSX.
             </div>
             <AccountComponent />
         </div>
-    )
-}
+    );
+};
 
 export default PrimaryDesktopNav;

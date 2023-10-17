@@ -10,7 +10,7 @@ type TBasicButtonProps = {
 const classNamesDict = {
     "solid": styles.solid,
     "crimson": styles.crimson
-}
+};
 
 const BasicButton = ({
     variant = "solid",

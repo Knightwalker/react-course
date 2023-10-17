@@ -1,10 +1,10 @@
 import js from "@eslint/js";
 import globals from "globals";
-import eslintPluginImport from "eslint-plugin-import";
 import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
 import typescriptEslintParser from "@typescript-eslint/parser";
+import typescriptEslintPlugin from "@typescript-eslint/eslint-plugin";
 
 const config = [
     {
@@ -14,21 +14,20 @@ const config = [
         }
     },
     {
-        files: ["src/**/*.{ts, tsx}"],
+        files: ["src/**/*.{ts,tsx}"],
         languageOptions: {
             globals: { ...globals.browser },
             parser: typescriptEslintParser,
             parserOptions: {
                 ecmaVersion: 2022,
-                sourceType: "module",
                 ecmaFeatures: {
                     jsx: true
                 }
             }
         },
-        // plugins: {
-        //     import: eslintPluginImport
-        // },
+        plugins: {
+            "@typescript-eslint": typescriptEslintPlugin
+        },
         rules: {
             ...js.configs.recommended.rules,
             // Possible Problems
@@ -49,7 +48,7 @@ const config = [
             "switch-colon-spacing": "warn",
             "template-curly-spacing": ["warn", "never"],
             "wrap-regex": "warn",
-            // ...eslintPluginImport.configs.recommended.rules
+            ...typescriptEslintPlugin.configs.recommended.rules
         }
     },
     {
@@ -58,7 +57,6 @@ const config = [
             parser: typescriptEslintParser,
             parserOptions: {
                 ecmaVersion: 2022,
-                sourceType: "module",
                 ecmaFeatures: {
                     jsx: true
                 }

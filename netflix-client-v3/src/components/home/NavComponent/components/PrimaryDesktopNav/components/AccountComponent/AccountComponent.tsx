@@ -32,7 +32,7 @@ const AccountComponent = (): JSX.Element => {
             }, 300); // 0.3 seconds
             setIsAccountMenuActiveTimeout(timeout);
         }
-    }
+    };
 
     const handleIsAcountMenuEntered = (flag) => {
         if (flag) {
@@ -46,7 +46,7 @@ const AccountComponent = (): JSX.Element => {
             }, 300); // 0.3 seconds
             setIsAcountMenuEnteredTimeout(timeout);
         }
-    }
+    };
 
     useEffect(() => {
         setClassNames(produce((state) => {
@@ -57,7 +57,7 @@ const AccountComponent = (): JSX.Element => {
                     state.account_menu.push(styles.active);
                 }
                 if (!state.account_button_icon.includes(styles.active)) {
-                    state.account_button_icon.push(styles.active)
+                    state.account_button_icon.push(styles.active);
                 }
             } else {
                 const index1 = state.account_menu.indexOf(styles.active);
@@ -121,6 +121,6 @@ const AccountComponent = (): JSX.Element => {
             </div>
         </div>
     );
-}
+};
 
 export default AccountComponent;

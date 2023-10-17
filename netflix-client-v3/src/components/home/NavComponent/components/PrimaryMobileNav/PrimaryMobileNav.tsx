@@ -91,7 +91,7 @@ const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.El
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default PrimaryMobileNav;
