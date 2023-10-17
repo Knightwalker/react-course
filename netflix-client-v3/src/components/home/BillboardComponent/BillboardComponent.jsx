@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import "./BillboardComponent.css";
 
 const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
+
 // const trailerSrc = `${VITE_SERVER_BASE_URL}/movies/inception/trailer_720p.mp4`;
 // const posterSrc = `${VITE_SERVER_BASE_URL}/movies/inception/poster.jpg`;
 

@@ -1,20 +1,21 @@
 // Libs
 import { useDispatch } from "react-redux";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // Assets
-import LogoImg from "../../../assets/netflix_logo_transparent.png";
+import LogoImg from "@assets/netflix_logo_transparent.png";
 
 // Components
 import CTAComponent from "@components/landing/CTAComponent/CTAComponent";
 import LanguageSelectComponent from "@components/landing/LanguageSelectComponent/LanguageSelectComponent";
-import BasicButton from "../../../components/shared/BasicButton/BasicButton";
+import BasicButton from "@components/shared/BasicButton/BasicButton";
 
 // Data
-import footerComponentData from "../../../data/landing/footerComponentData.json";
+import footerComponentData from "@/data/landing/footerComponentData.json";
 
 // Database
-import { useSelectText, useSelectLanguage, languageChangedByKey } from "../../../db/slices/i18nSlice";
+import { useSelectText, useSelectLanguage, languageChangedByKey } from "@/db/slices/i18nSlice";
 
 // Local Imports
 import "./LandingLayout.css";

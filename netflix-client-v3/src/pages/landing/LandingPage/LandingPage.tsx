@@ -3,15 +3,15 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 // State Management
-import { useSelectUser } from "../../../db/slices/authSlice";
+import { useSelectUser } from "@/db/slices/authSlice";
 
 // Components
-import AccordionComponent from "../../../components/landing/AccordionComponent/AccordionComponent";
-import LongCardComponent from "../../../components/landing/LongCardComponent/LongCardComponent";
+import AccordionComponent from "@components/landing/AccordionComponent/AccordionComponent";
+import LongCardComponent from "@components/landing/LongCardComponent/LongCardComponent";
 
 // Data
-import longCardComponentData from "../../../data/landing/longCardComponentData.json";
-import accordionComponentData from "../../../data/landing/accordionComponentData.json";
+import longCardComponentData from "@/data/landing/longCardComponentData.json";
+import accordionComponentData from "@/data/landing/accordionComponentData.json";
 
 // Local imports
 import "./LandingPage.css";

@@ -2,15 +2,15 @@
 import { useState } from "react";
 
 // Components
-import BillboardComponent from "../../../components/home/BillboardComponent/BillboardComponent";
-import Carousel from "../../../components/home/Carousel/Carousel";
+import BillboardComponent from "@components/home/BillboardComponent/BillboardComponent";
+import Carousel from "@components/home/Carousel/Carousel";
 
 // Services
 import {
     useGetMoviesQuery,
     useGetMoviesByIdQuery,
     useGetRandomMovieQuery
-} from "../../../services/HomeService";
+} from "@services/HomeService";
 
 const HomePage = () => {
     const [state, setState] = useState({

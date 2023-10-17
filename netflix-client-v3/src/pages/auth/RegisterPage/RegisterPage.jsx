@@ -3,11 +3,11 @@ import { useEffect, useReducer, useRef, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 // Services
-import { usePostRegisterMutation } from "../../../services/AuthService";
+import { usePostRegisterMutation } from "@services/AuthService";
 
 // Utils
-import { isEmailValid, isPasswordValid } from "../../../utils/auth";
-import { wait } from "../../../utils/shared";
+import { isEmailValid, isPasswordValid } from "@/utils/auth";
+import { wait } from "@/utils/shared";
 
 // Local imports
 import {

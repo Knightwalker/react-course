@@ -2,16 +2,16 @@
 import { createBrowserRouter } from "react-router-dom";
 
 // Layouts
-import LandingLayout from "../pages/landing/LandingLayout/LandingLayout";
-import AuthLayout from "../pages/auth/AuthLayout/AuthLayout";
-import HomeLayout from "../pages/home/HomeLayout/HomeLayout";
+import LandingLayout from "@pages/landing/LandingLayout/LandingLayout";
+import AuthLayout from "@pages/auth/AuthLayout/AuthLayout";
+import HomeLayout from "@pages/home/HomeLayout/HomeLayout";
 
 // Pages
-import LandingPage from "../pages/landing/LandingPage/LandingPage";
-import LoginPage from "../pages/auth/LoginPage/LoginPage";
-import RegisterPage from "../pages/auth/RegisterPage/RegisterPage";
-import LogoutPage from "../pages/auth/LogoutPage/LogoutPage";
-import HomePage from "../pages/home/HomePage/HomePage";
+import LandingPage from "@pages/landing/LandingPage/LandingPage";
+import LoginPage from "@pages/auth/LoginPage/LoginPage";
+import RegisterPage from "@pages/auth/RegisterPage/RegisterPage";
+import LogoutPage from "@pages/auth/LogoutPage/LogoutPage";
+import HomePage from "@pages/home/HomePage/HomePage";
 
 const routerInstance = createBrowserRouter([
     {
