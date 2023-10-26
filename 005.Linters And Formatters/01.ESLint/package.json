@@ -1,11 +1,10 @@
 {
-  "name": "netflix-client-v2",
+  "name": "javascript-react-vite-eslint-template",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "start": "vite",
@@ -16,15 +15,15 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@eslint/js": "^8.40.0",
-    "@vitejs/plugin-react": "^4.0.0",
-    "eslint": "^8.40.0",
-    "eslint-plugin-react": "^7.32.2",
-    "globals": "^13.20.0",
-    "vite": "^4.3.9"
+    "@eslint/js": "^8.52.0",
+    "@vitejs/plugin-react": "^4.1.0",
+    "eslint": "^8.52.0",
+    "eslint-plugin-react": "^7.33.2",
+    "globals": "^13.23.0",
+    "vite": "^4.5.0"
   },
-  "engines" : { 
-    "npm" : "~9.5.0",
-    "node" : "~18.16.0"
+  "engines": {
+    "npm": "~10.2.0",
+    "node": "~18.18.0"
   }
 }
