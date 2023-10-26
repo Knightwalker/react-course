@@ -1,3 +1,7 @@
+// Libs
+import { ReactElement } from "react";
+
+// Local
 import styles from "./BasicButton.module.css";
 
 type TBasicButtonProps = {
@@ -17,7 +21,7 @@ const BasicButton = ({
     color = "crimson",
     label = "label",
     onClick
-}: TBasicButtonProps): JSX.Element => {
+}: TBasicButtonProps): ReactElement => {
     return (
         <button
             className={`${styles.root} ${classNamesDict[variant]} ${classNamesDict[color]}`}

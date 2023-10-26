@@ -34,6 +34,7 @@ const config = [
             "no-debugger": "warn", // overrides a default recommended rule
             "no-duplicate-imports": "warn",
             "no-unused-vars": "warn",
+            "no-undef": "off",
             // Suggestions
             "eqeqeq": "warn",
             "yoda": "warn",

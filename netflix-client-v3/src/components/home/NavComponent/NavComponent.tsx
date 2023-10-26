@@ -1,5 +1,5 @@
 // Libs
-import { useEffect } from "react";
+import { useEffect, ReactElement } from "react";
 
 // Components
 import PrimaryDesktopNav from "./components/PrimaryDesktopNav/PrimaryDesktopNav";
@@ -14,7 +14,7 @@ import { TNavComponentProps } from "./NavComponentTypes";
 // Styles
 import styles from "./NavComponent.module.css";
 
-const NavComponentWithContext = (props: TNavComponentProps): JSX.Element => {
+const NavComponentWithContext = (props: TNavComponentProps): ReactElement => {
     return (
         <NavComponentContextProvider>
             <NavComponent {...props} />
@@ -22,7 +22,7 @@ const NavComponentWithContext = (props: TNavComponentProps): JSX.Element => {
     );
 };
 
-const NavComponent = ({ logoLink, navLinks }: TNavComponentProps): JSX.Element => {
+const NavComponent = ({ logoLink, navLinks }: TNavComponentProps): ReactElement => {
     const { setIsNavBackgroundActive } = useNavContext();
 
     useEffect(() => {

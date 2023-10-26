@@ -1,5 +1,5 @@
 // Libs
-import { useEffect } from "react";
+import { useEffect, ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 // State Management
@@ -16,7 +16,7 @@ import accordionComponentData from "@/data/landing/accordionComponentData.json";
 // Local imports
 import "./LandingPage.css";
 
-const LandingPage = (): JSX.Element => {
+const LandingPage = (): ReactElement => {
     const user = useSelectUser();
     const navigate = useNavigate();
 

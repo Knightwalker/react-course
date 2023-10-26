@@ -1,3 +1,6 @@
+// Libs
+import { ReactElement } from "react";
+
 // Local Components
 import LongCardVideoComponent from "./components/LongCardVideoComponent";
 
@@ -22,7 +25,7 @@ const LongCardComponent = ({
     imagePath,
     videoPath,
     alt
-}: TLongCardComponentProps): JSX.Element => {
+}: TLongCardComponentProps): ReactElement => {
     return (
         <div className={`LongCardComponent${rowIsEven === true ? " row-is-even" : ""}`}>
             <div className={`LongCardComponent__text-container`}>

@@ -1,5 +1,5 @@
 // Libs
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import { produce } from "immer";
 
@@ -15,7 +15,7 @@ import { PrimaryMobileNavProps } from "../../NavComponentTypes";
 // Local styles
 import styles from "./PrimaryMobileNav.module.css";
 
-const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): JSX.Element => {
+const PrimaryMobileNav = ({ logoLink, navLinks }: PrimaryMobileNavProps): ReactElement => {
     const {
         isNavBackgroundActive,
         isHamburgerMenuActive,

@@ -1,4 +1,5 @@
 // Libs
+import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
 // Assets
@@ -10,7 +11,7 @@ import { TLogoProps } from "../../../NavComponentTypes";
 // Local styles
 import styles from "./Logo.module.css";
 
-const Logo = ({ path }: TLogoProps): JSX.Element => {
+const Logo = ({ path }: TLogoProps): ReactElement => {
     return (
         <Link
             className={styles.logo_a}

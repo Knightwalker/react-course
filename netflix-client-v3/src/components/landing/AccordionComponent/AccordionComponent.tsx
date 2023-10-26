@@ -1,6 +1,5 @@
-
 // Libs
-import { useState } from "react";
+import { useState, ReactElement } from "react";
 
 // Local imports
 import "./AccordionComponent.css";
@@ -20,7 +19,7 @@ type TItemsAreToggled = {
     [id:string]: boolean
 }
 
-const AccordionComponent = ({ data }: TAccordionComponentProps): JSX.Element => {
+const AccordionComponent = ({ data }: TAccordionComponentProps): ReactElement => {
     const [bItemsAreToggled, setItemsAreToggled] = useState<TItemsAreToggled>(() => {
         const obj: TItemsAreToggled = {};
         const dataLength = data.length;

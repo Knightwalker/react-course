@@ -1,5 +1,5 @@
 // Libs
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactElement } from "react";
 import { Link } from "react-router-dom";
 import { produce } from "immer";
 
@@ -9,11 +9,11 @@ import ProfileIcon from "../../../shared/ProfileIcon/ProfileIcon";
 // Local imports
 import styles from "./AccountComponent.module.css";
 
-const AccountComponent = (): JSX.Element => {
+const AccountComponent = (): ReactElement => {
     const [isAcountMenuActive, setIsAccountMenuActive] = useState(false);
-    const [isAcountMenuActiveTimeout, setIsAccountMenuActiveTimeout] = useState<NodeJS.Timeout | undefined>();
+    const [isAcountMenuActiveTimeout, setIsAccountMenuActiveTimeout] = useState<ReturnType<typeof setTimeout>>();
     const [isAcountMenuEntered, setIsAcountMenuEntered] = useState(false);
-    const [isAcountMenuEnteredTimeout, setIsAcountMenuEnteredTimeout] = useState<NodeJS.Timeout | undefined>();
+    const [isAcountMenuEnteredTimeout, setIsAcountMenuEnteredTimeout] = useState<ReturnType<typeof setTimeout>>();
 
     const [classNames, setClassNames] = useState({
         account_menu: [styles.account_menu],

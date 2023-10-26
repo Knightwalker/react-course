@@ -1,4 +1,7 @@
-// Local Styles
+// Libs
+import { ReactElement } from "react";
+
+// Local
 import "./LongCardVideoComponent.css";
 
 type TLongCardVideoComponent = {
@@ -6,7 +9,7 @@ type TLongCardVideoComponent = {
     videoPath: string
 }
 
-const LongCardVideoComponent = ({ cardType, videoPath }: TLongCardVideoComponent): JSX.Element => {
+const LongCardVideoComponent = ({ cardType, videoPath }: TLongCardVideoComponent): ReactElement => {
     return (
         <div className={`LongCardVideoComponent ${cardType}`}>
             <video className="LongCardVideoComponent__video"
