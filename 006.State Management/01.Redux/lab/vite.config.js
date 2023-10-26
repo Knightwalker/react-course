@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
-import path from "path";
+import path from "node:path";
 
 export default defineConfig({
-    root: path.relative(__dirname, ""),
+    root: path.resolve(__dirname, ""),
     build: {
         outDir: path.resolve(__dirname, "build")
     },
