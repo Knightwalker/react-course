@@ -12,8 +12,8 @@ import footerComponentData from "../../../data/landing/footerComponentData.json"
 import LogoImg from "../../../assets/netflix_logo_transparent.png";
 
 // Components
-import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
-import LanguageSelectComponent from "$components/landing/LanguageSelectComponent/LanguageSelectComponent";
+import CTAComponent from "@components/landing/CTAComponent/CTAComponent";
+import LanguageSelectComponent from "@components/landing/LanguageSelectComponent/LanguageSelectComponent";
 import BasicButton from "../../../components/shared/BasicButton/BasicButton";
 
 // Local Imports

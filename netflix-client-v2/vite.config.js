@@ -7,7 +7,7 @@ export default defineConfig(({ mode }) => {
 
     return {
         plugins: [react()],
-        root: path.relative(__dirname, ""),
+        root: path.resolve(__dirname, ""),
         build: {
             outDir: path.resolve(__dirname, "build")
         },
@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => {
         },
         resolve: {
             alias: {
-                $components: path.resolve(__dirname, "src/components")
+                "@components": path.resolve(__dirname, "./src/components")
             }
         },
         css: {

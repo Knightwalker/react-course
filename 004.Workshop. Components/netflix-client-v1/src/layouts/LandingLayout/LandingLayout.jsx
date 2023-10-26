@@ -5,7 +5,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import LogoImg from "../../assets/netflix_logo_transparent.png";
 
 // Components
-import CTAComponent from "$components/landing/CTAComponent/CTAComponent";
+import CTAComponent from "@components/landing/CTAComponent/CTAComponent";
 import BasicButton from "../../components/shared/BasicButton/BasicButton";
 
 // Data
