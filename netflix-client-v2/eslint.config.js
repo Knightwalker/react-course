@@ -1,6 +1,5 @@
 import js from "@eslint/js";
 import globals from "globals";
-import eslintPluginImport from "eslint-plugin-import"; // TODO: research how to use this
 import eslintPluginReact from "eslint-plugin-react";
 import eslintPluginReactHooks from "eslint-plugin-react-hooks";
 import eslintPluginJsxA11y from "eslint-plugin-jsx-a11y";
@@ -13,7 +12,7 @@ const config = [
         }
     },
     {
-        files: ["src/**/*.{js,jsx,ts,tsx}"],
+        files: ["src/**/*.{js,jsx}"],
         languageOptions: {
             globals: { ...globals.browser },
             parserOptions: {
@@ -44,7 +43,7 @@ const config = [
         }
     },
     {
-        files: ["src/**/*.{jsx,tsx}"],
+        files: ["src/**/*.{jsx}"],
         languageOptions: {
             parserOptions: {
                 ecmaFeatures: {
