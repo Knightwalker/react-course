@@ -15,9 +15,14 @@ const config = [
         files: ["src/**/*.{js,jsx}"],
         languageOptions: {
             globals: { ...globals.browser },
+            ecmaVersion: 2022,
+            sourceType: "module",
             parserOptions: {
                 ecmaVersion: 2022,
                 sourceType: "module",
+                ecmaFeatures: {
+                    jsx: true
+                }
             }
         },
         rules: {
@@ -40,12 +45,21 @@ const config = [
             "switch-colon-spacing": "warn",
             "template-curly-spacing": ["warn", "never"],
             "wrap-regex": "warn",
+        },
+        settings: {
+            react: {
+                version: "detect"
+            }
         }
     },
     {
         files: ["src/**/*.{jsx}"],
         languageOptions: {
+            ecmaVersion: 2022,
+            sourceType: "module",
             parserOptions: {
+                ecmaVersion: 2022,
+                sourceType: "module",
                 ecmaFeatures: {
                     jsx: true
                 }
