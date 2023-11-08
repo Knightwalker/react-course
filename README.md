@@ -7,7 +7,7 @@
 - Topic 1: Vanilla React
   - react@18.2.0 (createElement), react-dom@18.2.0(createRoot)
   - ES6 Modules, JSX, Babel
-- Topic 2: Module Bundlers
+- Topic 2: Build Tools
   - Webpack
   - Vite
 - Topic 3: Modern React
