@@ -1,15 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import PlayerComponent from "./components/PlayerComponent/PlayerComponent";
+import MovieCardComponent from "./components/MovieCardComponent/MovieCardComponent";
 import "./styles/style.css";
         
 const App = () => {
     return (
         <div className="AppComponent">
-            <h1 className="text-center">Choose Your Character</h1>
-            <PlayerComponent name="Luke Skywalker" alignment="Jedi" force="Force Push" />
-            <PlayerComponent name="Darth Vader" alignment="Sith" force="Force Grip" />
-            <PlayerComponent name="Obi Wan" alignment="Jedi" force="Mind Trick" />
+            <h1 className="text-center">My Videos</h1>
+            <div className="AppComponent__MovieCardComponentWrapper">
+                <MovieCardComponent name="Fast and Furious 39" year="Jedi" rating="100%" />
+                <MovieCardComponent name="Darth Vader" year="Sith" rating="69%" />
+                <MovieCardComponent name="Titanic" year="1997" rating="88%" />
+            </div>
         </div>
     );
 };
