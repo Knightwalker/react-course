@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" modified="2024-06-13T07:20:26.261Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36" etag="MFD1_8xlp0QvqvWcahmK" version="24.2.8" type="device">
+  <diagram name="Page-1" id="9YNZ1GuINEZdgKRP2xnB">
+    <mxGraphModel dx="1221" dy="618" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-1" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="210" width="140" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-2" value="Call Stack" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="200" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-4" value="&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;setTimeout&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;setInterval&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;fetch&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;XMLHTTPRequest&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="488" y="210" width="156" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-5" value="Web APIs" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="508" y="200" width="116" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-12" value="Event Loop" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="360" y="240" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-13" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="240" y="380" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-14" value="Callback Queue" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="370" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-15" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;JavaScript Runtime&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="324" y="50" width="180" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-17" value="console.log(&quot;Start&quot;)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="480" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-18" value="console.log(&quot;End&quot;)" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="510" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-19" value="setTimeout(() =&amp;gt; { console.log(&quot;Timeout 1&quot;); })" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="540" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-20" value="setTimeout(() =&amp;gt; { console.log(&quot;Timeout 2&quot;); })" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="575" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-21" value="setTimeout(() =&amp;gt; { console.log(&quot;Timeout 3&quot;); })" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="610" width="260" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="FviOdoGSPQWlJy9LCuTo-22" value="Promise.resolve().then(() =&amp;gt; { console.log(&quot;Promise&quot;); });" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="640" width="310" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
