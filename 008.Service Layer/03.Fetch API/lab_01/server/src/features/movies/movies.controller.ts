@@ -4,7 +4,7 @@ import { Request, Response } from "express";
 import { config } from "../../configs/server.config";
 
 // Data
-import postsDataJson from "./example_001.data.json";
+import postsDataJson from "./movies.data.json";
 
 // Utils
 import { wait } from "../../utils/index";

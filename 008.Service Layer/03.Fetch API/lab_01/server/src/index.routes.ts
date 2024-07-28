@@ -5,7 +5,7 @@ import express from "express";
 import { 
     getMovies,
     getMovies__SuccessWithNoData
-} from "./features/example_001/example_001.controller";
+} from "./features/movies/movies.controller";
 
 const routerInstance = express.Router();
 
