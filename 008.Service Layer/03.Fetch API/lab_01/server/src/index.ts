@@ -1,10 +1,7 @@
-"use strict";
-
-import "./configs/env.config.js";
+import "./configs/env.config";
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
-import routerInstance from "./routes.js";
+import routerInstance from "./index.routes";
 
 const PORT = process.env.PORT!;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN!;
@@ -18,7 +15,6 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.static("public"));
-app.use(cookieParser());
 app.use(routerInstance);
 
 const startServer = async () => {

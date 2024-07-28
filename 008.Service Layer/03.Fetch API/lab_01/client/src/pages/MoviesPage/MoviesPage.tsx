@@ -15,12 +15,12 @@ type TError = {
 
 type TQueryStatus = "initial" | "loading" | "success" | "error";
 
-const BASE_URL = "http://localhost:5000";
+const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const endpointsMap = {
-    getMovies: `${BASE_URL}/example_001/getMovies`,
-    getMovies__SuccessWithNoData: `${BASE_URL}/example_001/getMovies__SuccessWithNoData`,
-    getMovies__Error404: `${BASE_URL}/example_001/getMovies__Error404`,
+    getMovies: `${VITE_SERVER_BASE_URL}/example_001/movies`,
+    getMovies__SuccessWithNoData: `${VITE_SERVER_BASE_URL}/example_001/movies__SuccessWithNoData`,
+    getMovies__Error404: `${VITE_SERVER_BASE_URL}/example_001/movies__Error404`,
 };
 
 const MoviesPage = () => {

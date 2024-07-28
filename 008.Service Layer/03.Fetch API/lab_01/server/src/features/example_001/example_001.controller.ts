@@ -1,35 +1,27 @@
-"use strict";
-
 import { Request, Response } from "express";
 
 // Configs
-import { config } from "../../configs/server.config.js";
+import { config } from "../../configs/server.config";
+
+// Data
+import postsDataJson from "./example_001.data.json";
 
 // Utils
-import { wait } from "../../utils/index.js";
+import { wait } from "../../utils/index";
 
 type TMovie = {
     name: string
 };
 
+const moviesData: TMovie[] = postsDataJson as TMovie[];
+
 const getMovies = async (req: Request, res: Response) => {
     await wait(config.throttle_by);
 
-    const movies: TMovie[] = [
-        {
-            name: "Inception"
-        },
-        {
-            name: "The Matrix"
-        },
-        {
-            name: "Star Wars"
-        }
-    ];
-
     return res.status(200).json({
-        data: movies,
-        message: "Operation completed successfully"
+        data: moviesData,
+        message: "Resource retrieved successfully",
+        error: null
     });
 };
 
@@ -40,7 +32,8 @@ const getMovies__SuccessWithNoData = async (req: Request, res: Response) => {
 
     return res.status(200).json({
         data: movies,
-        message: "Operation completed successfully"
+        message: "Resource retrieved successfully",
+        error: null
     });
 };
 
