@@ -1,4 +1,4 @@
-import MoviesPage from "./pages/MoviesPage/MoviesPage";
+import MoviesPage from "./features/movies/pages/MoviesPage/MoviesPage";
 import "./App.css";
 
 const App = () => {

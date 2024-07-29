@@ -1,8 +1,13 @@
-import { useEffect, useState } from "react";
+import { 
+    useEffect, 
+    useState 
+} from "react";
 
-type TMovie = {
-    name: string
-};
+import type {
+    TMovie
+} from "../../MoviesTypes";
+
+import MoviesList from "../../components/MoviesList/MoviesList";
 
 type TResponse = {
     data: TMovie[],
@@ -18,18 +23,22 @@ type TQueryStatus = "initial" | "loading" | "success" | "error";
 const VITE_SERVER_BASE_URL = import.meta.env.VITE_SERVER_BASE_URL;
 
 const endpointsMap = {
-    getMovies: `${VITE_SERVER_BASE_URL}/example_001/movies`,
-    getMovies__SuccessWithNoData: `${VITE_SERVER_BASE_URL}/example_001/movies__SuccessWithNoData`,
-    getMovies__Error404: `${VITE_SERVER_BASE_URL}/example_001/movies__Error404`,
+    getMovies: `${VITE_SERVER_BASE_URL}/movies`
 };
 
 const MoviesPage = () => {
     const [status, setStatus] = useState<TQueryStatus>("initial");
     const [data, setData] = useState<TMovie[]>([]);
     const [error, setError] = useState<TError | null>(null);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         setStatus("loading");
+        setIsLoading(true);
+        setIsSuccess(false);
+        setIsError(false);
         fetch(endpointsMap.getMovies)
             .then(response => {
                 if (!response.ok) {
@@ -41,6 +50,7 @@ const MoviesPage = () => {
                 const { data } = result;
                 setData(data);
                 setStatus("success");
+                setIsSuccess(true);
             })
             .catch((error) => {
                 if (error.message === "Service Error") {
@@ -49,11 +59,15 @@ const MoviesPage = () => {
                     setError({ message: "Network Error"});
                 }
                 setStatus("error");
+                setIsError(true);
+            })
+            .finally(() => {
+                setIsLoading(false);
             });
     }, []);
 
     return (
-        <div className="example_001">
+        <div className="MoviesPage">
             <h1>Movies</h1>
             <p>Status: {status}</p>
             {status === "initial" && (
@@ -69,13 +83,7 @@ const MoviesPage = () => {
                 <div>Movies are not avaliable</div>
             )}
             {status === "success" && data && (
-                <div>
-                    {data.map((movie) => {
-                        return (
-                            <div>{movie.name}</div>
-                        )
-                    })}
-                </div>
+                <MoviesList movies={data} />
             )}
         </div>
     )

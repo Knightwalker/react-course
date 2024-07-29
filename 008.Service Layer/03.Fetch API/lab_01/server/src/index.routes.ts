@@ -13,8 +13,8 @@ const routerInstance = express.Router();
 routerInstance.use("/", express.json());
 routerInstance.use("/auth", express.urlencoded({ extended: true }));
 
-routerInstance.get("/example_001/movies", getMovies);
-// routerInstance.get("/example_001/movies", getMovies__SuccessWithNoData);
+routerInstance.get("/movies", getMovies);
+// routerInstance.get("/movies", getMovies__SuccessWithNoData);
 
 // Export router for use in main application
 export default routerInstance;
