@@ -1,0 +1,9 @@
+.MoviesList {
+    display: flex;
+    gap: 3px;
+}
+
+.MoviesList__movie {
+    border: 1px solid black;
+    padding: 50px;
+}

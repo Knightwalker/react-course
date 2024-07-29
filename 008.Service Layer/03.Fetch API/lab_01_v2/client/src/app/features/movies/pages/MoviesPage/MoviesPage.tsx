@@ -34,25 +34,23 @@ const MoviesPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    useEffect(() => {
-        setStatus("loading");
-        setIsLoading(true);
-        setIsSuccess(false);
-        setIsError(false);
-        fetch(endpointsMap.getMovies)
-            .then(response => {
+    useEffect(() => {   
+        const getMoviesAsync = async () => {
+            setStatus("loading");
+            setIsLoading(true);
+            setIsSuccess(false);
+            setIsError(false);
+            try {
+                const response = await fetch(endpointsMap.getMovies);
                 if (!response.ok) {
                     throw new Error("Server Error");
-                }
-                return response.json();
-            })
-            .then((result: TResponse) => {
+                };
+                const result = await response.json() as TResponse;
                 const { data } = result;
                 setData(data);
                 setStatus("success");
                 setIsSuccess(true);
-            })
-            .catch((error) => {
+            } catch (error) {
                 if (error instanceof Error) {
                     if (error.message === "Server Error") {
                         setError({ message: "Server Error"});
@@ -64,10 +62,12 @@ const MoviesPage = () => {
                 }
                 setStatus("error");
                 setIsError(true);
-            })
-            .finally(() => {
+            } finally {
                 setIsLoading(false);
-            });
+            }
+        };
+        
+        getMoviesAsync();
     }, []);
 
     return (
