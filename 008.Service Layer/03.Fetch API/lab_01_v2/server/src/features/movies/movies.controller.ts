@@ -10,28 +10,49 @@ import postsDataJson from "./movies.data.json";
 import { wait } from "../../utils/index";
 
 type TMovie = {
+    id: string,
     name: string
 };
 
-const moviesData: TMovie[] = postsDataJson as TMovie[];
+type TMoviesData = {
+    [key: string]: TMovie;
+};
+
+const moviesData: TMoviesData = postsDataJson as TMoviesData;
 
 const getMovies = async (req: Request, res: Response) => {
     await wait(config.throttle_by);
 
     return res.status(200).json({
         data: moviesData,
+        // data: {}, // or we could have a success, but no movies in our database
         message: "Resource retrieved successfully",
         error: null
     });
 };
 
-const getMovies__SuccessWithNoData = async (req: Request, res: Response) => {
+const getMovieById = async (req: Request, res: Response) => {
     await wait(config.throttle_by);
 
-    const movies: TMovie[] = [];
+    const { id } = req.params;
+    if (!id) {
+        return res.status(401).json({
+            data: [],
+            message: "Server is unable to process the request",
+            error: null
+        });
+    };
 
+    const movie = moviesData[id];
+    if (!movie) {
+        return res.status(404).json({
+            data: null,
+            message: "Resource not found",
+            error: "Post not found"
+        });
+    }
     return res.status(200).json({
-        data: movies,
+        data: movie,
         message: "Resource retrieved successfully",
         error: null
     });
@@ -39,5 +60,5 @@ const getMovies__SuccessWithNoData = async (req: Request, res: Response) => {
 
 export {
     getMovies,
-    getMovies__SuccessWithNoData
+    getMovieById
 };

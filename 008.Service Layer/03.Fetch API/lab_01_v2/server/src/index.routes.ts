@@ -4,7 +4,7 @@ import express, { Request, Response } from "express";
 // Controllers
 import { 
     getMovies,
-    getMovies__SuccessWithNoData
+    getMovieById
 } from "./features/movies/movies.controller";
 import errorHandler from "./middleware/errorHandler.middleware";
 
@@ -15,7 +15,7 @@ routerInstance.use("/", express.json());
 routerInstance.use("/auth", express.urlencoded({ extended: true }));
 
 routerInstance.get("/movies", getMovies);
-// routerInstance.get("/movies", getMovies__SuccessWithNoData);
+routerInstance.get("/movies/:id", getMovieById);
 
 routerInstance.all("*", (req: Request, res: Response) => {
     return res.status(404).json({

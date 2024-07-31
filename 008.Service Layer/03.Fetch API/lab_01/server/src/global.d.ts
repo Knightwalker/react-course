@@ -4,6 +4,7 @@ export declare global {
             PORT: string;
             CLIENT_ORIGIN: string;
             [key: string]: string;
+            // more env variables...
         }
     }
 };

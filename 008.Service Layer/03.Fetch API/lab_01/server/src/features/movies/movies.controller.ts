@@ -25,19 +25,6 @@ const getMovies = async (req: Request, res: Response) => {
     });
 };
 
-const getMovies__SuccessWithNoData = async (req: Request, res: Response) => {
-    await wait(config.throttle_by);
-
-    const movies: TMovie[] = [];
-
-    return res.status(200).json({
-        data: movies,
-        message: "Resource retrieved successfully",
-        error: null
-    });
-};
-
 export {
-    getMovies,
-    getMovies__SuccessWithNoData
+    getMovies
 };
