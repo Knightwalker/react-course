@@ -4,7 +4,7 @@ import cors from "cors";
 import routerInstance from "./index.routes";
 
 const PORT = process.env.PORT;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN!;
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN;
 
 // Configure the server
 const app = express();
