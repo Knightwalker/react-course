@@ -7,7 +7,7 @@ import type {
     TMovie
 } from "../../MoviesTypes";
 
-import MoviesList from "../../components/MoviesList/MoviesList";
+import MoviesComponent from "../../components/MoviesComponent/MoviesComponent";
 
 type TResponse = {
     data: TMovie[],
@@ -42,8 +42,8 @@ const MoviesPage = () => {
         fetch(endpointsMap.getMovies)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Server Error");
-                }
+                    throw new Error("Client or Server Error");
+                };
                 return response.json();
             })
             .then((result: TResponse) => {
@@ -54,13 +54,13 @@ const MoviesPage = () => {
             })
             .catch((error) => {
                 if (error instanceof Error) {
-                    if (error.message === "Server Error") {
-                        setError({ message: "Server Error"});
+                    if (error.message === "Client or Server Error") {
+                        setError({ message: "Client or Server Error"});
                     } else {
                         setError({ message: "Network Error"});
                     }
                 } else {
-                    setError({ message: "Unknown Error"});
+                    setError({ message: "General Error"});
                 }
                 setStatus("error");
                 setIsError(true);
@@ -87,7 +87,7 @@ const MoviesPage = () => {
                 <div>Movies are not avaliable</div>
             )}
             {status === "success" && data && (
-                <MoviesList movies={data} />
+                <MoviesComponent movies={data} />
             )}
         </div>
     )

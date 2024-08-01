@@ -7,9 +7,9 @@ import type {
     TMovie
 } from "../../MoviesTypes";
 
-import MoviesList from "../../components/MoviesList/MoviesList";
+import MoviesComponent from "../../components/MoviesComponent/MoviesComponent";
 
-type TResponse = {
+type TMoviesResponse = {
     data: TMovie[],
     message: string
 };
@@ -30,6 +30,7 @@ const MoviesPage = () => {
     const [status, setStatus] = useState<TQueryStatus>("initial");
     const [data, setData] = useState<TMovie[]>([]);
     const [error, setError] = useState<TError | null>(null);
+    const [isInitial, setIsInitial] = useState(true);
     const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -37,28 +38,27 @@ const MoviesPage = () => {
     useEffect(() => {   
         const getMoviesAsync = async () => {
             setStatus("loading");
+            setIsInitial(false);
             setIsLoading(true);
-            setIsSuccess(false);
-            setIsError(false);
             try {
                 const response = await fetch(endpointsMap.getMovies);
                 if (!response.ok) {
-                    throw new Error("Server Error");
+                    throw new Error("Client or Server Error");
                 };
-                const result = await response.json() as TResponse;
+                const result = await response.json() as TMoviesResponse;
                 const { data } = result;
                 setData(data);
                 setStatus("success");
                 setIsSuccess(true);
             } catch (error) {
                 if (error instanceof Error) {
-                    if (error.message === "Server Error") {
-                        setError({ message: "Server Error"});
+                    if (error.message === "Client or Server Error") {
+                        setError({ message: "Client or Server Error"});
                     } else {
                         setError({ message: "Network Error"});
                     }
                 } else {
-                    setError({ message: "Unknown Error"});
+                    setError({ message: "General Error"});
                 }
                 setStatus("error");
                 setIsError(true);
@@ -74,20 +74,20 @@ const MoviesPage = () => {
         <div className="MoviesPage">
             <h1>Movies</h1>
             <p>Status: {status}</p>
-            {status === "initial" && (
+            {isInitial && (
                 <div>Ready to fetch data...</div>
             )}
-            {status === "loading" && (
+            {isLoading && (
                 <div>Loading...</div>
             )}
-            {status === "error" && (
+            {isError && (
                 <div>Error: {error!.message}</div>
             )}
-            {status === "success" && (data.length <= 0) && (
+            {isSuccess && (data.length <= 0) && (
                 <div>Movies are not avaliable</div>
             )}
-            {status === "success" && data && (
-                <MoviesList movies={data} />
+            {isSuccess && data && (
+                <MoviesComponent movies={data} />
             )}
         </div>
     )

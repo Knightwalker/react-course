@@ -1,4 +1,5 @@
 type TMovie = {
+    id: string,
     name: string
 };
 
