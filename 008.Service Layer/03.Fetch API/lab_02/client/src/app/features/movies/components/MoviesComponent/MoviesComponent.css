@@ -7,3 +7,7 @@
     border: 1px solid black;
     padding: 50px;
 };
+
+.MoviesComponent:hover {
+    cursor: pointer;
+};
