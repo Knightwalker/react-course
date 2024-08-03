@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from "react";
 import type {
     TMovie
 } from "../../MoviesTypes";
@@ -5,7 +6,7 @@ import "./MoviesComponent.css";
 
 type TMoviesComponentProps = {
     movies: TMovie[],
-    onClick: (id: string) => void;
+    onClick: Dispatch<SetStateAction<string>>
 };
 
 const MoviesComponent = ({ 
