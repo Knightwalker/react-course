@@ -28,10 +28,10 @@ const MoviesPage = () => {
             {useGetMoviesInstance.isError && (
                 <div>Error: {useGetMoviesInstance.error!.message}</div>
             )}
-            {useGetMoviesInstance.isSuccess && (useGetMoviesInstance.data.length <= 0) && (
+            {useGetMoviesInstance.isSuccess && (!useGetMoviesInstance.data) && (
                 <div>Movies are not avaliable</div>
             )}
-            {useGetMoviesInstance.isSuccess && (useGetMoviesInstance.data.length > 0) && (
+            {useGetMoviesInstance.isSuccess && (useGetMoviesInstance.data) && (
                 <MoviesComponent
                     movies={useGetMoviesInstance.data}
                     onClick={setSelectedMovieById}
