@@ -4,7 +4,7 @@ type TQueryStatus = "initial" | "loading" | "success" | "error";
 
 type TUseQueryProps<TData> = {
     queryKey: (string | number | boolean)[],
-    queryFn: () => Promise<TData>,
+    queryFn: (signal: AbortSignal) => Promise<TData>,
     enabled?: boolean
 };
 
@@ -21,8 +21,12 @@ const useQuery = <TData, TError extends { message: string }>({
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    // const isMounted = useRef(true);
+    const isMounted = useRef(true);
     const abortControllerInstance = useRef(new AbortController());
+
+    const cancelRequest = () => {
+        abortControllerInstance.current.abort();
+    };
 
     useEffect(() => {
         if (!enabled) {
@@ -36,14 +40,22 @@ const useQuery = <TData, TError extends { message: string }>({
             setIsSuccess(false);
             setIsError(false);
             try {
-                const data = await queryFn() as TData;
+                const data = await queryFn(abortControllerInstance.current.signal) as TData;
+                // Cancel Request: We provide a fall-back mechanism for cancelling the request, as AbortController was not supported in legacy browsers and we will not enter inside `catch` when the abort happens
+                if (!isMounted.current) {
+                    return;
+                };
                 setData(data);
                 setStatus("success");
                 setIsSuccess(true);
-                // debugger;
             } catch (error) {
+                if (!isMounted.current) {
+                    return;
+                };
                 if (error instanceof Error) {
-                    if (error.message === "Client or Server Error") {
+                    if (abortControllerInstance.current.signal.aborted) {
+                        setError({ message: error.name } as TError);
+                    } else if (error.message === "Client or Server Error") {
                         setError({ message: "Client or Server Error" } as TError);
                     } else {
                         setError({ message: "Network Error" } as TError);
@@ -53,17 +65,18 @@ const useQuery = <TData, TError extends { message: string }>({
                 }
                 setStatus("error");
                 setIsError(true);
-                // debugger;
             } finally {
+                if (!isMounted.current) {
+                    return;
+                };
                 setIsLoading(false);
-                // debugger;
             }
         };
         fetchDataAsync();
 
         return () => {
-            // isMounted.current = false;
-            abortControllerInstance.current.abort("isCancelled");
+            isMounted.current = false;
+            abortControllerInstance.current.abort();
         }
     }, queryKey);
 
@@ -74,7 +87,8 @@ const useQuery = <TData, TError extends { message: string }>({
         isInitial: isInitial,
         isLoading: isLoading,
         isError: isError,
-        isSuccess: isSuccess
+        isSuccess: isSuccess,
+        cancelRequest: cancelRequest
     };
 };
 

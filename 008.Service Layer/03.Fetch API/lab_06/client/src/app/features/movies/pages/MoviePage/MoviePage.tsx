@@ -25,7 +25,9 @@ const MoviePage = () => {
 
     return (
         <div>
-            <button onClick={handleClick}>&lt; Back</button>
+            <button onClick={handleClick}>&lt; Go Back</button>
+            <br />
+            <button onClick={useGetMovieByIdInstance.cancelRequest}>Cancel Request</button>
             <p>Status: {useGetMovieByIdInstance.status}</p>
             {useGetMovieByIdInstance.isInitial && (
                 <div>Ready to fetch data...</div>

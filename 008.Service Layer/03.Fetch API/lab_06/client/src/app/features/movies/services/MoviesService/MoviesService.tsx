@@ -34,9 +34,11 @@ const useGetMovies = () => {
 const useGetMovieById = (selectedMovieById: string) => {
     const queryInstance = useQuery<TMovie, TError>({
         queryKey: [selectedMovieById],
-        queryFn: async () => {
+        queryFn: async (signal) => {
             const url = endpointsMap.getMovieById(selectedMovieById);
-            const response = await fetch(url);
+            const response = await fetch(url, {
+                signal: signal
+            });
             if (!response.ok) {
                 throw new Error(`Client or Server Error: ${response.status}`);
             }
