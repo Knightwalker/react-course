@@ -33,7 +33,7 @@ const useGetMovies = () => {
 
 const useGetMovieById = (selectedMovieById: string) => {
     const queryInstance = useQuery<TMovie, TError>({
-        queryKey: [selectedMovieById],
+        queryKey: ["getMovieById", selectedMovieById],
         queryFn: async (signal) => {
             const url = endpointsMap.getMovieById(selectedMovieById);
             const response = await fetch(url, {

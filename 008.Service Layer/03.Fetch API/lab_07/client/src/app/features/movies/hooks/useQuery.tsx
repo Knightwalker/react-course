@@ -42,7 +42,6 @@ const useQuery = <TData, TError extends { message: string }>({
         };
         
         const fetchDataAsync = async () => {
-            debugger;
             if (cache[cacheKey]) {
                 console.log(cache);
                 setData(cache[cacheKey] as TData);
@@ -107,7 +106,7 @@ const useQuery = <TData, TError extends { message: string }>({
             isMounted.current = false;
             if (isLoadingRef.current) {
                 abortControllerInstance.current!.abort();
-            }
+            };
         }
     }, [cacheKey, enabled]);
 

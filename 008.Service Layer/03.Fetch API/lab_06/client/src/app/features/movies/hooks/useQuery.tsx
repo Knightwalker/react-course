@@ -41,6 +41,7 @@ const useQuery = <TData, TError extends { message: string }>({
             abortControllerInstance.current.abort();
         };
         abortControllerInstance.current = new AbortController();
+        isLoadingRef.current = true;
 
         const fetchDataAsync = async () => {
             setStatus("loading");
@@ -48,7 +49,6 @@ const useQuery = <TData, TError extends { message: string }>({
             setIsLoading(true);
             setIsSuccess(false);
             setIsError(false);
-            isLoadingRef.current = true;
             try {
                 const data = await queryFn(abortControllerInstance.current!.signal) as TData;
                 // Cancel Request: We provide a fall-back mechanism for cancelling the request, as AbortController was not supported in legacy browsers and we will not enter inside `catch` when the abort happens
@@ -86,10 +86,11 @@ const useQuery = <TData, TError extends { message: string }>({
         fetchDataAsync();
 
         return () => {
+            // TODO: hot module reload still calls this and I end up getting stuck on "loading"
             isMounted.current = false;
             if (isLoadingRef.current) {
                 abortControllerInstance.current!.abort();
-            }
+            };
         }
     }, [...queryKey, enabled]);
 
