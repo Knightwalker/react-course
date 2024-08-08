@@ -1,0 +1,13 @@
+.MoviesComponent {
+    display: flex;
+    gap: 3px;
+}
+
+.MoviesComponent__movie {
+    border: 1px solid black;
+    padding: 50px;
+}
+
+.MoviesComponent:hover {
+    cursor: pointer;
+}
