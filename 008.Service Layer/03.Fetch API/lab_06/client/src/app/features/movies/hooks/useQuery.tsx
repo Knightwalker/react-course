@@ -22,9 +22,13 @@ const useQuery = <TData, TError extends { message: string }>({
     const [isError, setIsError] = useState(false);
 
     const isMounted = useRef(true);
-    const abortControllerInstance = useRef(new AbortController());
+    const abortControllerInstance = useRef<AbortController | null>(null);
+    const isLoadingRef = useRef(false);
 
     const cancelRequest = () => {
+        if (!abortControllerInstance.current) {
+            return;
+        }
         abortControllerInstance.current.abort();
     };
 
@@ -33,14 +37,20 @@ const useQuery = <TData, TError extends { message: string }>({
             return;
         };
 
+        if (abortControllerInstance.current) {
+            abortControllerInstance.current.abort();
+        };
+        abortControllerInstance.current = new AbortController();
+
         const fetchDataAsync = async () => {
             setStatus("loading");
             setIsInitial(false);
             setIsLoading(true);
             setIsSuccess(false);
             setIsError(false);
+            isLoadingRef.current = true;
             try {
-                const data = await queryFn(abortControllerInstance.current.signal) as TData;
+                const data = await queryFn(abortControllerInstance.current!.signal) as TData;
                 // Cancel Request: We provide a fall-back mechanism for cancelling the request, as AbortController was not supported in legacy browsers and we will not enter inside `catch` when the abort happens
                 if (!isMounted.current) {
                     return;
@@ -53,8 +63,8 @@ const useQuery = <TData, TError extends { message: string }>({
                     return;
                 };
                 if (error instanceof Error) {
-                    if (abortControllerInstance.current.signal.aborted) {
-                        setError({ message: error.name } as TError);
+                    if (abortControllerInstance.current!.signal.aborted) {
+                        setError({ message: error.message } as TError);
                     } else if (error.message === "Client or Server Error") {
                         setError({ message: "Client or Server Error" } as TError);
                     } else {
@@ -70,15 +80,18 @@ const useQuery = <TData, TError extends { message: string }>({
                     return;
                 };
                 setIsLoading(false);
+                isLoadingRef.current = false;
             }
         };
         fetchDataAsync();
 
         return () => {
             isMounted.current = false;
-            abortControllerInstance.current.abort();
+            if (isLoadingRef.current) {
+                abortControllerInstance.current!.abort();
+            }
         }
-    }, queryKey);
+    }, [...queryKey, enabled]);
 
     return {
         status: status,
