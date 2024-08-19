@@ -31,7 +31,7 @@ const useGetMovies = () => {
 };
 
 const useGetMovieById = (selectedMovieById: string) => {
-    const queryInstance = useQuery<TMovie, TError>({
+    const queryInstance = useQuery<TMovie>({
         queryKey: ["getMovieById", selectedMovieById],
         queryFn: async () => {
             const response = await fetch(endpointsMap.getMovies);

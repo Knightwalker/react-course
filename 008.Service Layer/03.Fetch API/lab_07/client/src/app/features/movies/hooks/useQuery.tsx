@@ -8,9 +8,14 @@ type TUseQueryProps<TData> = {
     enabled?: boolean
 };
 
+type TDefaultError = { message: string };
+
 const cache: Record<string, unknown> = {};
 
-const useQuery = <TData, TError extends { message: string }>({
+const useQuery = <
+    TData,
+    TError extends { message: string } = TDefaultError
+>({
     queryKey,
     queryFn,
     enabled = true
@@ -22,25 +27,25 @@ const useQuery = <TData, TError extends { message: string }>({
     const [isSuccess, setIsSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [isError, setIsError] = useState(false);
-    
+
     const isMounted = useRef(true);
     const abortControllerInstance = useRef<AbortController | null>(null);
     const isLoadingRef = useRef(false);
-    
+
     const cancelRequest = () => {
         if (!abortControllerInstance.current) {
             return;
         }
         abortControllerInstance.current.abort();
     };
-    
+
     const cacheKey = JSON.stringify(queryKey);
-    
+
     useEffect(() => {
         if (!enabled) {
             return;
         };
-        
+
         const fetchDataAsync = async () => {
             if (cache[cacheKey]) {
                 console.log(cache);
@@ -57,7 +62,7 @@ const useQuery = <TData, TError extends { message: string }>({
             setIsLoading(true);
             setIsSuccess(false);
             setIsError(false);
-            
+
             if (abortControllerInstance.current) {
                 abortControllerInstance.current.abort();
             };

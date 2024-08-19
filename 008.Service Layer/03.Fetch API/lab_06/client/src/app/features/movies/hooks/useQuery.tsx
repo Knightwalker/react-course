@@ -8,7 +8,12 @@ type TUseQueryProps<TData> = {
     enabled?: boolean
 };
 
-const useQuery = <TData, TError extends { message: string }>({
+type TDefaultError = { message: string };
+
+const useQuery = <
+    TData,
+    TError extends { message: string } = TDefaultError
+>({
     queryKey,
     queryFn,
     enabled = true
